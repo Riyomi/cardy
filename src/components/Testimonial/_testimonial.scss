@@ -1,0 +1,22 @@
+@import '../../sass/_variables';
+
+.testimonial {
+  color: $primaryColor;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.testimonial-bottom {
+  margin-top: auto;
+  background: $primaryColor;
+  width: 100%;
+  min-height: 30%;
+}
+
+.testimonial-description {
+  font-size: $fontMedium;
+  text-align: center;
+  padding: 0 15%;
+}

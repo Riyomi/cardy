@@ -1,0 +1,34 @@
+@import '../components/Navbar/_navbar.scss';
+@import '../components/Footer/_footer.scss';
+@import '../components/Testimonial/_testimonial.scss';
+@import '../components/Testimonials/_testimonials.scss';
+@import './_variables';
+
+html,
+body {
+  margin: 0;
+  font-family: 'Open Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.brand {
+  font-size: $fontMedium;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#content {
+  min-height: calc(100vh - 200px);
+}
+
+.spacer {
+  display: flex;
+  flex-grow: 1;
+}
