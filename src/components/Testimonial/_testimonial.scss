@@ -1,22 +1,40 @@
-@import '../../sass/_variables';
-
 .testimonial {
   color: $primaryColor;
   display: flex;
   flex-direction: column;
   height: 400px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 30px;
+  @include apply-shadow;
+  margin: 20px 0;
 }
 
 .testimonial-bottom {
+  color: white;
+  font-size: $fontBase;
   margin-top: auto;
   background: $primaryColor;
   width: 100%;
   min-height: 30%;
+  border-radius: 0 0 30px 30px;
+  text-align: center;
 }
 
 .testimonial-description {
-  font-size: $fontMedium;
+  color: $textColor;
+  font-size: $fontBase;
   text-align: center;
   padding: 0 15%;
+}
+
+.testimonial-picture {
+  @include round-picture;
+  width: 100px;
+  margin-top: -50px;
+  margin-bottom: 5px;
+  border: 5px solid white;
+}
+
+.quote-mark {
+  width: 75px;
+  margin: 15px 0 20px 30px;
 }

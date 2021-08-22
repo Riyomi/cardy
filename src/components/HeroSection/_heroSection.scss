@@ -1,0 +1,20 @@
+#hero-wrapper {
+  display: grid;
+  padding: 60px;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 40px 140px;
+}
+
+#hero-text {
+  display: 'inline-block';
+  p {
+    font-size: $fontMedium;
+    color: $textColor;
+    margin: 20px 0;
+  }
+}
+
+#hero-btn {
+  @include btn;
+  font-size: $fontMedium;
+}

@@ -3,9 +3,12 @@ import { ReactComponent as QuotationMarks } from '../../assets/quotation-marks.s
 const Testimonial = ({ img, name, description }) => {
   return (
     <div className="testimonial">
-      <QuotationMarks />
+      <QuotationMarks className="quote-mark" />
       <div className="testimonial-description">{description}</div>
-      <div className="testimonial-bottom"></div>
+      <div className="testimonial-bottom">
+        <img src={img} alt={name?.first} className="testimonial-picture" />
+        <div>{name?.first + ' ' + name?.last}</div>
+      </div>
     </div>
   );
 };

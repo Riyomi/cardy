@@ -8,9 +8,9 @@ const Navbar = ({ brand }) => {
       </Link>
       <span className="spacer"></span>
       <div className="menu-items">
-        <Link to="/decks">Decks</Link>
-        <Link to="/login">Sign up</Link>
-        <Link to="/login">Log in</Link>
+        <Link to="/decks">decks</Link>
+        <Link to="/signup">sign up</Link>
+        <Link to="/login">log in</Link>
       </div>
     </nav>
   );

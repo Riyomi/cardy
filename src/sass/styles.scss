@@ -1,13 +1,18 @@
-@import '../components/Navbar/_navbar.scss';
-@import '../components/Footer/_footer.scss';
-@import '../components/Testimonial/_testimonial.scss';
-@import '../components/Testimonials/_testimonials.scss';
 @import './_variables';
+@import '../components/Navbar/_navbar';
+@import '../components/Footer/_footer';
+@import '../components/Testimonial/_testimonial';
+@import '../components/Testimonials/_testimonials';
+@import '../components/HeroSection/_heroSection';
+@import '../components/BenefitCard/_benefitCard';
+@import '../components/Benefits/_benefits';
+@import '../components/Form/_form';
 
 html,
 body {
   margin: 0;
   font-family: 'Open Sans';
+  color: $primaryColor;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,14 +23,46 @@ a {
   text-decoration: none;
 }
 
-.brand {
-  font-size: $fontMedium;
-  font-weight: bold;
-  cursor: pointer;
+p {
+  color: $textColor;
+  margin: 0;
+}
+
+h1 {
+  font-size: $fontExtraLarge;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 32px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+h3 {
+  color: black;
+  margin: 8px 0;
 }
 
 #content {
   min-height: calc(100vh - 200px);
+}
+
+.material-icons-outlined {
+  background: $accentColor;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.homepage-headline {
+  text-align: center;
+}
+
+.brand {
+  font-size: $fontMedium;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .spacer {

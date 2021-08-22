@@ -1,0 +1,41 @@
+.sidebar {
+  color: white;
+  background: $primaryColor;
+  font-size: $fontMedium;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+}
+
+.form-wrapper {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  width: 50%;
+  margin: auto;
+  @include apply-shadow;
+}
+
+.form-main {
+  padding: 20px 40px;
+}
+
+.user-form {
+  color: $textColor;
+  width: 100%;
+
+  .field-wrapper {
+    margin: 20px 0;
+  }
+
+  input {
+    display: block;
+    width: 75%;
+    border: 1px solid #f0f0f0;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  }
+
+  .submit-btn {
+    @include btn;
+  }
+}
