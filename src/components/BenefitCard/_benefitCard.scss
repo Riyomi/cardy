@@ -4,3 +4,9 @@
   border-radius: 20px;
   @include apply-shadow;
 }
+
+.benefit-icon {
+  background: $accentColor;
+  padding: 10px;
+  border-radius: 50%;
+}

@@ -1,4 +1,6 @@
-const Form = ({ title, sideText, fields, extra }) => {
+import FormField from '../FormField/FormField';
+
+const Form = ({ title, sideText, fields, extra, footer }) => {
   return (
     <div className="form-wrapper">
       <div className="sidebar">{sideText}</div>
@@ -6,13 +8,11 @@ const Form = ({ title, sideText, fields, extra }) => {
         <h2>{title}</h2>
         <form className="user-form">
           {fields.map((field, index) => (
-            <div className="field-wrapper" key={index}>
-              <label htmlFor={field.name}>{field.name}</label>
-              <input type={field.type} name={field.name} />
-            </div>
+            <FormField key={index} name={field.name} type={field.type} />
           ))}
+          <p className="extra-text">{extra}</p>
           <input type="submit" value={title} className="submit-btn" />
-          <span>{extra}</span>
+          {footer}
         </form>
       </div>
     </div>

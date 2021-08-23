@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Form from '../../components/Form/Form';
 
 const fields = [
@@ -6,12 +7,22 @@ const fields = [
   { name: 'Confirm password', type: 'password' },
 ];
 
-const SignupPage = () => {
-  return (
-    <div>
-      <Form title={'Sign up'} fields={fields} sideText={'Welcome back!'} />
-    </div>
-  );
-};
+const footer = (
+  <p>
+    Already have an account?{' '}
+    <Link to="/login" className="link-primary">
+      Log in
+    </Link>
+  </p>
+);
+
+const SignupPage = () => (
+  <Form
+    title={'Sign up'}
+    fields={fields}
+    sideText={'Your journey starts today...'}
+    footer={footer}
+  />
+);
 
 export default SignupPage;

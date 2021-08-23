@@ -7,6 +7,8 @@
 @import '../components/BenefitCard/_benefitCard';
 @import '../components/Benefits/_benefits';
 @import '../components/Form/_form';
+@import '../components/FormField/formField';
+@import '../components/ProfileHeader/profileHeader';
 
 html,
 body {
@@ -30,6 +32,7 @@ p {
 
 h1 {
   font-size: $fontExtraLarge;
+  font-weight: 900;
   margin: 0;
   padding: 0;
 }
@@ -46,13 +49,9 @@ h3 {
 }
 
 #content {
+  display: flex;
+  flex-direction: column;
   min-height: calc(100vh - 200px);
-}
-
-.material-icons-outlined {
-  background: $accentColor;
-  padding: 10px;
-  border-radius: 50%;
 }
 
 .homepage-headline {
@@ -68,4 +67,8 @@ h3 {
 .spacer {
   display: flex;
   flex-grow: 1;
+}
+
+.link-primary {
+  color: $primaryColor;
 }

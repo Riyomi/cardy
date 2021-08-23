@@ -1,41 +1,53 @@
-.sidebar {
-  color: white;
-  background: $primaryColor;
-  font-size: $fontMedium;
-  font-weight: bold;
-  padding: 20px;
-  text-align: center;
-}
-
 .form-wrapper {
   display: grid;
   grid-template-columns: 4fr 6fr;
   width: 50%;
   margin: auto;
+  border-radius: 4px;
   @include apply-shadow;
+}
+
+.sidebar {
+  color: white;
+  background: $primaryColor;
+  font-size: $fontLarge;
+  font-weight: bold;
+  padding: 40px 20px;
+  border-radius: 4px 0 0 4px;
+  text-align: center;
 }
 
 .form-main {
   padding: 20px 40px;
+  border-radius: 0 4px 4px 0;
 }
 
 .user-form {
   color: $textColor;
   width: 100%;
-
-  .field-wrapper {
-    margin: 20px 0;
-  }
+  text-align: center;
+  margin-bottom: 20px;
 
   input {
     display: block;
-    width: 75%;
+    box-sizing: border-box;
+    width: 100%;
     border: 1px solid #f0f0f0;
+    margin-top: 5px;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
   }
 
+  .extra-text {
+    margin-top: -10px;
+    text-align: right;
+    margin-bottom: 10px;
+    padding-right: 20px;
+  }
+
   .submit-btn {
     @include btn;
+    width: 90%;
+    margin: 10px auto;
   }
 }

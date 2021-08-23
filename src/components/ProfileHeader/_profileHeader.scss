@@ -1,0 +1,44 @@
+.profile-wrapper {
+  display: flex;
+  margin: 40px auto;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.user-info {
+  display: flex;
+}
+
+.user-details {
+  margin: 0 20px;
+  align-self: flex-end;
+  padding-bottom: 10px;
+
+  p {
+    display: flex;
+    align-content: center;
+    margin: 5px 0 0 0;
+  }
+}
+
+.profile-picture {
+  width: 180px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-icon {
+  color: $primaryColor;
+  margin-right: 10px;
+}
+
+.profile-icon-text {
+  display: inline-block;
+  height: 36px;
+  font-size: 20px;
+}
+
+.follow-btn {
+  @include btn;
+  display: block;
+}
