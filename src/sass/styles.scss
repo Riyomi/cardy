@@ -7,8 +7,11 @@
 @import '../components/BenefitCard/_benefitCard';
 @import '../components/Benefits/_benefits';
 @import '../components/Form/_form';
-@import '../components/FormField/formField';
-@import '../components/ProfileHeader/profileHeader';
+@import '../components/FormField/_formField';
+@import '../components/ProfileHeader/_profileHeader';
+@import '../components/ProfileBody/_profileBody';
+@import '../components/DeckCard/_deckCard';
+@import '../components/ProgressBar/_progressBar';
 
 html,
 body {

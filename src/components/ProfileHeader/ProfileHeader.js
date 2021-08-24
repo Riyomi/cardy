@@ -4,7 +4,7 @@ const ProfileHeader = ({ user }) => {
       <div className="user-info">
         <img src={user.img} alt={user.name} className="profile-picture" />
         <div className="user-details">
-          <h1>{user.name}</h1>
+          <h2 className="user-name">{user.name}</h2>
           <p>
             <span className="material-icons-outlined profile-icon">people</span>
             <span className="profile-icon-text">

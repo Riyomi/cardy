@@ -1,0 +1,24 @@
+.deck-card {
+  display: flex;
+  border: 1px solid $lightGray;
+  border-radius: 10px;
+  padding: 20px 30px;
+  width: 80%;
+  margin: 20px 0;
+}
+
+.deck-title {
+  font-size: 20px;
+  color: $textColor;
+}
+
+.deck-img {
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.deck-details {
+  width: 100%;
+}

@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import ProfileBody from '../../components/ProfileBody/ProfileBody';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
 
 const users = [
@@ -9,6 +10,18 @@ const users = [
     followers: [1, 5, 2, 6, 8],
     following: [5, 6, 8, 4, 9, 11, 12],
     cardsMastered: 1018,
+    decks: [
+      {
+        img: 'https://i.imgur.com/zBoZea6.jpg',
+        title: 'Top 2000 German words',
+        progress: 23,
+      },
+      {
+        img: 'https://i.imgur.com/vNnYvfX.jpg',
+        title: 'Anatomy - basics',
+        progress: 78,
+      },
+    ],
   },
   {
     _id: 2,
@@ -17,6 +30,7 @@ const users = [
     followers: [1, 5, 2, 6, 8],
     following: [5, 6, 8, 4, 9, 11, 12],
     cardsMastered: 1018,
+    decks: [{}, {}],
   },
   {
     _id: 3,
@@ -24,15 +38,19 @@ const users = [
     followers: [1, 5, 2, 6, 8],
     following: [5, 6, 8, 4, 9, 11, 12],
     cardsMastered: 1018,
+    decks: [{}, {}],
   },
 ];
 
 const ProfilePage = () => {
   const { id } = useParams();
 
+  const getUser = () => users.find((user) => user._id === Number(id));
+
   return (
     <>
-      <ProfileHeader user={users.find((user) => user._id === Number(id))} />
+      <ProfileHeader user={getUser()} />
+      <ProfileBody user={getUser()} />
     </>
   );
 };

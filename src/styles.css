@@ -239,17 +239,25 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 40px auto;
+  margin: 20px auto;
   width: 80%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #c2c2c2;
 }
 
 .user-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.user-name {
+  text-align: left;
+  font-weight: 900;
+  margin-bottom: 10px;
 }
 
 .user-details {
@@ -265,11 +273,11 @@ footer {
   display: flex;
   -ms-flex-line-pack: center;
       align-content: center;
-  margin: 5px 0 0 0;
+  margin: 10px 0 0 0;
 }
 
 .profile-picture {
-  width: 180px;
+  width: 150px;
   border-radius: 50%;
   margin-right: 20px;
 }
@@ -281,8 +289,8 @@ footer {
 
 .profile-icon-text {
   display: inline-block;
-  height: 36px;
-  font-size: 20px;
+  height: 20px;
+  font-size: 16px;
 }
 
 .follow-btn {
@@ -297,6 +305,56 @@ footer {
   border: none;
   cursor: pointer;
   display: block;
+}
+
+.profile-body {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 3fr 1fr;
+      grid-template-columns: 3fr 1fr;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.deck-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  padding: 20px 30px;
+  width: 80%;
+  margin: 20px 0;
+}
+
+.deck-title {
+  font-size: 20px;
+  color: #606060;
+}
+
+.deck-img {
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.deck-details {
+  width: 100%;
+}
+
+.progress-bar {
+  margin-top: 20px;
+  width: 90%;
+  height: 12px;
+  background: #e5e5e5;
+  border-radius: 10px;
+}
+
+.progress-bar-progress {
+  background: #25ac64;
+  height: 100%;
+  border-radius: 10px;
 }
 
 html,
