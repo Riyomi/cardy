@@ -1,25 +1,41 @@
 @import './_variables';
-@import '../components/Navbar/_navbar';
-@import '../components/Footer/_footer';
-@import '../components/Testimonial/_testimonial';
-@import '../components/Testimonials/_testimonials';
-@import '../components/HeroSection/_heroSection';
-@import '../components/BenefitCard/_benefitCard';
-@import '../components/Benefits/_benefits';
-@import '../components/Form/_form';
-@import '../components/FormField/_formField';
-@import '../components/ProfileHeader/_profileHeader';
-@import '../components/ProfileBody/_profileBody';
-@import '../components/DeckCard/_deckCard';
-@import '../components/ProgressBar/_progressBar';
+@import './mixins';
+
+@import '../components/common/Navbar/_navbar';
+@import '../components/common/Footer/_footer';
+@import '../components/common/Form/_form';
+@import '../components/common/FormField/_formField';
+@import '../components/common/ProgressBar/_progressBar';
+
+@import '../components/Home/Testimonial/_testimonial';
+@import '../components/Home/Testimonials/_testimonials';
+@import '../components/Home/HeroSection/_heroSection';
+@import '../components/Home/BenefitCard/_benefitCard';
+@import '../components/Home/Benefits/_benefits';
+
+@import '../components/Profile/ProfileHeader/_profileHeader';
+@import '../components/Profile/ProfileBody/_profileBody';
+@import '../components/Profile/DeckCard/_deckCard';
+@import '../components/Profile/Followers/_followers';
+@import '../components/Profile/Follower/_follower';
+
+@import '../components/Browse/Searchbar/_searchbar';
+@import '../components/Browse/Categories/_categories';
+@import '../components/Browse/DeckListItem/_deckListItem';
+@import '../components/Browse/DeckList/_deckList';
+
+@import '../pages/Browse/_browse';
+
+* {
+  font-family: 'Open Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 html,
 body {
   margin: 0;
-  font-family: 'Open Sans';
   color: $primaryColor;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -49,6 +65,22 @@ h2 {
 h3 {
   color: black;
   margin: 8px 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $lightGray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: darken($lightGray, 10);
 }
 
 #content {

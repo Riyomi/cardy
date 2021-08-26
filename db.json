@@ -1,0 +1,94 @@
+{
+  "decks": [
+    {
+      "id": 1,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 2,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 3,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 4,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 5,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 6,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 7,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 8,
+      "title": "Top 2000 German words",
+      "img": "https://i.imgur.com/zBoZea6.jpg",
+      "learners": 12456,
+      "cards": 2000,
+      "by": "Adam",
+      "category": "Language"
+    },
+    {
+      "id": 9,
+      "title": "Anatomy - basics",
+      "img": "https://i.imgur.com/vNnYvfX.jpg",
+      "learners": 5672,
+      "cards": 775,
+      "by": "Adam",
+      "category": "Biology"
+    }
+  ],
+
+  "categories": [
+    "Language",
+    "Biology",
+    "Computer",
+    "Education",
+    "Exam",
+    "Other"
+  ]
+}

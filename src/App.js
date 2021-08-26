@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import SignupPage from './pages/SignupPage/SignupPage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
+import Navbar from './components/common/Navbar/Navbar';
+import Footer from './components/common/Footer/Footer';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
+import Profile from './pages/Profile/Profile';
+import Browse from './pages/Browse/Browse';
+import DeckDetails from 'pages/DeckDetails/DeckDetails';
 
 const brand = 'cardy';
 const copyright = '©2021 All rights reserved.';
@@ -16,10 +18,12 @@ const App = () => {
         <Navbar brand={brand} />
         <div id="content">
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/signup" component={SignupPage} />
-            <Route path="/profile/:id" component={ProfilePage} />
+            <Route exact path="/" component={Home} />
+            <Route path="/browse" component={Browse} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/profile/:id" component={Profile} />
+            <Route path="/deck/:id" component={DeckDetails} />
           </Switch>
         </div>
         <Footer brand={brand} copyright={copyright} />

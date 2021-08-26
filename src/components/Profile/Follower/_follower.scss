@@ -1,0 +1,40 @@
+.follower {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 4px;
+
+  &:hover {
+    background: #efefef;
+  }
+
+  img {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  span {
+    display: inline-block;
+    color: $textColor;
+    font-weight: bold;
+  }
+
+  button {
+    @include btn;
+    padding: 5px 20px;
+    border-radius: 10px;
+    justify-self: flex-end;
+  }
+
+  .follower-details {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.followers-content {
+  max-height: 264px;
+  overflow-y: auto;
+}

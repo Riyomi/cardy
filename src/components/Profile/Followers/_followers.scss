@@ -1,0 +1,21 @@
+.followers {
+  width: 300px;
+}
+
+.followers-header {
+  span {
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    padding: 4px 0;
+    color: $lightGray;
+    border-bottom: 1px solid $lightGray;
+  }
+
+  span.active {
+    font-weight: bold;
+    color: black;
+    border-color: black;
+  }
+}
