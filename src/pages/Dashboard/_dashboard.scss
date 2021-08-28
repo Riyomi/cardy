@@ -27,15 +27,20 @@
 
   #user-info {
     color: black;
-    align-items: center;
+    justify-content: space-evenly;
     border: 1px solid $lightGray;
     border-radius: 10px;
     text-align: center;
     padding: 10px 20px;
 
+    * {
+      margin-bottom: 10px;
+    }
+
     img {
       width: 100px;
       border-radius: 50%;
+      margin-bottom: 5px;
     }
 
     a {
@@ -54,8 +59,14 @@
     grid-column-end: -1;
     border: 1px solid $lightGray;
     border-radius: 10px;
+
     h1 {
       color: $primaryColor;
+      padding: 0;
+    }
+
+    div {
+      margin-bottom: 10px;
     }
   }
 }

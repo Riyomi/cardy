@@ -1,8 +1,8 @@
 import axios from 'axios';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
-import Followers from 'components/Profile/Followers/Followers';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
 
 const Dashboard = () => {
@@ -43,7 +43,11 @@ const Dashboard = () => {
                 <DeckCard deck={deck} key={index} location="dashboard" />
               ))}
             </div>
-            <Followers followers={user.followers} following={user.following} />
+            <Followers
+              followers={user.followers}
+              following={user.following}
+              style={{ paddingTop: '20px' }}
+            />
           </div>
         </>
       )}

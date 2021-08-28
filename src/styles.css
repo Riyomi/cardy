@@ -157,7 +157,7 @@ footer {
 }
 
 #deck-profile-card {
-  width: 80%;
+  display: block;
   margin: 20px 0;
 }
 
@@ -180,6 +180,14 @@ footer {
   display: flex;
   border-radius: 10px;
   cursor: pointer;
+}
+
+#cards-learned {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+  font-size: 14px;
+  color: #606060;
 }
 
 #review-btn {
@@ -759,17 +767,6 @@ footer {
           box-sizing: border-box;
 }
 
-.deck-info {
-  width: 100%;
-  color: black;
-}
-
-.deck-info img {
-  width: 100px;
-  height: 70px;
-  border-radius: 10px;
-}
-
 #browse-content {
   display: -ms-grid;
   display: grid;
@@ -819,18 +816,23 @@ footer {
 
 #dashboard-content #user-info {
   color: black;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   border: 1px solid #c4c4c4;
   border-radius: 10px;
   text-align: center;
   padding: 10px 20px;
 }
 
+#dashboard-content #user-info * {
+  margin-bottom: 10px;
+}
+
 #dashboard-content #user-info img {
   width: 100px;
   border-radius: 50%;
+  margin-bottom: 5px;
 }
 
 #dashboard-content #user-info a {
@@ -862,6 +864,55 @@ footer {
 
 #dashboard-content #dashboard-digest h1 {
   color: #25ac64;
+  padding: 0;
+}
+
+#dashboard-content #dashboard-digest div {
+  margin-bottom: 10px;
+}
+
+#study-header {
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+#study-header .material-icons-outlined {
+  padding-left: 40px;
+  cursor: pointer;
+}
+
+#study-content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#study-content h1 {
+  font-size: 48px;
+  margin: 20px 0;
+}
+
+#study-content #question {
+  color: #606060;
+  font-weight: bold;
+  font-size: 48px;
+  height: 400px;
+  line-height: 400px;
+  text-align: center;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+}
+
+#study-content #study-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#study-content #study-buttons button {
+  font-size: 20px;
+  padding: 12px 0;
+  width: 250px;
+  margin: 0 15px;
 }
 
 * {

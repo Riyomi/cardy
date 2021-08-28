@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Follower from '../Follower/Follower';
 
-const Followers = ({ followers, following }) => {
+const Followers = ({ followers, following, style }) => {
   const [showFollowers, setShowFollowers] = useState(true);
 
   return (
-    <div className="followers">
+    <div className="followers" style={style}>
       <div className="followers-header">
         <span
           className={showFollowers ? 'active' : ''}

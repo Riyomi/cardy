@@ -1,0 +1,43 @@
+#study-header {
+  font-weight: 900;
+  font-size: $fontMedium;
+  margin-bottom: 40px;
+
+  .material-icons-outlined {
+    padding-left: 40px;
+    cursor: pointer;
+  }
+}
+
+#study-content {
+  width: 80%;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 48px;
+    margin: 20px 0;
+  }
+
+  #question {
+    color: $textColor;
+    font-weight: bold;
+    font-size: $fontExtraLarge;
+    height: 400px;
+    line-height: 400px;
+    text-align: center;
+    border: 1px solid $lightGray;
+    border-radius: 10px;
+  }
+
+  #study-buttons {
+    text-align: center;
+    margin-top: 20px;
+
+    button {
+      font-size: 20px;
+      padding: 12px 0;
+      width: 250px;
+      margin: 0 15px;
+    }
+  }
+}
