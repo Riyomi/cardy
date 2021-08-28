@@ -11,7 +11,7 @@ const DeckListItem = ({ deck }) => {
 
   return (
     <Link to={'deck/' + deck.id} className="deck-list-item">
-      <img className="deck-list-item-img" src={deck.img} alt={deck.title} />
+      <img src={deck.img} alt={deck.title} />
       <div className="deck-info">
         <div className="deck-title">{deck.title}</div>
         <div className="deck-details">

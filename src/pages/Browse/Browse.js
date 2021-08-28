@@ -36,7 +36,7 @@ const Browse = () => {
   };
 
   return (
-    <div className="browse-content">
+    <div id="browse-content">
       <Categories
         categories={categories}
         categoryFilter={categoryFilter}

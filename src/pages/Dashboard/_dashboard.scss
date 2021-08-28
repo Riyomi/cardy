@@ -1,0 +1,61 @@
+#dashboard-content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 20px auto;
+
+  h2 {
+    text-align: left;
+  }
+
+  #user-content {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  #decks-and-followers {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+
+    #deck-info-list {
+      grid-column-start: 1;
+      grid-column-end: 5;
+    }
+  }
+
+  #user-info {
+    color: black;
+    align-items: center;
+    border: 1px solid $lightGray;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px 20px;
+
+    img {
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    a {
+      color: $primaryColor;
+    }
+  }
+
+  #dashboard-digest {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    grid-column-start: 2;
+    grid-column-end: -1;
+    border: 1px solid $lightGray;
+    border-radius: 10px;
+    h1 {
+      color: $primaryColor;
+    }
+  }
+}

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import DeckBody from 'components/DeckDetails/DeckBody/DeckBody';
+import DeckHeader from 'components/DeckDetails/DeckHeader/DeckHeader';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -12,7 +14,12 @@ const DeckDetails = () => {
       .then((res) => setDeck(res.data));
   }, [id]);
 
-  return <div>{deck.title}</div>;
+  return (
+    <div>
+      <DeckHeader deck={deck} />
+      <DeckBody deck={deck} />
+    </div>
+  );
 };
 
 export default DeckDetails;

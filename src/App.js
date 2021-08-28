@@ -7,6 +7,7 @@ import Signup from './pages/Signup/Signup';
 import Profile from './pages/Profile/Profile';
 import Browse from './pages/Browse/Browse';
 import DeckDetails from 'pages/DeckDetails/DeckDetails';
+import Dashboard from 'pages/Dashboard/Dashboard';
 
 const brand = 'cardy';
 const copyright = '©2021 All rights reserved.';
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/signup" component={Signup} />
             <Route path="/profile/:id" component={Profile} />
             <Route path="/deck/:id" component={DeckDetails} />
+            <Route path="/dashboard" component={Dashboard} />
           </Switch>
         </div>
         <Footer brand={brand} copyright={copyright} />

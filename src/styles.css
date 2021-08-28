@@ -106,7 +106,7 @@ footer {
   color: white;
   background: #25ac64;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   width: 90%;
@@ -120,8 +120,6 @@ footer {
 }
 
 .progress-bar {
-  margin-top: 20px;
-  width: 90%;
   height: 12px;
   background: #e5e5e5;
   border-radius: 10px;
@@ -131,6 +129,108 @@ footer {
   background: #25ac64;
   height: 100%;
   border-radius: 10px;
+}
+
+.deck-title {
+  font-size: 20px;
+  color: #606060;
+}
+
+.deck-img {
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.deck-details {
+  width: 100%;
+}
+
+#deck-details-card {
+  display: block;
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 3;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#deck-profile-card {
+  width: 80%;
+  margin: 20px 0;
+}
+
+#deck-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#deck-options {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#review-btn {
+  font-family: 'Open Sans';
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  color: white;
+  background: #25ac64;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 7px 20px;
+}
+
+#options-menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100px;
+  padding: 5px;
+  position: absolute;
+  top: 30px;
+  background: white;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+#options-menu span {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  border-radius: 10px;
+  padding: 2px;
+}
+
+#options-menu span:hover {
+  background-color: #efefef;
+}
+
+#options-menu span .material-icons-outlined {
+  margin-right: 4px;
+  padding: 0;
 }
 
 .testimonial {
@@ -219,7 +319,7 @@ footer {
   color: white;
   background: #25ac64;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   font-size: 20px;
@@ -315,7 +415,7 @@ footer {
   color: white;
   background: #25ac64;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   display: block;
@@ -329,33 +429,6 @@ footer {
       grid-template-columns: 3fr 1fr;
   margin: 0 auto;
   width: 80%;
-}
-
-.deck-card {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  border: 1px solid #c4c4c4;
-  border-radius: 10px;
-  padding: 20px 30px;
-  width: 80%;
-  margin: 20px 0;
-}
-
-.deck-title {
-  font-size: 20px;
-  color: #606060;
-}
-
-.deck-img {
-  width: 100px;
-  height: 70px;
-  border-radius: 10px;
-  margin-right: 20px;
-}
-
-.deck-details {
-  width: 100%;
 }
 
 .followers {
@@ -416,7 +489,7 @@ footer {
   color: white;
   background: #25ac64;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   padding: 5px 20px;
@@ -525,13 +598,6 @@ footer {
   font-weight: bold;
 }
 
-.deck-list-item-img {
-  width: 100px;
-  height: 70px;
-  border-radius: 10px;
-  margin-right: 10px;
-}
-
 .deck-info {
   width: 100%;
   margin-top: 10px;
@@ -541,14 +607,13 @@ footer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
+  color: black;
   border: 1px solid #c4c4c4;
   border-radius: 10px;
   padding: 20px 30px;
-  width: 80%;
-  margin: 20px 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  width: 100%;
   padding: 20px 20px;
   margin: 0;
   font-weight: normal;
@@ -557,6 +622,13 @@ footer {
 
 .deck-list-item:hover {
   background-color: #efefef;
+}
+
+.deck-list-item img {
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+  margin-right: 10px;
 }
 
 .deck-list-item .deck-title {
@@ -606,7 +678,7 @@ footer {
   color: white;
   background: #25ac64;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   width: 100%;
@@ -615,13 +687,181 @@ footer {
   border-radius: 10px;
 }
 
-.browse-content {
+#deck-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 80%;
+  margin: 40px auto 0;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #c2c2c2;
+  color: #606060;
+}
+
+#deck-header img {
+  width: 200px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+#deck-header h2 {
+  color: #25ac64;
+  text-align: left;
+  font-weight: 900;
+  margin: 30px 0 10px 0px;
+}
+
+#deck-header #deck-header-info {
+  width: 100%;
+}
+
+#deck-header #deck-header-info div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#deck-header #deck-header-info span {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-right: 4px;
+}
+
+#deck-header #deck-header-info span .material-icons-outlined {
+  color: #25ac64;
+  margin-right: 4px;
+}
+
+#deck-body {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[2];
+      grid-template-rows: repeat(2, 1fr);
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  width: 80%;
+  margin: 20px auto;
+  gap: 10px;
+}
+
+#deck-body #review-forecast,
+#deck-body #card-distribution {
+  color: black;
+  width: 100%;
+  padding: 20px 30px;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.deck-info {
+  width: 100%;
+  color: black;
+}
+
+.deck-info img {
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+}
+
+#browse-content {
   display: -ms-grid;
   display: grid;
   width: 80%;
   margin: 60px auto 20px;
   -ms-grid-columns: 1fr 4fr;
       grid-template-columns: 1fr 4fr;
+}
+
+#dashboard-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 80%;
+  margin: 20px auto;
+}
+
+#dashboard-content h2 {
+  text-align: left;
+}
+
+#dashboard-content #user-content {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+#dashboard-content #decks-and-followers {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+#dashboard-content #decks-and-followers #deck-info-list {
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+#dashboard-content #user-info {
+  color: black;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 20px;
+}
+
+#dashboard-content #user-info img {
+  width: 100px;
+  border-radius: 50%;
+}
+
+#dashboard-content #user-info a {
+  color: #25ac64;
+}
+
+#dashboard-content #dashboard-digest {
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 250px;
+  -ms-grid-column: 2;
+      grid-column-start: 2;
+  grid-column-end: -1;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+}
+
+#dashboard-content #dashboard-digest h1 {
+  color: #25ac64;
 }
 
 * {
@@ -711,6 +951,30 @@ h3 {
           flex-grow: 1;
 }
 
+.btn {
+  font-family: 'Open Sans';
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  color: white;
+  background: #25ac64;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
 .link-primary {
   color: #25ac64;
+}
+
+.deck-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  color: black;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  padding: 20px 30px;
 }

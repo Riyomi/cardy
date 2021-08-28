@@ -1,10 +1,3 @@
-.deck-list-item-img {
-  width: 100px;
-  height: 70px;
-  border-radius: 10px;
-  margin-right: 10px;
-}
-
 .deck-info {
   width: 100%;
   margin-top: 10px;
@@ -13,7 +6,6 @@
 .deck-list-item {
   @include deck-card;
   box-sizing: border-box;
-  width: 100%;
   padding: 20px 20px;
   margin: 0;
   font-weight: normal;
@@ -21,6 +13,13 @@
 
   &:hover {
     background-color: #efefef;
+  }
+
+  img {
+    width: 100px;
+    height: 70px;
+    border-radius: 10px;
+    margin-right: 10px;
   }
 
   .deck-title {

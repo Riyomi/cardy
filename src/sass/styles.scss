@@ -6,6 +6,7 @@
 @import '../components/common/Form/_form';
 @import '../components/common/FormField/_formField';
 @import '../components/common/ProgressBar/_progressBar';
+@import '../components/common/DeckCard/_deckCard';
 
 @import '../components/Home/Testimonial/_testimonial';
 @import '../components/Home/Testimonials/_testimonials';
@@ -15,7 +16,6 @@
 
 @import '../components/Profile/ProfileHeader/_profileHeader';
 @import '../components/Profile/ProfileBody/_profileBody';
-@import '../components/Profile/DeckCard/_deckCard';
 @import '../components/Profile/Followers/_followers';
 @import '../components/Profile/Follower/_follower';
 
@@ -24,7 +24,13 @@
 @import '../components/Browse/DeckListItem/_deckListItem';
 @import '../components/Browse/DeckList/_deckList';
 
+@import '../components/DeckDetails/DeckHeader/_deckHeader';
+@import '../components/DeckDetails/DeckBody/_deckBody';
+
+@import '../components/Dashboard/DeckInfo/_deckInfo';
+
 @import '../pages/Browse/_browse';
+@import '../pages/Dashboard/_dashboard';
 
 * {
   font-family: 'Open Sans';
@@ -104,6 +110,14 @@ h3 {
   flex-grow: 1;
 }
 
+.btn {
+  @include btn;
+}
+
 .link-primary {
   color: $primaryColor;
+}
+
+.deck-card {
+  @include deck-card;
 }

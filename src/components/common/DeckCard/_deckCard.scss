@@ -1,0 +1,74 @@
+.deck-title {
+  font-size: 20px;
+  color: $textColor;
+}
+
+.deck-img {
+  width: 100px;
+  height: 70px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.deck-details {
+  width: 100%;
+}
+
+#deck-details-card {
+  display: block;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  box-sizing: border-box;
+}
+
+#deck-profile-card {
+  width: 80%;
+  margin: 20px 0;
+}
+
+#deck-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#deck-options {
+  position: relative;
+  display: flex;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#review-btn {
+  @include btn;
+  border-radius: 10px;
+  padding: 7px 20px;
+}
+
+#options-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  padding: 5px;
+  position: absolute;
+  top: 30px;
+  background: white;
+  border: 1px solid $lightGray;
+  border-radius: 10px;
+  @include apply-shadow;
+
+  span {
+    display: inline-flex;
+    border-radius: 10px;
+    padding: 2px;
+
+    &:hover {
+      background-color: #efefef;
+    }
+
+    .material-icons-outlined {
+      margin-right: 4px;
+      padding: 0;
+    }
+  }
+}

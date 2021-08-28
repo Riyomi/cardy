@@ -1,4 +1,4 @@
-import DeckCard from '../DeckCard/DeckCard';
+import DeckCard from 'components/common/DeckCard/DeckCard';
 import Followers from '../Followers/Followers';
 
 const ProfileBody = ({ user }) => {
@@ -7,12 +7,7 @@ const ProfileBody = ({ user }) => {
       <div className="profile-decks">
         <h3 style={{ fontSize: '24px' }}>{user.name}'s Decks</h3>
         {user.decks.map((deck, index) => (
-          <DeckCard
-            key={index}
-            title={deck.title}
-            progress={deck.progress}
-            img={deck.img}
-          />
+          <DeckCard key={index} deck={deck} location="profile" />
         ))}
       </div>
       <div className="profile-friends-wrapper">
