@@ -11,13 +11,15 @@ const Categories = ({ categories, categoryFilter, setCategoryFilter }) => {
         <span>All Categories</span>
       </div>
       <ul>
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <li
-            key={index}
+            key={category.id}
             onClick={(e) => setCategoryFilter(e.target.innerText)}
-            className={category === categoryFilter ? 'active-category' : ''}
+            className={
+              category.name === categoryFilter ? 'active-category' : ''
+            }
           >
-            {category}
+            {category.name}
           </li>
         ))}
       </ul>

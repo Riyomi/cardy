@@ -1,54 +1,74 @@
-import axios from 'axios';
+import { gql, useQuery } from '@apollo/client';
 import DeckList from 'components/Browse/DeckList/DeckList';
 import Searchbar from 'components/Browse/Searchbar/Searchbar';
-import { useEffect, useState } from 'react';
-import Categories from '../../components/Browse/Categories/Categories';
+import Categories from 'components/Browse/Categories/Categories';
+import { useState } from 'react';
 
 const Browse = () => {
-  const [decks, setDecks] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [isPending, setIsPending] = useState(true);
   const [searchFilter, setSearchFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/decks').then((res) => {
-      setDecks(res.data);
-      setIsPending(false);
-    });
-    axios.get('http://localhost:8080/categories').then((res) => {
-      setCategories(res.data);
-      setIsPending(false);
-    });
-  }, []);
+  const { loading, error, data } = useQuery(GET_DECKS_AND_CATEGORIES);
 
   const filterDecks = () => {
     if (categoryFilter) {
-      return decks.filter(
+      return data.decks.filter(
         (deck) =>
-          deck.category === categoryFilter &&
+          deck.category.name === categoryFilter &&
           deck.title.toLowerCase().includes(searchFilter.toLowerCase())
       );
     }
-    return decks.filter((deck) =>
+    return data.decks.filter((deck) =>
       deck.title.toLowerCase().includes(searchFilter.toLowerCase())
     );
   };
 
   return (
     <div id="browse-content">
-      <Categories
-        categories={categories}
-        categoryFilter={categoryFilter}
-        setCategoryFilter={setCategoryFilter}
-      />
-      <div>
-        <Searchbar setSearchFilter={setSearchFilter} />
-        {isPending && <div>Loading...</div>}
-        {!isPending && <DeckList decks={filterDecks()} />}
-      </div>
+      {error}
+      {console.log(data)}
+
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <Categories
+            categories={data.categories}
+            categoryFilter={categoryFilter}
+            setCategoryFilter={setCategoryFilter}
+          />
+          <div>
+            <Searchbar setSearchFilter={setSearchFilter} />
+            <DeckList decks={filterDecks()} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
+
+const GET_DECKS_AND_CATEGORIES = gql`
+  query getDecksAndCategories {
+    decks {
+      id
+      title
+      img
+      category {
+        name
+      }
+      createdBy {
+        name
+      }
+      cards {
+        front
+        back
+      }
+      learners
+    }
+    categories {
+      id
+      name
+    }
+  }
+`;
 
 export default Browse;

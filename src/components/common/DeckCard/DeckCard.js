@@ -58,7 +58,9 @@ const DeckCard = ({ deck, location }) => {
       )}
       {location === 'details' && (
         <div id="deck-details-card" className="deck-card">
-          <div>214/2000 cards learned (14 mastered)</div>
+          <div>
+            0/{deck.cards ? deck.cards.length : 0} cards learned (0 mastered)
+          </div>
           <ProgressBar progress={10} styles={{ margin: '10px 0' }} />
           <div id="deck-bottom">
             <span id="deck-options" onClick={() => setOpenMenu(!openMenu)}>
@@ -77,7 +79,7 @@ const DeckCard = ({ deck, location }) => {
                 </div>
               )}
             </span>
-            <button id="review-btn">Review (20)</button>
+            <button id="review-btn">Review (0)</button>
           </div>
         </div>
       )}

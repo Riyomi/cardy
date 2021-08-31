@@ -1,25 +1,41 @@
-import axios from 'axios';
+import { gql, useQuery } from '@apollo/client';
 import DeckBody from 'components/DeckDetails/DeckBody/DeckBody';
 import DeckHeader from 'components/DeckDetails/DeckHeader/DeckHeader';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const DeckDetails = () => {
   const { id } = useParams();
-  const [deck, setDeck] = useState({});
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:8080/decks/' + Number(id))
-      .then((res) => setDeck(res.data));
-  }, [id]);
+  const { loading, error, data } = useQuery(GET_DECK, { variables: { id } });
 
   return (
-    <div>
-      <DeckHeader deck={deck} />
-      <DeckBody deck={deck} />
-    </div>
+    <>
+      {error}
+      {!loading && (
+        <div>
+          <DeckHeader deck={data.deck} />
+          <DeckBody deck={data.deck} />
+        </div>
+      )}
+    </>
   );
 };
+
+const GET_DECK = gql`
+  query getDeck($id: ID) {
+    deck(id: $id) {
+      id
+      title
+      img
+      learners
+      cards {
+        front
+        back
+      }
+      createdBy {
+        name
+      }
+    }
+  }
+`;
 
 export default DeckDetails;
