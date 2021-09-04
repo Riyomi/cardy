@@ -1,15 +1,20 @@
-import { Link } from 'react-router-dom';
-import FormField from 'components/common/FormField/FormField';
 import { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import FormField from 'components/common/FormField/FormField';
+import { useMutation } from '@apollo/client';
+import { useUser } from 'contexts/UserContext';
+import { CREATE_USER, LOGIN_USER } from 'queries/queries';
 
 const Signup = () => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [createUser, { /*data: user,*/ loading /*error */ }] =
-    useMutation(CREATE_USER);
+  const [createUser, { loading }] = useMutation(CREATE_USER);
+  const [loginUser] = useMutation(LOGIN_USER);
+
+  const { userInfo, setUserInfo } = useUser();
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -18,10 +23,30 @@ const Signup = () => {
       await createUser({
         variables: { email, name, password, confirmPassword },
       });
+
+      try {
+        const userInfo = await loginUser({
+          variables: {
+            email,
+            password,
+          },
+        });
+        localStorage.setItem(
+          'userInfo',
+          JSON.stringify(userInfo.data.loginUser)
+        );
+
+        setUserInfo(userInfo.data.loginUser);
+        history.push('/dashboard');
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
       console.log(err);
     }
   };
+
+  if (userInfo) return <Redirect to="/" />;
 
   return (
     <div className="form-wrapper">
@@ -75,25 +100,5 @@ const Signup = () => {
     </div>
   );
 };
-
-const CREATE_USER = gql`
-  mutation CreateUser(
-    $email: String!
-    $name: String!
-    $password: String!
-    $confirmPassword: String!
-  ) {
-    createUser(
-      email: $email
-      name: $name
-      password: $password
-      confirmPassword: $confirmPassword
-    ) {
-      id
-      email
-      name
-    }
-  }
-`;
 
 export default Signup;

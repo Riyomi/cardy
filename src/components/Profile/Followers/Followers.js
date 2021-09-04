@@ -23,15 +23,23 @@ const Followers = ({ followers, following, style }) => {
       <div className="followers-content">
         {showFollowers ? (
           <div>
-            {followers.map((follower, index) => (
-              <Follower key={index} follower={follower} />
-            ))}
+            {followers.length === 0 ? (
+              <p>No followers</p>
+            ) : (
+              followers.map((follower, index) => (
+                <Follower key={index} follower={follower} />
+              ))
+            )}
           </div>
         ) : (
           <div>
-            {following.map((following, index) => (
-              <Follower key={index} follower={following} />
-            ))}
+            {following.length === 0 ? (
+              <p>This user isn't following anyone yet</p>
+            ) : (
+              following.map((following, index) => (
+                <Follower key={index} follower={following} />
+              ))
+            )}
           </div>
         )}
       </div>

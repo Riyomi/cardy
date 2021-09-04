@@ -1,51 +1,44 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
+import { useUser } from 'contexts/UserContext';
 
 const Dashboard = () => {
-  const id = 1;
+  const { userInfo } = useUser();
 
-  const [user, setUser] = useState(null);
-  const [isPending, setIsPending] = useState(true);
+  console.log(userInfo);
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/users/' + id).then((res) => {
-      setUser(res.data);
-      setIsPending(false);
-    });
-  }, [id]);
+  if (!userInfo) return <Redirect to="/login" />;
 
   return (
     <div id="dashboard-content">
-      {!isPending && (
+      {userInfo && (
         <>
           <h2>Dashboard</h2>
           <div id="user-content">
             <div id="user-info">
-              <h3>{user.name}</h3>
-              <img src={user.img} alt={user.name} />
+              <h3>{userInfo.user.name}</h3>
+              <img src={userInfo.user.img} alt={userInfo.user.name} />
               <ProgressBar progress={50} />
-              <div>214 cards mastered</div>
-              <Link to={'profile/' + user.id}>View profile</Link>
+              <div>0 cards mastered</div>
+              <Link to={'profile/' + userInfo.user.id}>View profile</Link>
             </div>
             <div id="dashboard-digest">
-              <h1>Good morning, {user.name}</h1>
-              <div>You have 34 cards to review today.</div>
+              <h1>Good morning, {userInfo.user.name}</h1>
+              <div>You have 0 cards to review today.</div>
               <button className="btn">Review now</button>
             </div>
           </div>
           <div id="decks-and-followers">
             <div id="deck-info-list">
-              {user.decks.map((deck, index) => (
+              {userInfo.user.decks.map((deck, index) => (
                 <DeckCard deck={deck} key={index} location="dashboard" />
               ))}
             </div>
             <Followers
-              followers={user.followers}
-              following={user.following}
+              followers={userInfo.user.followers}
+              following={userInfo.user.following}
               style={{ paddingTop: '20px' }}
             />
           </div>

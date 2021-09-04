@@ -1,7 +1,8 @@
-import axios from 'axios';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
-import { useEffect, useState } from 'react';
+import { useUser } from 'contexts/UserContext';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 const Study = () => {
   const history = useHistory();
@@ -12,13 +13,15 @@ const Study = () => {
   const [cards, setCards] = useState([]);
   const [isPending, setIsPending] = useState(true);
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/cards').then((res) => {
-      setCards(res.data);
-      setMax(res.data.length);
-      setIsPending(false);
-    });
-  }, []);
+  const { userInfo } = useUser();
+
+  // useEffect(() => {
+  //   axios.get('http://localhost:8080/cards').then((res) => {
+  //     setCards(res.data);
+  //     setMax(res.data.length);
+  //     setIsPending(false);
+  //   });
+  // }, []);
 
   const handleQuit = () => {
     if (window.confirm('Are you sure you want to quit?')) {
@@ -60,6 +63,8 @@ const Study = () => {
     }
     setShowQuestion(true);
   };
+
+  if (!userInfo) return <Redirect to="/" />;
 
   return (
     <div>

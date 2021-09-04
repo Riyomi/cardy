@@ -1,25 +1,47 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import FormField from 'components/common/FormField/FormField';
+import { useUser } from 'contexts/UserContext';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from 'queries/queries';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { userInfo, setUserInfo } = useUser();
+  const [loginUser] = useMutation(LOGIN_USER);
+  const history = useHistory();
 
-  const loginUser = (e) => {
+  const handleLoginUser = async (e) => {
     e.preventDefault();
+
+    try {
+      const userInfo = await loginUser({
+        variables: {
+          email,
+          password,
+        },
+      });
+      localStorage.setItem('userInfo', JSON.stringify(userInfo.data.loginUser));
+
+      setUserInfo(userInfo.data.loginUser);
+      history.push('/dashboard');
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  if (userInfo) return <Redirect to="/" />;
 
   return (
     <div className="form-wrapper">
       <div className="sidebar">Welcome back</div>
       <div className="form-main">
-        {/* {loading ? <p>Loading...</p> : ''} */}
         <h2>Login</h2>
         <form
           className="user-form"
           method="POST"
-          onSubmit={(e) => loginUser(e)}
+          onSubmit={(e) => handleLoginUser(e)}
         >
           <FormField
             name="Email"

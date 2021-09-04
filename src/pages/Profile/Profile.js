@@ -1,28 +1,24 @@
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import ProfileBody from 'components/Profile/ProfileBody/ProfileBody';
 import ProfileHeader from 'components/Profile/ProfileHeader/ProfileHeader';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { GET_USER } from 'queries/queries';
+import { useQuery } from '@apollo/client';
 
 const Profile = () => {
   const { id } = useParams();
 
-  const [user, setUser] = useState(null);
-  const [isPending, setIsPending] = useState(true);
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { id },
+  });
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/users/' + Number(id)).then((res) => {
-      setUser(res.data);
-      setIsPending(false);
-    });
-  }, [id]);
+  if (error) return <Redirect to="/" />;
 
   return (
     <>
-      {!isPending && (
+      {!loading && !error && (
         <>
-          <ProfileHeader user={user} />
-          <ProfileBody user={user} />
+          <ProfileHeader user={data.user} />
+          <ProfileBody user={data.user} />
         </>
       )}
     </>

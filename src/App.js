@@ -19,13 +19,13 @@ const App = () => {
       <Navbar brand={brand} />
       <div id="content">
         <Switch>
-          <Route exact path="/" component={Home} />
           <Route path="/browse" component={Browse} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/profile/:id" component={Profile} />
           <Route path="/deck/:id" component={DeckDetails} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/" component={Home} />
         </Switch>
       </div>
       <Footer brand={brand} copyright={copyright} />

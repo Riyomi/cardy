@@ -11,16 +11,25 @@
   height: 100px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding: 0 140px;
+  padding: 0 10%;
 }
 
 .menu-items {
   margin-right: -30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .menu-items a {
-  text-align: center;
-  padding: 10px 30px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 30px;
+  height: 44px;
 }
 
 .menu-items a:hover {
@@ -42,7 +51,7 @@ footer {
   height: 100px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding: 0 140px;
+  padding: 0 10%;
 }
 
 .field-wrapper {
@@ -171,6 +180,61 @@ footer {
 #options-menu span .material-icons-outlined {
   margin-right: 4px;
   padding: 0;
+}
+
+#user-dropdown {
+  display: none;
+  position: absolute;
+  -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  width: 260px;
+  height: 170px;
+  background-color: white;
+  border-radius: 10px;
+  top: 44px;
+  right: 0px;
+  z-index: 100;
+  cursor: auto;
+}
+
+#user-dropdown-menu {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  padding: 0 30px;
+  height: 44px;
+  cursor: pointer;
+}
+
+#user-dropdown-menu:hover {
+  -webkit-box-shadow: 0px 0px 0px 1px white;
+          box-shadow: 0px 0px 0px 1px white;
+  border-radius: 4px;
+}
+
+#user-dropdown-menu:hover > #user-dropdown {
+  display: block;
+}
+
+#user-dropdown-menu:hover > .material-icons-outlined {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+#user-dropdown-menu img {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid white;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .testimonial {
@@ -347,7 +411,7 @@ footer {
   font-size: 16px;
 }
 
-.follow-btn {
+.action-btn {
   font-family: 'Open Sans';
   font-weight: bold;
   font-size: 16px;
