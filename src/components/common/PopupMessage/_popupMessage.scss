@@ -1,0 +1,46 @@
+.popup-message {
+  position: absolute;
+  top: 10%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: 50%;
+  color: white;
+  height: 40px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+  animation: fade 3s linear;
+  z-index: 1000;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.type-error {
+  background: #ac2e25;
+}
+
+.type-information {
+  background: #a9ac25;
+}
+
+.type-success {
+  background: $primaryColor;
+}

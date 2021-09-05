@@ -12,7 +12,14 @@ export function UserProvider({ children }) {
   );
 
   return (
-    <UserContext.Provider value={{ userInfo, setUserInfo }}>
+    <UserContext.Provider
+      value={{
+        userInfo: userInfo?.user,
+        accessToken: userInfo?.accessToken,
+        expires: Date.parse(userInfo?.expires),
+        setUserInfo,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

@@ -75,6 +75,7 @@ footer {
 .deck-title {
   font-size: 20px;
   color: #606060;
+  font-weight: normal;
 }
 
 .deck-img {
@@ -235,6 +236,73 @@ footer {
   border: 2px solid white;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+.popup-message {
+  position: absolute;
+  top: 10%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: 50%;
+  color: white;
+  height: 40px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+  -webkit-animation: fade 3s linear;
+          animation: fade 3s linear;
+  z-index: 1000;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.type-error {
+  background: #ac2e25;
+}
+
+.type-information {
+  background: #a9ac25;
+}
+
+.type-success {
+  background: #25ac64;
 }
 
 .testimonial {
@@ -1026,13 +1094,36 @@ h3 {
   padding: 20px 30px;
 }
 
+.skeleton {
+  -webkit-animation: skeleton-loading 1s linear infinite alternate;
+          animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@-webkit-keyframes skeleton-loading {
+  0% {
+    background-color: #a3b8c2;
+  }
+  100% {
+    background-color: #f0f3f5;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #a3b8c2;
+  }
+  100% {
+    background-color: #f0f3f5;
+  }
+}
+
 /* Form */
 .form-wrapper {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 4fr 6fr;
       grid-template-columns: 4fr 6fr;
-  width: 50%;
+  width: 750px;
   margin: 20px auto;
   border-radius: 4px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;

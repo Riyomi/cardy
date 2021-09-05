@@ -7,7 +7,7 @@ const ProfileBody = ({ user }) => {
       <div className="profile-decks">
         <h3 style={{ fontSize: '24px' }}>{user.name}'s Decks</h3>
         {user.decks.length === 0 ? (
-          <p>No decks yet</p>
+          <p>No public decks yet</p>
         ) : (
           user.decks.map((deck, index) => (
             <DeckCard key={index} deck={deck} location="profile" />

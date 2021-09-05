@@ -4,12 +4,13 @@ import FormField from 'components/common/FormField/FormField';
 import { useUser } from 'contexts/UserContext';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from 'queries/queries';
+import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { userInfo, setUserInfo } = useUser();
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUser, { error }] = useMutation(LOGIN_USER);
   const history = useHistory();
 
   const handleLoginUser = async (e) => {
@@ -36,6 +37,8 @@ const Login = () => {
   return (
     <div className="form-wrapper">
       <div className="sidebar">Welcome back</div>
+      {error && <PopupMessage message={error.message} type="error" />}
+
       <div className="form-main">
         <h2>Login</h2>
         <form

@@ -1,6 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import DeckBody from 'components/DeckDetails/DeckBody/DeckBody';
 import DeckHeader from 'components/DeckDetails/DeckHeader/DeckHeader';
+import { GET_DECK } from 'queries/queries';
 import { useParams } from 'react-router-dom';
 
 const DeckDetails = () => {
@@ -9,8 +10,8 @@ const DeckDetails = () => {
 
   return (
     <>
-      {error}
-      {!loading && (
+      {error && error.message}
+      {!loading && data && (
         <div>
           <DeckHeader deck={data.deck} />
           <DeckBody deck={data.deck} />
@@ -19,23 +20,5 @@ const DeckDetails = () => {
     </>
   );
 };
-
-const GET_DECK = gql`
-  query getDeck($id: ID) {
-    deck(id: $id) {
-      id
-      title
-      img
-      learners
-      cards {
-        front
-        back
-      }
-      createdBy {
-        name
-      }
-    }
-  }
-`;
 
 export default DeckDetails;

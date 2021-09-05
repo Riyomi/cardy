@@ -7,6 +7,7 @@
 @import '../components/common/ProgressBar/_progressBar';
 @import '../components/common/DeckCard/_deckCard';
 @import '../components/common/UserDropdown/_userDropdown';
+@import '../components/common/PopupMessage/_popupMessage';
 
 @import '../components/Home/Testimonial/_testimonial';
 @import '../components/Home/Testimonials/_testimonials';
@@ -121,11 +122,24 @@ h3 {
   @include deck-card;
 }
 
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #a3b8c2;
+  }
+  100% {
+    background-color: #f0f3f5;
+  }
+}
+
 /* Form */
 .form-wrapper {
   display: grid;
   grid-template-columns: 4fr 6fr;
-  width: 50%;
+  width: 750px;
   margin: 20px auto;
   border-radius: 4px;
   @include apply-shadow;

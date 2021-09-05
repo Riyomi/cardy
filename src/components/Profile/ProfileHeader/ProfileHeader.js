@@ -1,20 +1,41 @@
 import { useMutation } from '@apollo/client';
+import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 import { useUser } from 'contexts/UserContext';
-import { FOLLOW_USER } from 'queries/queries';
+import { FOLLOW_USER, UNFOLLOW_USER } from 'queries/queries';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const ProfileHeader = ({ user }) => {
   const { userInfo } = useUser();
-  const [followUser] = useMutation(FOLLOW_USER);
   const history = useHistory();
+  const [message, setMessage] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [followUser, { error }] = useMutation(FOLLOW_USER);
+  const [unfollowUser] = useMutation(UNFOLLOW_USER);
 
   const handleFollowUser = async () => {
     if (!userInfo) return history.push('/login');
 
     try {
       await followUser({
-        variables: { followerId: userInfo.user.id, followingId: user.id },
+        variables: { userToBeFollowed: user.id },
       });
+      setMessage('Followed ' + user.name);
+      setSuccess(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUnfollowUser = async () => {
+    if (!userInfo) return history.push('/login');
+
+    try {
+      await unfollowUser({
+        variables: { userToBeUnfollowed: user.id },
+      });
+      setMessage('Unfollowed ' + user.name);
+      setSuccess(true);
     } catch (err) {
       console.log(err);
     }
@@ -22,6 +43,8 @@ const ProfileHeader = ({ user }) => {
 
   return (
     <section className="profile-wrapper">
+      {error && <PopupMessage message={error.message} type="error" />}
+      {success && <PopupMessage message={message} type="success" />}
       <div className="user-info">
         <img src={user.img} alt={user.name} className="profile-picture" />
         <div className="user-details">
@@ -41,12 +64,13 @@ const ProfileHeader = ({ user }) => {
       </div>
       <div>
         {userInfo ? (
-          userInfo.user.id === user.id ? (
+          userInfo.id === user.id ? (
             <button className="action-btn">Edit profile</button>
-          ) : userInfo.user.following.filter(
-              (following) => following.id === user.id
-            ).length === 1 ? (
-            <button className="action-btn">Unfollow</button>
+          ) : user.followers.filter((follower) => follower.id === userInfo.id)
+              .length === 1 ? (
+            <button className="action-btn" onClick={handleUnfollowUser}>
+              Unfollow
+            </button>
           ) : (
             <button className="action-btn" onClick={handleFollowUser}>
               Follow

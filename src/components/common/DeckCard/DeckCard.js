@@ -1,5 +1,6 @@
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const DeckCard = ({ deck, location }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -15,7 +16,9 @@ const DeckCard = ({ deck, location }) => {
           <div style={{ display: 'flex' }}>
             <img className="deck-img" src={deck.img} alt={deck.title} />
             <div className="deck-details">
-              <div className="deck-title">{deck.title}</div>
+              <Link to={'/deck/' + deck.id} className="deck-title">
+                {deck.title}
+              </Link>
               {location === 'dashboard' && (
                 <span id="cards-learned">154 / 2000 cards</span>
               )}
@@ -88,8 +91,3 @@ const DeckCard = ({ deck, location }) => {
 };
 
 export default DeckCard;
-
-/*
-
-
- */

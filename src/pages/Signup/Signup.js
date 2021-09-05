@@ -4,6 +4,7 @@ import FormField from 'components/common/FormField/FormField';
 import { useMutation } from '@apollo/client';
 import { useUser } from 'contexts/UserContext';
 import { CREATE_USER, LOGIN_USER } from 'queries/queries';
+import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 
 const Signup = () => {
   const history = useHistory();
@@ -11,7 +12,7 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [createUser, { loading }] = useMutation(CREATE_USER);
+  const [createUser, { error }] = useMutation(CREATE_USER);
   const [loginUser] = useMutation(LOGIN_USER);
 
   const { userInfo, setUserInfo } = useUser();
@@ -52,7 +53,7 @@ const Signup = () => {
     <div className="form-wrapper">
       <div className="sidebar">Your journey starts today...</div>
       <div className="form-main">
-        {loading ? <p>Loading...</p> : ''}
+        {error && <PopupMessage message={error.message} type="error" />}
         <h2>Sign up</h2>
         <form
           className="user-form"

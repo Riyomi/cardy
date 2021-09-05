@@ -15,7 +15,7 @@ const Navbar = ({ brand }) => {
         <div className="menu-items">
           <Link to="/dashboard">dashboard</Link>
           <Link to="/browse">decks</Link>
-          <UserDropdown user={userInfo.user} setUserInfo={setUserInfo} />
+          <UserDropdown user={userInfo} setUserInfo={setUserInfo} />
         </div>
       ) : (
         <div className="menu-items">

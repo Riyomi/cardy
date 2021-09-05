@@ -113,7 +113,7 @@ const Study = () => {
                 <button
                   className="btn"
                   onClick={() => rateCard(DIFFICULTY.HARD)}
-                  style={{ background: '#AC5625' }}
+                  style={{ background: '#AC2E25' }}
                 >
                   Hard
                 </button>

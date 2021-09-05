@@ -1,13 +1,15 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import DeckList from 'components/Browse/DeckList/DeckList';
 import Searchbar from 'components/Browse/Searchbar/Searchbar';
 import Categories from 'components/Browse/Categories/Categories';
 import { useState } from 'react';
+import { GET_DECKS } from 'queries/queries';
+import { Link } from 'react-router-dom';
 
 const Browse = () => {
   const [searchFilter, setSearchFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
-  const { loading, error, data } = useQuery(GET_DECKS_AND_CATEGORIES);
+  const { error, data } = useQuery(GET_DECKS);
 
   const filterDecks = () => {
     if (categoryFilter) {
@@ -25,50 +27,21 @@ const Browse = () => {
   return (
     <div id="browse-content">
       {error}
-      {console.log(data)}
-
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <Categories
-            categories={data.categories}
-            categoryFilter={categoryFilter}
-            setCategoryFilter={setCategoryFilter}
-          />
-          <div>
-            <Searchbar setSearchFilter={setSearchFilter} />
-            <DeckList decks={filterDecks()} />
-          </div>
-        </>
-      )}
+      <div>
+        <Link to="/create-deck" className="btn">
+          Create a deck
+        </Link>
+        <Categories
+          categoryFilter={categoryFilter}
+          setCategoryFilter={setCategoryFilter}
+        />
+      </div>
+      <div>
+        <Searchbar setSearchFilter={setSearchFilter} />
+        {data && <DeckList decks={filterDecks()} />}
+      </div>
     </div>
   );
 };
-
-const GET_DECKS_AND_CATEGORIES = gql`
-  query getDecksAndCategories {
-    decks {
-      id
-      title
-      img
-      category {
-        name
-      }
-      createdBy {
-        name
-      }
-      cards {
-        front
-        back
-      }
-      learners
-    }
-    categories {
-      id
-      name
-    }
-  }
-`;
 
 export default Browse;

@@ -1,9 +1,20 @@
+import { useMutation } from '@apollo/client';
+import { LOGOUT_USER } from 'queries/queries';
+
 const { Link } = require('react-router-dom');
 
 const UserDropdown = ({ user, setUserInfo }) => {
+  const [logoutUser] = useMutation(LOGOUT_USER);
+
   const logout = () => {
     localStorage.removeItem('userInfo');
     setUserInfo(null);
+
+    try {
+      logoutUser();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
