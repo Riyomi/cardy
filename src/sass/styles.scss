@@ -115,6 +115,10 @@ h3 {
   @include btn;
 }
 
+.icon-btn {
+  cursor: pointer;
+}
+
 .link-primary {
   color: $primaryColor;
 }

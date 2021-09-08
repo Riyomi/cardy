@@ -28,6 +28,7 @@ const DeckBody = ({ deck }) => {
         {showMenu === MENU.CARDS && (
           <CardsList
             cards={deck.cards}
+            deckId={deck.id}
             editable={
               user.id === deck.user.id &&
               (deck.id === deck.publicId || !deck.publicId)
@@ -41,9 +42,14 @@ const DeckBody = ({ deck }) => {
               <p>
                 You currently cannot edit this deck because it is synched. If
                 you want to make any changes, either opt out of synching by{' '}
-                <a style={{ color: 'black' }}>clicking here</a> or ask{' '}
-                <a style={{ color: 'black' }}>the owner</a> of the original
-                deck.
+                <a href="placeholder" style={{ color: 'black' }}>
+                  clicking here
+                </a>{' '}
+                or ask{' '}
+                <a href="placeholder" style={{ color: 'black' }}>
+                  the owner
+                </a>{' '}
+                of the original deck.
               </p>
             )}
           </div>

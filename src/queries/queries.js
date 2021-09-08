@@ -110,6 +110,7 @@ export const GET_DECK = gql`
         id
       }
       cards {
+        id
         front
         back
       }
@@ -160,6 +161,7 @@ export const GET_DECKS = gql`
         name
       }
       cards {
+        id
         front
         back
       }
@@ -191,5 +193,34 @@ export const COPY_DECK = gql`
       id
       title
     }
+  }
+`;
+
+export const CREATE_CARD = gql`
+  mutation CreateCard(
+    $deckId: ID!
+    $front: String!
+    $back: String!
+    $img: String
+    $audio: String
+  ) {
+    createCard(
+      deckId: $deckId
+      front: $front
+      back: $back
+      img: $img
+      audio: $audio
+    ) {
+      id
+      publicId
+      front
+      back
+    }
+  }
+`;
+
+export const DELETE_CARD = gql`
+  mutation DeleteCard($id: ID!) {
+    deleteCard(id: $id)
   }
 `;

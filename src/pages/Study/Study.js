@@ -8,10 +8,10 @@ const Study = () => {
   const history = useHistory();
 
   const [progress, setProgress] = useState(0);
-  const [max, setMax] = useState(0);
+  const [max /* setMax*/] = useState(0);
   const [showQuestion, setShowQuestion] = useState(true);
   const [cards, setCards] = useState([]);
-  const [isPending, setIsPending] = useState(true);
+  const [isPending /* setIsPending */] = useState(true);
 
   const { userInfo } = useUser();
 

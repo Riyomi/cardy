@@ -1158,6 +1158,10 @@ h3 {
   cursor: pointer;
 }
 
+.icon-btn {
+  cursor: pointer;
+}
+
 .link-primary {
   color: #25ac64;
 }

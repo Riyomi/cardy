@@ -1,4 +1,46 @@
-const CardsList = ({ cards, editable }) => {
+import { useMutation } from '@apollo/client';
+import { CREATE_CARD, DELETE_CARD, GET_DECK } from 'queries/queries';
+import { useState } from 'react';
+
+const CardsList = ({ deckId, cards, editable }) => {
+  const [front, setFront] = useState('');
+  const [back, setBack] = useState('');
+  const [createCard] = useMutation(CREATE_CARD, {
+    refetchQueries: [{ query: GET_DECK, variables: { id: deckId } }],
+  });
+  const [deleteCard] = useMutation(DELETE_CARD, {
+    refetchQueries: [{ query: GET_DECK, variables: { id: deckId } }],
+  });
+
+  const handleCreateCard = async () => {
+    try {
+      await createCard({
+        variables: {
+          deckId: deckId,
+          front: front,
+          back: back,
+        },
+      });
+      setFront('');
+      setBack('');
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleDeleteCard = async (id) => {
+    console.log(id);
+    try {
+      await deleteCard({
+        variables: {
+          id: id,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div id="cards-list">
       <h3>Cards ({cards.length})</h3>
@@ -19,7 +61,12 @@ const CardsList = ({ cards, editable }) => {
               <td>{card.back}</td>
               {editable && (
                 <td>
-                  <button className="btn">delete</button>
+                  <span
+                    className="material-icons-outlined icon-btn"
+                    onClick={() => handleDeleteCard(card.id)}
+                  >
+                    remove_circle
+                  </span>
                 </td>
               )}
             </tr>
@@ -28,13 +75,28 @@ const CardsList = ({ cards, editable }) => {
             <tr>
               <td></td>
               <td>
-                <input type="text" />
+                <input
+                  type="text"
+                  value={front}
+                  onChange={(e) => setFront(e.target.value)}
+                  required
+                />
               </td>
               <td>
-                <input type="text" />
+                <input
+                  type="text"
+                  value={back}
+                  onChange={(e) => setBack(e.target.value)}
+                  required
+                />
               </td>
               <td>
-                <button className="btn">add</button>
+                <span
+                  className="material-icons-outlined icon-btn"
+                  onClick={handleCreateCard}
+                >
+                  add_circle
+                </span>
               </td>
             </tr>
           )}
