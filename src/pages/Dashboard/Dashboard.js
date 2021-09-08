@@ -8,9 +8,10 @@ import DeckCard from 'components/common/DeckCard/DeckCard';
 
 const Dashboard = () => {
   const { userInfo } = useUser();
-
   const { data } = useQuery(GET_USER, {
-    variables: { id: userInfo?.id },
+    variables: {
+      id: userInfo?.id,
+    },
   });
 
   if (!userInfo) return <Redirect to="/login" />;
@@ -18,7 +19,7 @@ const Dashboard = () => {
   return (
     <div id="dashboard-content">
       <h2>Dashboard</h2>
-      {data && (
+      {data?.user && (
         <>
           <div id="user-content">
             <div id="user-info">

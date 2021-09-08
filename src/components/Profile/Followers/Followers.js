@@ -14,7 +14,7 @@ const Followers = ({ followers, following, style }) => {
           Followers
         </span>
         <span
-          className={showFollowers ? '' : 'active'}
+          className={!showFollowers ? 'active' : ''}
           onClick={() => setShowFollowers(false)}
         >
           Following

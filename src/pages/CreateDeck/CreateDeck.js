@@ -1,74 +1,91 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_DECK, GET_CATEGORIES } from 'queries/queries';
+import {
+  CREATE_DECK,
+  GET_CATEGORIES,
+  GET_DECKS,
+  GET_USER,
+} from 'queries/queries';
 import { useState } from 'react';
 import FormField from 'components/common/FormField/FormField';
 import { useUser } from 'contexts/UserContext';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
+import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import Select from 'react-select';
 
 const CreateDeck = () => {
   const [title, setTitle] = useState('');
-  const [img, setImg] = useState(undefined);
-  const [isPublic, setIsPublic] = useState(false);
-  const [categoryId, setCategoryId] = useState();
-  const [createDeck] = useMutation(CREATE_DECK);
-  const { data } = useQuery(GET_CATEGORIES);
+  const [img /*setImg*/] = useState(undefined);
+  const [categoryId, setCategoryId] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState();
+  const history = useHistory();
   const { userInfo } = useUser();
+
+  const [createDeck, { error }] = useMutation(CREATE_DECK, {
+    onCompleted: (data) => {
+      setSuccess(true);
+      setMessage('Successfully created deck ' + data.createDeck.title);
+      setTimeout(() => {
+        history.push('/');
+      }, 2000);
+    },
+    refetchQueries: [
+      { query: GET_DECKS },
+      { query: GET_USER, variables: { id: userInfo?.id } },
+    ],
+  });
+  const { data } = useQuery(GET_CATEGORIES);
 
   if (!userInfo) return <Redirect to="/login" />;
 
-  const handleCreateDeck = async (e) => {
+  const handleCreateDeck = (e) => {
     e.preventDefault();
 
-    try {
-      const deck = await createDeck({
-        variables: { title, img: img ? img : null, isPublic, categoryId },
-      });
-
-      console.log(deck);
-    } catch (err) {
-      console.log(err);
-    }
+    createDeck({ variables: { title, img, categoryId } }).catch((err) =>
+      console.log(err)
+    );
   };
 
   return (
     <div>
+      {error && <PopupMessage message={error.message} type="error" />}
+      {success && <PopupMessage message={message} type="success" />}
       {data && (
-        <form onSubmit={(e) => handleCreateDeck(e)}>
-          <FormField
-            name="Title"
-            type="text"
-            value={title}
-            setValue={setTitle}
-            required={true}
-          />
-          <FormField
-            name="Image (optional)"
-            type="file"
-            value={img}
-            setValue={setImg}
-          />
-          <FormField
-            name="Make Public"
-            type="checkbox"
-            value={isPublic}
-            setValue={setIsPublic}
-          />
-          <div className="field-wrapper">
-            <label>Category</label>
-            <select
-              value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
-              defaultValue={data.categories[0].id}
+        <div className="form-wrapper">
+          <div className="sidebar">Create deck </div>
+          <div className="form-main ">
+            <form
+              onSubmit={(e) => handleCreateDeck(e)}
+              className="user-form deck-creation-form"
             >
-              {data.categories.map((category) => (
-                <option value={category.id} key={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+              <h2>Deck information</h2>
+              <FormField
+                name="Title"
+                type="text"
+                value={title}
+                setValue={setTitle}
+                required={true}
+              />
+              <div className="field-wrapper">
+                <label>Category</label>
+                <Select
+                  options={data.categories.map((c) => ({
+                    value: c.id,
+                    label: c.name,
+                  }))}
+                  onChange={(selected) => setCategoryId(selected.value)}
+                ></Select>
+              </div>
+              <div className="field-wrapper">
+                <label htmlFor="file-upload" className="custom-file-upload">
+                  Choose image
+                </label>
+                <input id="file-upload" type="file" />
+              </div>
+              <input type="submit" value="Create deck" className="submit-btn" />
+            </form>
           </div>
-          <input type="submit" value="Create deck" className="btn" />
-        </form>
+        </div>
       )}
     </div>
   );

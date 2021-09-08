@@ -1,12 +1,21 @@
+import { Link } from 'react-router-dom';
+
 const DeckHeader = ({ deck }) => {
   return (
     <div id="deck-header">
-      <img
-        src={deck.img ? deck.img : 'https://via.placeholder.com/200x133'}
-        alt={deck.title}
-      />
+      <img src={deck.img} alt={deck.title} />
       <div id="deck-header-info">
-        <h2>{deck.title}</h2>
+        <div>
+          <h2>
+            {deck.title}{' '}
+            <span
+              style={{ fontSize: '16px' }}
+              title="This deck was created based on a shared deck. &#013;Any changes made by the owner of the shared deck will be synchronized. &#013;If you don't want this to happen, you can opt out in the settings."
+            >
+              {deck.publicId && deck.id !== deck.publicId ? '(synched)' : ''}
+            </span>
+          </h2>
+        </div>
         <div>
           <div>
             <span>
@@ -15,10 +24,12 @@ const DeckHeader = ({ deck }) => {
             </span>
             <span>
               <span className="material-icons-outlined">people</span>
-              <span>{deck.learners ? deck.learners.length : 0} learners</span>
+              <span>{deck.learners} learners</span>
             </span>
           </div>
-          <span>by {deck.createdBy.name}</span>
+          <Link to={'/profile/' + deck.createdBy.id}>
+            by {deck.createdBy.name}
+          </Link>
         </div>
       </div>
     </div>

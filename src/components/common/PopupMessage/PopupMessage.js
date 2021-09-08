@@ -4,10 +4,14 @@ const PopupMessage = ({ message, timeout, type }) => {
   const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    let timer = setTimeout(() => {
       setShowMessage(false);
     }, timeout);
-  }, [timeout]);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [timeout, setShowMessage]);
 
   return (
     <div

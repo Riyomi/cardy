@@ -98,11 +98,6 @@ footer {
           box-sizing: border-box;
 }
 
-#deck-profile-card {
-  display: block;
-  margin: 20px 0;
-}
-
 #deck-bottom {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -796,16 +791,24 @@ footer {
           justify-content: space-between;
 }
 
-#deck-header #deck-header-info span {
+#deck-header #deck-header-info span,
+#deck-header #deck-header-info a {
+  color: #606060;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   margin-right: 4px;
 }
 
-#deck-header #deck-header-info span .material-icons-outlined {
+#deck-header #deck-header-info span .material-icons-outlined,
+#deck-header #deck-header-info a .material-icons-outlined {
   color: #25ac64;
   margin-right: 4px;
+}
+
+#deck-header #deck-shared {
+  font-size: 16px;
+  color: #606060;
 }
 
 #deck-body {
@@ -829,6 +832,53 @@ footer {
   border-radius: 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+#cards-list {
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+#deck-details-menu {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+#deck-details-menu span {
+  color: #c4c4c4;
+  border-bottom: 1px solid #c4c4c4;
+  padding: 0px 25px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+#deck-details-menu span.active {
+  font-weight: bold;
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.card-preview {
+  width: 100%;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  color: black;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  margin-bottom: 5px;
+}
+
+.card-preview span {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.card-preview span:nth-of-type(1) {
+  border-right: 1px solid #c4c4c4;
 }
 
 #browse-content {
@@ -977,6 +1027,35 @@ footer {
   padding: 12px 0;
   width: 250px;
   margin: 0 15px;
+}
+
+.deck-creation-form {
+  color: #606060;
+}
+
+.deck-creation-form h2 {
+  color: #25ac64;
+}
+
+.deck-creation-form label {
+  display: block;
+}
+
+.deck-creation-form input[type='file'] {
+  display: none;
+}
+
+.deck-creation-form .custom-file-upload {
+  font-family: 'Open Sans';
+  font-weight: bold;
+  font-size: 16px;
+  display: inline-block;
+  color: white;
+  background: #25ac64;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
 
 * {

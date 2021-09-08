@@ -7,6 +7,18 @@ export const LOGIN_USER = gql`
         id
         name
         img
+        followers {
+          id
+          name
+          level
+          experience
+        }
+        following {
+          id
+          name
+          level
+          experience
+        }
       }
       accessToken
       expires
@@ -41,18 +53,8 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_DECK = gql`
-  mutation CreateDeck(
-    $title: String!
-    $img: String
-    $isPublic: Boolean!
-    $categoryId: ID!
-  ) {
-    createDeck(
-      title: $title
-      img: $img
-      isPublic: $isPublic
-      categoryId: $categoryId
-    ) {
+  mutation CreateDeck($title: String, $img: String, $categoryId: ID) {
+    createDeck(title: $title, img: $img, categoryId: $categoryId) {
       id
       title
     }
@@ -68,8 +70,15 @@ export const GET_USER = gql`
       img
       decks {
         id
-        img
         title
+        img
+        learners
+        publicId
+        cards {
+          id
+          front
+          back
+        }
       }
       followers {
         id
@@ -96,11 +105,16 @@ export const GET_DECK = gql`
       title
       img
       learners
+      publicId
+      user {
+        id
+      }
       cards {
         front
         back
       }
       createdBy {
+        id
         name
       }
     }
@@ -133,17 +147,22 @@ export const GET_DECKS = gql`
       id
       title
       img
+      learners
+      publicId
+      user {
+        id
+      }
       category {
         name
       }
       createdBy {
+        id
         name
       }
       cards {
         front
         back
       }
-      learners
     }
   }
 `;
@@ -153,6 +172,24 @@ export const GET_CATEGORIES = gql`
     categories {
       id
       name
+    }
+  }
+`;
+
+export const QUIT_DECK = gql`
+  mutation QuitDeck($id: ID!) {
+    quitDeck(id: $id) {
+      id
+      title
+    }
+  }
+`;
+
+export const COPY_DECK = gql`
+  mutation CopyDeck($id: ID!) {
+    copyDeck(id: $id) {
+      id
+      title
     }
   }
 `;

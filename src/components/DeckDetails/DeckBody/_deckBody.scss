@@ -16,3 +16,47 @@
     box-sizing: border-box;
   }
 }
+
+#cards-list {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+#deck-details-menu {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  span {
+    color: $lightGray;
+    border-bottom: 1px solid $lightGray;
+    padding: 0px 25px;
+    padding-bottom: 5px;
+    cursor: pointer;
+  }
+
+  span.active {
+    font-weight: bold;
+    color: black;
+    border-bottom: 2px solid black;
+  }
+}
+
+.card-preview {
+  width: 100%;
+  border: 1px solid $lightGray;
+  border-radius: 10px;
+  color: black;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 5px;
+
+  span {
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  span:nth-of-type(1) {
+    border-right: 1px solid $lightGray;
+  }
+}

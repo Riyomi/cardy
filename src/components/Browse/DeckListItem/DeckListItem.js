@@ -2,19 +2,14 @@ import { Link } from 'react-router-dom';
 
 const DeckListItem = ({ deck }) => {
   const formatLearners = (learners) => {
-    if (!learners) {
-      return 0;
+    if (learners > 1000) {
+      return `${(Math.floor(learners / 100) * 100) / 1000}k`;
     }
-    if (learners.length > 1000) {
-      const rounded = (Math.floor(learners.length / 100) * 100) / 1000;
-      return `${rounded}k`;
-    }
-    return learners.length;
+    return learners;
   };
 
   return (
-    <Link to={'deck/' + deck.id} className="deck-list-item">
-      {console.log(deck)}
+    <Link to={'/deck/' + deck.id} className="deck-list-item">
       <img src={deck.img} alt={deck.title} />
       <div className="deck-info">
         <div className="deck-title">{deck.title}</div>
