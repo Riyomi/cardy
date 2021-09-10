@@ -1,4 +1,8 @@
-const DeckMenu = ({ showMenu, setShowMenu, MENU }) => {
+import { useUser } from 'contexts/UserContext';
+
+const DeckMenu = ({ showMenu, setShowMenu, MENU, deck }) => {
+  const { userInfo: user } = useUser();
+
   return (
     <div id="deck-details-menu">
       <span
@@ -13,12 +17,14 @@ const DeckMenu = ({ showMenu, setShowMenu, MENU }) => {
       >
         Cards
       </span>
-      <span
-        className={showMenu === MENU.EDIT ? 'active' : ''}
-        onClick={() => setShowMenu(MENU.EDIT)}
-      >
-        Edit
-      </span>
+      {user && user?.id === deck.user.id && (
+        <span
+          className={showMenu === MENU.EDIT ? 'active' : ''}
+          onClick={() => setShowMenu(MENU.EDIT)}
+        >
+          Edit
+        </span>
+      )}
     </div>
   );
 };

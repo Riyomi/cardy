@@ -1,0 +1,39 @@
+.edit-deck {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 700px;
+}
+
+.edit-deck-form {
+  color: black;
+
+  label {
+    color: $primaryColor;
+  }
+
+  .field-wrapper > input {
+    display: block;
+    box-sizing: border-box;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid $lightGray;
+    padding: 5px 10px;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $primaryColor;
+    }
+  }
+
+  input::selection {
+    background: $accentColor;
+  }
+
+  .submit-btn {
+    @include btn;
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
+}

@@ -8,6 +8,8 @@ const UserDropdown = ({ user, setUserInfo }) => {
 
   const logout = () => {
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('expires');
     setUserInfo(null);
 
     try {

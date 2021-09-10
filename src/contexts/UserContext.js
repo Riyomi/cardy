@@ -10,25 +10,11 @@ export function UserProvider({ children }) {
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem('userInfo'))
   );
-
-  const setUser = (user) => {
-    setUserInfo({
-      userInfo: user,
-      accesToken: userInfo.accessToken,
-      expires: Date.parse(userInfo.expires),
-    });
-
-    localStorage.setItem('userInfo', userInfo);
-  };
-
   return (
     <UserContext.Provider
       value={{
-        userInfo: userInfo?.user,
-        accessToken: userInfo?.accessToken,
-        expires: Date.parse(userInfo?.expires),
+        userInfo: userInfo,
         setUserInfo,
-        setUser,
       }}
     >
       {children}

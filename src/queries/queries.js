@@ -74,6 +74,10 @@ export const GET_USER = gql`
         img
         learners
         publicId
+        category {
+          id
+          name
+        }
         cards {
           id
           front
@@ -106,6 +110,10 @@ export const GET_DECK = gql`
       img
       learners
       publicId
+      category {
+        id
+        name
+      }
       user {
         id
       }
@@ -150,6 +158,10 @@ export const GET_DECKS = gql`
       img
       learners
       publicId
+      category {
+        id
+        name
+      }
       user {
         id
       }
@@ -222,5 +234,23 @@ export const CREATE_CARD = gql`
 export const DELETE_CARD = gql`
   mutation DeleteCard($id: ID!) {
     deleteCard(id: $id)
+  }
+`;
+
+export const EDIT_DECK = gql`
+  mutation EditDeck($id: ID!, $categoryId: ID!, $title: String) {
+    editDeck(id: $id, categoryId: $categoryId, title: $title) {
+      id
+      title
+      category {
+        name
+      }
+    }
+  }
+`;
+
+export const CHANGE_VISIBILITY = gql`
+  mutation ChangeVisibility($id: ID!) {
+    changeVisibility(id: $id)
   }
 `;

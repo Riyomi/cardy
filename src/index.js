@@ -15,21 +15,51 @@ const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
+ async function callFetch(headers) {
+        const res = await fetch('/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: `mutation {
+            accessToken {
+              accessToken
+              expires
+            }
+          }`,
+          }),
+        });
+
+        const result = await res.json();
+
+        const { accessToken, expires } = result.data.accessToken;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('expires', expires);
+
+        return  {
+          headers: {
+            ...headers,
+            authorization: `Bearer ${accessToken}`,
+          },
+        };
+      }
+
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  let token = '';
+  if (localStorage.getItem('accessToken')) {
+    const token = localStorage.getItem('accessToken');
 
-  if (localStorage.getItem('userInfo')) {
-    token = JSON.parse(localStorage.getItem('userInfo')).accessToken;
+    if (Date.parse(localStorage.getItem('expires')) - Date.now() < 0) {
+     return callFetch(headers);
+    } else {
+      return {
+          headers: {
+            ...headers,
+            authorization: `Bearer ${token}`,
+          },
+        };
+    }
   }
-
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: `Bearer ${token}`,
-    },
-  };
 });
 
 const client = new ApolloClient({

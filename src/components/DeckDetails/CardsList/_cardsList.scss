@@ -1,0 +1,61 @@
+#cards-list {
+  grid-column-start: 1;
+  grid-column-end: 3;
+
+  table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+
+    input {
+      border-radius: 10px;
+      border: 1px solid $lightGray;
+      width: 80%;
+      height: 25px;
+      padding: 2px 10px;
+      font-size: 16px;
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $primaryColor;
+      }
+    }
+
+    th:first-of-type {
+      border-top-left-radius: 10px;
+    }
+
+    th:last-of-type {
+      border-top-right-radius: 10px;
+    }
+
+    tr:last-child {
+      td:first-of-type {
+        border-bottom-left-radius: 10px;
+      }
+
+      td:last-of-type {
+        border-bottom-right-radius: 10px;
+      }
+    }
+
+    th {
+      color: white;
+      background: $primaryColor;
+      padding: 5px 0;
+    }
+
+    td {
+      color: $textColor;
+      padding: 5px 0;
+    }
+
+    tr {
+      background: #fafafa;
+    }
+
+    .icon-btn {
+      color: $primaryColor;
+    }
+  }
+}

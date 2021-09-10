@@ -27,6 +27,8 @@
 
 @import '../components/DeckDetails/DeckHeader/_deckHeader';
 @import '../components/DeckDetails/DeckBody/_deckBody';
+@import '../components/DeckDetails/CardsList/_cardsList';
+@import '../components/DeckDetails/EditDeck/_editDeck';
 
 @import '../pages/Browse/_browse';
 @import '../pages/Dashboard/_dashboard';
@@ -146,7 +148,7 @@ h3 {
   grid-template-columns: 4fr 6fr;
   width: 750px;
   margin: 20px auto;
-  border-radius: 4px;
+  border-radius: 10px;
   @include apply-shadow;
 }
 
@@ -156,13 +158,13 @@ h3 {
   font-size: $fontLarge;
   font-weight: bold;
   padding: 40px 20px;
-  border-radius: 4px 0 0 4px;
+  border-radius: 10px 0 0 10px;
   text-align: center;
 }
 
 .form-main {
   padding: 20px 40px;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 10px 10px 0;
 }
 
 .user-form {
@@ -175,10 +177,15 @@ h3 {
     display: block;
     box-sizing: border-box;
     width: 100%;
-    border: 1px solid #f0f0f0;
     margin-top: 5px;
     padding: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+    border: 1px solid $lightGray;
+    border-radius: 10px;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $primaryColor;
+    }
   }
 
   .extra-text {

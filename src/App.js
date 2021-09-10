@@ -10,16 +10,9 @@ import DeckDetails from 'pages/DeckDetails/DeckDetails';
 import Dashboard from 'pages/Dashboard/Dashboard';
 import Study from 'pages/Study/Study';
 import CreateDeck from 'pages/CreateDeck/CreateDeck';
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
-import { useUser } from 'contexts/UserContext';
-import { useEffect, useState } from 'react';
-
-const brand = 'cardy';
-const copyright = '©2021 All rights reserved.';
 
 const App = () => {
-  const { expires } = useUser();
-  const [showTimeout, setShowTimeout] = useState(false);
+  const brand = 'cardy';
 
   const DefaultRoutes = () => (
     <>
@@ -33,24 +26,16 @@ const App = () => {
           <Route path="/deck/:id" component={DeckDetails} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/create-deck" component={CreateDeck} />
-          <Route path="/" component={Home} />
+          <Route exact path="/" component={Home} />
         </Switch>
       </div>
-      <Footer brand={brand} copyright={copyright} />
+      <Footer brand={brand} />
     </>
   );
-
-  useEffect(() => {
-    if (expires - Date.now() <= 0) setShowTimeout(true);
-    else setTimeout(() => setShowTimeout(true), expires - Date.now());
-  }, [expires, showTimeout]);
 
   return (
     <Router>
       <div className="app">
-        {showTimeout && (
-          <PopupMessage message="Your session has expired, please refresh the page" />
-        )}
         <Switch>
           <Route path="/study" component={Study} />
           <Route component={DefaultRoutes} />

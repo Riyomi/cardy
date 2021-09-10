@@ -5,29 +5,23 @@ import {
   GET_DECKS,
   GET_USER,
 } from 'queries/queries';
+import Select from 'react-select';
 import { useState } from 'react';
-import FormField from 'components/common/FormField/FormField';
 import { useUser } from 'contexts/UserContext';
 import { Redirect, useHistory } from 'react-router-dom';
 import PopupMessage from 'components/common/PopupMessage/PopupMessage';
-import Select from 'react-select';
+import FormField from 'components/common/FormField/FormField';
 
 const CreateDeck = () => {
   const [title, setTitle] = useState('');
   const [img /*setImg*/] = useState(undefined);
   const [categoryId, setCategoryId] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState();
   const history = useHistory();
   const { userInfo } = useUser();
 
   const [createDeck, { error }] = useMutation(CREATE_DECK, {
     onCompleted: (data) => {
-      setSuccess(true);
-      setMessage('Successfully created deck ' + data.createDeck.title);
-      setTimeout(() => {
-        history.push('/');
-      }, 2000);
+      history.push('/deck/' + data.createDeck.id);
     },
     refetchQueries: [
       { query: GET_DECKS },
@@ -49,7 +43,6 @@ const CreateDeck = () => {
   return (
     <div>
       {error && <PopupMessage message={error.message} type="error" />}
-      {success && <PopupMessage message={message} type="success" />}
       {data && (
         <div className="form-wrapper">
           <div className="sidebar">Create deck </div>

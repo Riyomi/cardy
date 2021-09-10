@@ -23,9 +23,15 @@ const Login = () => {
           password,
         },
       });
-      localStorage.setItem('userInfo', JSON.stringify(userInfo.data.loginUser));
+      localStorage.setItem(
+        'userInfo',
+        JSON.stringify(userInfo.data.loginUser.user)
+      );
 
-      setUserInfo(userInfo.data.loginUser);
+      setUserInfo(userInfo.data.loginUser.user);
+
+      localStorage.setItem('accessToken', userInfo.data.loginUser.accessToken);
+      localStorage.setItem('expires', userInfo.data.loginUser.expires);
       history.push('/dashboard');
     } catch (err) {
       console.log(err);

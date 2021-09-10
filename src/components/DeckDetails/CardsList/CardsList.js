@@ -5,12 +5,13 @@ import { useState } from 'react';
 const CardsList = ({ deckId, cards, editable }) => {
   const [front, setFront] = useState('');
   const [back, setBack] = useState('');
-  const [createCard] = useMutation(CREATE_CARD, {
+
+  const options = {
     refetchQueries: [{ query: GET_DECK, variables: { id: deckId } }],
-  });
-  const [deleteCard] = useMutation(DELETE_CARD, {
-    refetchQueries: [{ query: GET_DECK, variables: { id: deckId } }],
-  });
+  };
+
+  const [createCard] = useMutation(CREATE_CARD, options);
+  const [deleteCard] = useMutation(DELETE_CARD, options);
 
   const handleCreateCard = async () => {
     try {
@@ -21,6 +22,7 @@ const CardsList = ({ deckId, cards, editable }) => {
           back: back,
         },
       });
+
       setFront('');
       setBack('');
     } catch (err) {
@@ -29,7 +31,6 @@ const CardsList = ({ deckId, cards, editable }) => {
   };
 
   const handleDeleteCard = async (id) => {
-    console.log(id);
     try {
       await deleteCard({
         variables: {

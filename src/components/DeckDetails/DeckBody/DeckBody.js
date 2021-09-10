@@ -3,20 +3,26 @@ import { useUser } from 'contexts/UserContext';
 import { useState } from 'react';
 import CardsList from '../CardsList/CardsList';
 import DeckMenu from '../DeckMenu/DeckMenu';
+import EditDeck from '../EditDeck/EditDeck';
 
 const DeckBody = ({ deck }) => {
-  const { userInfo: user } = useUser();
-
   const MENU = {
     OVERVIEW: 0,
     CARDS: 1,
     EDIT: 2,
   };
+
   const [showMenu, setShowMenu] = useState(MENU.OVERVIEW);
+  const { userInfo: user } = useUser();
 
   return (
     <>
-      <DeckMenu showMenu={showMenu} setShowMenu={setShowMenu} MENU={MENU} />
+      <DeckMenu
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+        MENU={MENU}
+        deck={deck}
+      />
       <div id="deck-body">
         {showMenu === MENU.OVERVIEW && (
           <>
@@ -30,28 +36,26 @@ const DeckBody = ({ deck }) => {
             cards={deck.cards}
             deckId={deck.id}
             editable={
-              user.id === deck.user.id &&
+              user?.id === deck.user.id &&
               (deck.id === deck.publicId || !deck.publicId)
             }
           />
         )}
         {showMenu === MENU.EDIT && (
-          <div>
-            <p>Edit deck info</p>
-            {deck.id !== deck.publicId && deck.publicId && (
+          <div className="edit-deck">
+            <h3>Edit deck info</h3>
+            {deck?.id !== deck?.publicId && deck?.publicId && (
               <p>
                 You currently cannot edit this deck because it is synched. If
                 you want to make any changes, either opt out of synching by{' '}
-                <a href="placeholder" style={{ color: 'black' }}>
-                  clicking here
-                </a>{' '}
-                or ask{' '}
-                <a href="placeholder" style={{ color: 'black' }}>
-                  the owner
-                </a>{' '}
+                <strong>clicking here</strong> or ask <strong>the owner</strong>{' '}
                 of the original deck.
               </p>
             )}
+            {deck?.user.id === user?.id &&
+              (!deck.publicId || deck.publicId === deck.id) && (
+                <EditDeck deck={deck} />
+              )}
           </div>
         )}
       </div>
