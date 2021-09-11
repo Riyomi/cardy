@@ -4,10 +4,18 @@ import { useUser } from 'contexts/UserContext';
 import { COPY_DECK, GET_DECK, GET_USER, QUIT_DECK } from 'queries/queries';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  cardsDueTo,
+  getDeckProgression,
+  getMasteredCards,
+  getSeenCards,
+} from 'utils/utils';
+import { useHistory } from 'react-router-dom';
 
 const DeckCard = ({ deck, location }) => {
   const { userInfo } = useUser();
   const [openMenu, setOpenMenu] = useState(false);
+  const history = useHistory();
   const [quitDeck] = useMutation(QUIT_DECK, {
     onCompleted: () => console.log('deleted ' + deck.title),
     refetchQueries: [{ query: GET_USER, variables: { id: userInfo?.id } }],
@@ -27,7 +35,12 @@ const DeckCard = ({ deck, location }) => {
   };
 
   const handleCopy = () => {
-    copyDeck({ variables: { id: deck.id } }).catch((err) => console.log(err));
+    copyDeck({ variables: { id: deck.id } })
+      .then((res) => {
+        console.log(res);
+        history.push('/deck/' + res.data.copyDeck.id);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -45,11 +58,12 @@ const DeckCard = ({ deck, location }) => {
               </Link>
               {location === 'dashboard' && (
                 <span id="cards-learned">
-                  0 / {deck.cards ? deck.cards.length : 0} cards
+                  {getSeenCards(deck.cards)} /{' '}
+                  {deck.cards ? deck.cards.length : 0} cards
                 </span>
               )}
               <ProgressBar
-                progress={0}
+                progress={getDeckProgression(deck)}
                 styles={{
                   marginTop: '5px',
                   width: '100%',
@@ -78,16 +92,24 @@ const DeckCard = ({ deck, location }) => {
                 </div>
               )}
             </span>
-            <button id="review-btn">Review (0)</button>
+            {cardsDueTo(deck.cards) > 0 ? (
+              <button id="review-btn">Review ({cardsDueTo(deck.cards)})</button>
+            ) : (
+              <button id="review-btn">Learn new</button>
+            )}
           </div>
         </div>
       )}
       {location === 'details' && (
         <div id="deck-details-card" className="deck-card">
           <div>
-            0 / {deck.cards ? deck.cards.length : 0} cards learned (0 mastered)
+            {getSeenCards(deck.cards)} / {deck.cards ? deck.cards.length : 0}{' '}
+            cards learned ({getMasteredCards(deck.cards)} mastered)
           </div>
-          <ProgressBar progress={0} styles={{ margin: '10px 0' }} />
+          <ProgressBar
+            progress={getDeckProgression(deck)}
+            styles={{ margin: '10px 0' }}
+          />
           <div id="deck-bottom">
             {userInfo?.id === deck.user.id && (
               <span id="deck-options" onClick={() => setOpenMenu(!openMenu)}>
@@ -114,9 +136,14 @@ const DeckCard = ({ deck, location }) => {
                 Start studying
               </button>
             )}
-            {deck.user.id === userInfo?.id && (
-              <button id="review-btn">Review</button>
-            )}
+            {deck.user.id === userInfo?.id &&
+              (cardsDueTo(deck.cards) > 0 ? (
+                <button id="review-btn">
+                  Review ({cardsDueTo(deck.cards)})
+                </button>
+              ) : (
+                <button id="review-btn">Learn new</button>
+              ))}
           </div>
         </div>
       )}

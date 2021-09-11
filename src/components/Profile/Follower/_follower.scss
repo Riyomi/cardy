@@ -1,5 +1,6 @@
 .follower {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-between;
   padding: 8px 10px;
@@ -31,6 +32,23 @@
   .follower-details {
     display: flex;
     align-items: center;
+  }
+
+  .level-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-sizing: border-box;
+    bottom: 8%;
+    left: 15%;
+    font-size: 12px;
+    color: white;
+    background: $primaryColor;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
   }
 }
 

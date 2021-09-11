@@ -67,6 +67,7 @@ export const GET_USER = gql`
       name
       email
       img
+      experience
       decks {
         id
         title
@@ -81,6 +82,7 @@ export const GET_USER = gql`
           id
           front
           back
+          nextReview
         }
       }
       followers {
@@ -118,6 +120,7 @@ export const GET_DECK = gql`
         id
         front
         back
+        nextReview
       }
       createdBy {
         id
@@ -173,6 +176,7 @@ export const GET_DECKS = gql`
         id
         front
         back
+        nextReview
       }
     }
   }

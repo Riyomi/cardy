@@ -5,6 +5,7 @@ import { GET_USER } from 'queries/queries';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
+import { getProgress } from 'utils/utils';
 
 const Dashboard = () => {
   const { userInfo } = useUser();
@@ -13,6 +14,19 @@ const Dashboard = () => {
       id: userInfo?.id,
     },
   });
+
+  const getWelcomeMessage = () => {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 4 && hour < 12) {
+      return 'Good morning';
+    } else if (hour < 18) {
+      return 'Good afternoon';
+    } else {
+      return 'Good evening';
+    }
+  };
 
   if (!userInfo) return <Redirect to="/login" />;
 
@@ -25,12 +39,16 @@ const Dashboard = () => {
             <div id="user-info">
               <h3>{data.user.name}</h3>
               <img src={data.user.img} alt={data.user.name} />
-              <ProgressBar progress={50} />
+              <ProgressBar
+                progress={getProgress(data.user.experience).progress}
+              />
               <div>0 cards mastered</div>
               <Link to={'profile/' + data.user.id}>View profile</Link>
             </div>
             <div id="dashboard-digest">
-              <h1>Good morning, {data.user.name}</h1>
+              <h1>
+                {getWelcomeMessage()}, {data.user.name}
+              </h1>
               {data.user.decks.length === 0 ? (
                 <>
                   <div>You don't have any decks yet</div>

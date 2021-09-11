@@ -37,7 +37,6 @@ const Study = () => {
   };
 
   const rateCard = (difficulty) => {
-    console.log(difficulty);
     if (difficulty !== DIFFICULTY.DIDNT_KNOW) {
       const newCards = cards.filter((card) => card !== cards[0]);
       console.log(
