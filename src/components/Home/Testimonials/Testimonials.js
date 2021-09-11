@@ -16,7 +16,6 @@ const Testimonials = () => {
   useEffect(() => {
     axios.get(apiEndPoint + '?results=3').then((response) => {
       const data = response.data.results;
-      console.log(data);
       setPeople(data);
     });
   }, []);

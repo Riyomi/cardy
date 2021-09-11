@@ -7,16 +7,15 @@ export const LOGIN_USER = gql`
         id
         name
         img
+        experience
         followers {
           id
           name
-          level
           experience
         }
         following {
           id
           name
-          level
           experience
         }
       }
@@ -87,14 +86,12 @@ export const GET_USER = gql`
       followers {
         id
         name
-        level
         experience
         img
       }
       following {
         id
         name
-        level
         experience
         img
       }
@@ -234,6 +231,16 @@ export const CREATE_CARD = gql`
 export const DELETE_CARD = gql`
   mutation DeleteCard($id: ID!) {
     deleteCard(id: $id)
+  }
+`;
+
+export const EDIT_CARD = gql`
+  mutation EditCard($id: ID!, $front: String!, $back: String!) {
+    editCard(id: $id, front: $front, back: $back) {
+      id
+      front
+      back
+    }
   }
 `;
 

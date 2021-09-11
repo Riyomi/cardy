@@ -65,46 +65,49 @@ const EditDeck = ({ deck }) => {
 
   return (
     <div>
-      <form onSubmit={(e) => handleEditDeck(e)} className="edit-deck-form">
-        <FormField
-          name="Title"
-          type="text"
-          value={title}
-          setValue={setTitle}
-          required={true}
-        />
-        <div className="field-wrapper">
-          <label>Category</label>
-          {data && (
+      <div id="edit-deck-info">
+        <h3>Edit deck info</h3>
+        <form onSubmit={(e) => handleEditDeck(e)} className="edit-deck-form">
+          <FormField
+            name="Title"
+            type="text"
+            value={title}
+            setValue={setTitle}
+            required={true}
+          />
+          <div className="field-wrapper">
+            <label>Category</label>
+            {data && (
+              <Select
+                defaultValue={{
+                  value: deck.category.id,
+                  label: deck.category.name,
+                }}
+                options={data.categories.map((c) => ({
+                  value: c.id,
+                  label: c.name,
+                }))}
+                onChange={(selected) => setCategoryId(selected.value)}
+              />
+            )}
+          </div>
+          <div className="field-wrapper">
+            <label>Visibility</label>
             <Select
               defaultValue={{
-                value: deck.category.id,
-                label: deck.category.name,
+                value: deck.publicId ? 'Public' : 'Private',
+                label: deck.publicId ? 'Public' : 'Private',
               }}
-              options={data.categories.map((c) => ({
-                value: c.id,
-                label: c.name,
-              }))}
-              onChange={(selected) => setCategoryId(selected.value)}
+              options={[
+                { value: 'Private', label: 'Private' },
+                { value: 'Public', label: 'Public' },
+              ]}
+              onChange={(selected) => setVisibilty(selected.value)}
             />
-          )}
-        </div>
-        <div className="field-wrapper">
-          <label>Visibility</label>
-          <Select
-            defaultValue={{
-              value: deck.publicId ? 'Public' : 'Private',
-              label: deck.publicId ? 'Public' : 'Private',
-            }}
-            options={[
-              { value: 'Private', label: 'Private' },
-              { value: 'Public', label: 'Public' },
-            ]}
-            onChange={(selected) => setVisibilty(selected.value)}
-          />
-        </div>
-        <input type="submit" className="submit-btn" value="Save changes" />
-      </form>
+          </div>
+          <input type="submit" className="submit-btn" value="Save changes" />
+        </form>
+      </div>
     </div>
   );
 };
