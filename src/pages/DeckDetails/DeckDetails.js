@@ -3,6 +3,7 @@ import DeckBody from 'components/DeckDetails/DeckBody/DeckBody';
 import DeckHeader from 'components/DeckDetails/DeckHeader/DeckHeader';
 import { GET_DECK } from 'queries/queries';
 import { useParams } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 const DeckDetails = () => {
   const { id } = useParams();
@@ -10,12 +11,12 @@ const DeckDetails = () => {
 
   return (
     <>
-      {error && error.message}
+      {error && <Redirect to="/404" />}
       {!loading && data && (
-        <div>
+        <>
           <DeckHeader deck={data.deck} />
           <DeckBody deck={data.deck} />
-        </div>
+        </>
       )}
     </>
   );

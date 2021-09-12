@@ -1,7 +1,13 @@
 import { useMutation } from '@apollo/client';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useUser } from 'contexts/UserContext';
-import { COPY_DECK, GET_DECK, GET_USER, QUIT_DECK } from 'queries/queries';
+import {
+  COPY_DECK,
+  GET_DECK,
+  GET_DECKS,
+  GET_USER,
+  QUIT_DECK,
+} from 'queries/queries';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -18,7 +24,11 @@ const DeckCard = ({ deck, location }) => {
   const history = useHistory();
   const [quitDeck] = useMutation(QUIT_DECK, {
     onCompleted: () => console.log('deleted ' + deck.title),
-    refetchQueries: [{ query: GET_USER, variables: { id: userInfo?.id } }],
+    refetchQueries: [
+      { query: GET_USER, variables: { id: userInfo?.id } },
+      { query: GET_DECKS },
+      { query: GET_DECK, variables: { id: deck.publicId } },
+    ],
   });
 
   const [copyDeck] = useMutation(COPY_DECK, {
@@ -35,12 +45,25 @@ const DeckCard = ({ deck, location }) => {
   };
 
   const handleCopy = () => {
-    copyDeck({ variables: { id: deck.id } })
+    console.log(deck);
+
+    if (!userInfo) return history.push('/login');
+
+    copyDeck({ variables: { id: deck.publicId ? deck.publicId : deck.id } })
       .then((res) => {
         console.log(res);
         history.push('/deck/' + res.data.copyDeck.id);
       })
       .catch((err) => console.log(err));
+  };
+
+  const startStudySession = () => {
+    console.log('starting study session');
+    history.push('/study', [
+      { front: 'asd' },
+      { back: 'asd' },
+      { back: 'asdasd' },
+    ]);
   };
 
   return (
@@ -92,8 +115,10 @@ const DeckCard = ({ deck, location }) => {
                 </div>
               )}
             </span>
-            {cardsDueTo(deck.cards) > 0 ? (
-              <button id="review-btn">Review ({cardsDueTo(deck.cards)})</button>
+            {cardsDueTo(deck.cards).length > 0 ? (
+              <button id="review-btn">
+                Review ({cardsDueTo(deck.cards).length})
+              </button>
             ) : (
               <button id="review-btn">Learn new</button>
             )}
@@ -137,12 +162,14 @@ const DeckCard = ({ deck, location }) => {
               </button>
             )}
             {deck.user.id === userInfo?.id &&
-              (cardsDueTo(deck.cards) > 0 ? (
-                <button id="review-btn">
-                  Review ({cardsDueTo(deck.cards)})
+              (cardsDueTo(deck.cards).length > 0 ? (
+                <button id="review-btn" onClick={startStudySession}>
+                  Review ({cardsDueTo(deck.cards).length})
                 </button>
               ) : (
-                <button id="review-btn">Learn new</button>
+                <button id="review-btn" onClick={startStudySession}>
+                  Learn new
+                </button>
               ))}
           </div>
         </div>

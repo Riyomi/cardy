@@ -15,49 +15,50 @@ const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
- async function callFetch(headers) {
-        const res = await fetch('/graphql', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: `mutation {
+async function callFetch(headers) {
+  const res = await fetch('/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `mutation {
             accessToken {
               accessToken
               expires
             }
           }`,
-          }),
-        });
+    }),
+  });
 
-        const result = await res.json();
+  const result = await res.json();
 
-        const { accessToken, expires } = result.data.accessToken;
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('expires', expires);
+  const { accessToken, expires } = result.data.accessToken;
 
-        return  {
-          headers: {
-            ...headers,
-            authorization: `Bearer ${accessToken}`,
-          },
-        };
-      }
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('expires', expires);
+
+  return {
+    headers: {
+      ...headers,
+      authorization: `Bearer ${accessToken}`,
+    },
+  };
+}
 
 const authLink = setContext((_, { headers }) => {
   if (localStorage.getItem('accessToken')) {
     const token = localStorage.getItem('accessToken');
 
     if (Date.parse(localStorage.getItem('expires')) - Date.now() < 0) {
-     return callFetch(headers);
+      return callFetch(headers);
     } else {
       return {
-          headers: {
-            ...headers,
-            authorization: `Bearer ${token}`,
-          },
-        };
+        headers: {
+          ...headers,
+          authorization: `Bearer ${token}`,
+        },
+      };
     }
   }
 });

@@ -9,14 +9,14 @@ const UserDropdown = ({ user, setUserInfo }) => {
   const [logoutUser] = useMutation(LOGOUT_USER);
   const { level, progress } = getProgress(user.experience);
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('expires');
     setUserInfo(null);
 
     try {
-      logoutUser();
+      await logoutUser();
     } catch (err) {
       console.log(err);
     }

@@ -1,17 +1,16 @@
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useUser } from 'contexts/UserContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
-const Study = () => {
+const Study = ({ location }) => {
   const history = useHistory();
 
   const [progress, setProgress] = useState(0);
   const [max /* setMax*/] = useState(0);
   const [showQuestion, setShowQuestion] = useState(true);
   const [cards, setCards] = useState([]);
-  const [isPending /* setIsPending */] = useState(true);
 
   const { userInfo } = useUser();
 
@@ -63,10 +62,16 @@ const Study = () => {
     setShowQuestion(true);
   };
 
+  useEffect(() => {
+    if (!location.state) history.push('/');
+    setCards(location.state);
+  }, [location.state, history]);
+
   if (!userInfo) return <Redirect to="/" />;
 
   return (
     <div>
+      {console.log(cards)}
       <div id="study-header" className="navbar">
         <span>Top 2000 German words</span>
         <span className="spacer"></span>
@@ -74,7 +79,7 @@ const Study = () => {
           close
         </span>
       </div>
-      {!isPending && cards.length !== 0 && (
+      {cards && cards.length > 0 && (
         <div id="study-content">
           <ProgressBar progress={(progress / max) * 100} />
           {showQuestion && (

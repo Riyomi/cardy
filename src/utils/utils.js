@@ -27,5 +27,5 @@ export function getMasteredCards(cards) {
 export function cardsDueTo(cards) {
   return cards.filter(
     (card) => card.nextReview && card.nextReview - Date.now() <= 0
-  ).length;
+  );
 }
