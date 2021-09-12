@@ -26,7 +26,7 @@ const DeckBody = ({ deck }) => {
       <div id="deck-body">
         {showMenu === MENU.OVERVIEW && (
           <>
-            <DeckCard deck={deck} location="details" />
+            <DeckCard deck={deck} />
             <div id="card-distribution">Card distribution graph</div>
             <div id="review-forecast">Review forecast graph</div>
           </>

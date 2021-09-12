@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import Testimonial from '../Testimonial/Testimonial';
 import axios from 'axios';
 
-const apiEndPoint = 'https://randomuser.me/api';
-
 const testimonials = [
   "My grades have skyrocketed since I'm using Cardy. I couldn't be more grateful this app exists!",
   "My grades have skyrocketed since I'm using Cardy. I couldn't be more grateful this app exists!",
@@ -14,10 +12,16 @@ const Testimonials = () => {
   const [people, setPeople] = useState([]);
 
   useEffect(() => {
-    axios.get(apiEndPoint + '?results=3').then((response) => {
-      const data = response.data.results;
-      setPeople(data);
-    });
+    const testimonials = localStorage.getItem('testimonials');
+    if (testimonials) {
+      setPeople(JSON.parse(testimonials));
+    } else {
+      axios.get('https://randomuser.me/api?results=3').then((response) => {
+        const data = response.data.results;
+        localStorage.setItem('testimonials', JSON.stringify(data));
+        setPeople(data);
+      });
+    }
   }, []);
 
   return (

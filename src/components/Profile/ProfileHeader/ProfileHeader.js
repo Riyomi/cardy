@@ -60,7 +60,9 @@ const ProfileHeader = ({ user }) => {
           </p>
           <p>
             <span className="material-icons-outlined profile-icon">school</span>
-            <span className="profile-icon-text">0 cards mastered</span>
+            <span className="profile-icon-text">
+              {user.mastered} cards mastered
+            </span>
           </p>
         </div>
       </div>

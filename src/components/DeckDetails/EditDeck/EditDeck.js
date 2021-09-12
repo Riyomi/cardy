@@ -48,9 +48,13 @@ const EditDeck = ({ deck }) => {
       }?`;
 
       if (window.confirm(message)) {
-        await changeVisibility({
-          variables: { id: deck.id },
-        });
+        try {
+          await changeVisibility({
+            variables: { id: deck.id },
+          });
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
 

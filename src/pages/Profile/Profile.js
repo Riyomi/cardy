@@ -11,8 +11,6 @@ const Profile = () => {
     variables: { id },
   });
 
-  if (error) return <Redirect to="/" />;
-
   return (
     <>
       {!loading && !error && (
@@ -21,6 +19,7 @@ const Profile = () => {
           <ProfileBody user={data.user} />
         </>
       )}
+      {error && <Redirect to="/" />}
     </>
   );
 };

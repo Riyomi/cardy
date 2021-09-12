@@ -1,13 +1,16 @@
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { useUser } from 'contexts/UserContext';
 import { useQuery } from '@apollo/client';
 import { GET_USER } from 'queries/queries';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
-import { getProgress } from 'utils/utils';
+import { getUserProgress } from 'utils/utils';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
+  const history = useHistory();
   const { userInfo } = useUser();
   const { data } = useQuery(GET_USER, {
     variables: {
@@ -28,7 +31,9 @@ const Dashboard = () => {
     }
   };
 
-  if (!userInfo) return <Redirect to="/login" />;
+  useEffect(() => {
+    if (!userInfo) history.push('/login');
+  });
 
   return (
     <div id="dashboard-content">
@@ -40,9 +45,9 @@ const Dashboard = () => {
               <h3>{data.user.name}</h3>
               <img src={data.user.img} alt={data.user.name} />
               <ProgressBar
-                progress={getProgress(data.user.experience).progress}
+                progress={getUserProgress(data.user.experience).progress}
               />
-              <div>0 cards mastered</div>
+              <div>{data.user.mastered} cards mastered</div>
               <Link to={'profile/' + data.user.id}>View profile</Link>
             </div>
             <div id="dashboard-digest">
@@ -67,7 +72,7 @@ const Dashboard = () => {
           <div id="decks-and-followers">
             <div id="deck-info-list">
               {data.user.decks.map((deck, index) => (
-                <DeckCard deck={deck} key={index} location="dashboard" />
+                <DeckCard deck={deck} key={index} />
               ))}
             </div>
             <Followers

@@ -1,4 +1,4 @@
-export function getProgress(experience) {
+export function getUserProgress(experience) {
   const level = parseInt(Math.sqrt(experience / 50)) + 1;
   const value = Math.sqrt(experience / 50);
   const progress = ((value - Math.floor(value)) * 100).toFixed(2);
@@ -7,6 +7,10 @@ export function getProgress(experience) {
     level: level > 99 ? 99 : level,
     progress: progress,
   };
+}
+
+export function timeLeftUntilReview(card) {
+  if (!card.nextReview) return 'not seen yet';
 }
 
 export function getSeenCards(cards) {
@@ -18,10 +22,6 @@ export function getDeckProgression(deck) {
   if (!deck.cards.length) return 0;
 
   return (getSeenCards(deck.cards) / deck.cards.length) * 100;
-}
-
-export function getMasteredCards(cards) {
-  return cards.filter((card) => card.mastered).length;
 }
 
 export function cardsDueTo(cards) {

@@ -6,9 +6,9 @@ import {
   GET_USER,
 } from 'queries/queries';
 import Select from 'react-select';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from 'contexts/UserContext';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 import FormField from 'components/common/FormField/FormField';
 
@@ -30,7 +30,9 @@ const CreateDeck = () => {
   });
   const { data } = useQuery(GET_CATEGORIES);
 
-  if (!userInfo) return <Redirect to="/login" />;
+  useEffect(() => {
+    if (!userInfo) history.push('/login');
+  });
 
   const handleCreateDeck = (e) => {
     e.preventDefault();

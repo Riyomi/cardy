@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import FormField from 'components/common/FormField/FormField';
 import { useUser } from 'contexts/UserContext';
 import { useMutation } from '@apollo/client';
@@ -38,7 +38,9 @@ const Login = () => {
     }
   };
 
-  if (userInfo) return <Redirect to="/" />;
+  useEffect(() => {
+    if (userInfo) history.push('/');
+  });
 
   return (
     <div className="form-wrapper">

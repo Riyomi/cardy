@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+/* Authentication */
+
 export const LOGIN_USER = gql`
   mutation loginUser($email: String!, $password: String!) {
     loginUser(email: $email, password: $password) {
@@ -8,16 +10,6 @@ export const LOGIN_USER = gql`
         name
         img
         experience
-        followers {
-          id
-          name
-          experience
-        }
-        following {
-          id
-          name
-          experience
-        }
       }
       accessToken
       expires
@@ -30,6 +22,8 @@ export const LOGOUT_USER = gql`
     logoutUser
   }
 `;
+
+/* User related mutations */
 
 export const CREATE_USER = gql`
   mutation CreateUser(
@@ -51,33 +45,43 @@ export const CREATE_USER = gql`
   }
 `;
 
-export const CREATE_DECK = gql`
-  mutation CreateDeck($title: String, $img: String, $categoryId: ID) {
-    createDeck(title: $title, img: $img, categoryId: $categoryId) {
+export const FOLLOW_USER = gql`
+  mutation FollowUser($userToBeFollowed: ID!) {
+    followUser(userToBeFollowed: $userToBeFollowed) {
       id
-      title
+      email
+      name
     }
   }
 `;
+
+export const UNFOLLOW_USER = gql`
+  mutation UnfollowUser($userToBeUnfollowed: ID!) {
+    unfollowUser(userToBeUnfollowed: $userToBeUnfollowed) {
+      id
+      email
+      name
+    }
+  }
+`;
+
+/* General purpose queries */
 
 export const GET_USER = gql`
   query getUser($id: ID!) {
     user(id: $id) {
       id
       name
-      email
       img
       experience
+      mastered
       decks {
         id
         title
         img
         learners
         publicId
-        category {
-          id
-          name
-        }
+        mastered
         cards {
           id
           front
@@ -109,6 +113,7 @@ export const GET_DECK = gql`
       img
       learners
       publicId
+      mastered
       category {
         id
         name
@@ -126,26 +131,6 @@ export const GET_DECK = gql`
         id
         name
       }
-    }
-  }
-`;
-
-export const FOLLOW_USER = gql`
-  mutation FollowUser($userToBeFollowed: ID!) {
-    followUser(userToBeFollowed: $userToBeFollowed) {
-      id
-      email
-      name
-    }
-  }
-`;
-
-export const UNFOLLOW_USER = gql`
-  mutation UnfollowUser($userToBeUnfollowed: ID!) {
-    unfollowUser(userToBeUnfollowed: $userToBeUnfollowed) {
-      id
-      email
-      name
     }
   }
 `;
@@ -162,9 +147,6 @@ export const GET_DECKS = gql`
         id
         name
       }
-      user {
-        id
-      }
       category {
         name
       }
@@ -174,9 +156,6 @@ export const GET_DECKS = gql`
       }
       cards {
         id
-        front
-        back
-        nextReview
       }
     }
   }
@@ -191,11 +170,25 @@ export const GET_CATEGORIES = gql`
   }
 `;
 
-export const QUIT_DECK = gql`
-  mutation QuitDeck($id: ID!) {
-    quitDeck(id: $id) {
+/* Deck related mutations */
+
+export const CREATE_DECK = gql`
+  mutation CreateDeck($title: String, $img: String, $categoryId: ID) {
+    createDeck(title: $title, img: $img, categoryId: $categoryId) {
       id
       title
+    }
+  }
+`;
+
+export const EDIT_DECK = gql`
+  mutation EditDeck($id: ID!, $categoryId: ID!, $title: String) {
+    editDeck(id: $id, categoryId: $categoryId, title: $title) {
+      id
+      title
+      category {
+        name
+      }
     }
   }
 `;
@@ -208,6 +201,23 @@ export const COPY_DECK = gql`
     }
   }
 `;
+
+export const QUIT_DECK = gql`
+  mutation QuitDeck($id: ID!) {
+    quitDeck(id: $id) {
+      id
+      title
+    }
+  }
+`;
+
+export const CHANGE_VISIBILITY = gql`
+  mutation ChangeVisibility($id: ID!) {
+    changeVisibility(id: $id)
+  }
+`;
+
+/* Card related mutations */
 
 export const CREATE_CARD = gql`
   mutation CreateCard(
@@ -232,12 +242,6 @@ export const CREATE_CARD = gql`
   }
 `;
 
-export const DELETE_CARD = gql`
-  mutation DeleteCard($id: ID!) {
-    deleteCard(id: $id)
-  }
-`;
-
 export const EDIT_CARD = gql`
   mutation EditCard($id: ID!, $front: String!, $back: String!) {
     editCard(id: $id, front: $front, back: $back) {
@@ -248,20 +252,17 @@ export const EDIT_CARD = gql`
   }
 `;
 
-export const EDIT_DECK = gql`
-  mutation EditDeck($id: ID!, $categoryId: ID!, $title: String) {
-    editDeck(id: $id, categoryId: $categoryId, title: $title) {
-      id
-      title
-      category {
-        name
-      }
-    }
+export const DELETE_CARD = gql`
+  mutation DeleteCard($id: ID!) {
+    deleteCard(id: $id)
   }
 `;
 
-export const CHANGE_VISIBILITY = gql`
-  mutation ChangeVisibility($id: ID!) {
-    changeVisibility(id: $id)
+export const STUDY_SESSION = gql`
+  mutation StudySession($cards: String!) {
+    studySession(cards: $cards) {
+      id
+      nextReview
+    }
   }
 `;

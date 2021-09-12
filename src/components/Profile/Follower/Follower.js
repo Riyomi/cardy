@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { getProgress } from 'utils/utils';
+import { getUserProgress } from 'utils/utils';
 
 const Follower = ({ follower }) => {
   return (
@@ -7,7 +7,7 @@ const Follower = ({ follower }) => {
       <div className="follower-details">
         <img src={follower.img} alt={follower.name} />
         <span className="level-badge">
-          {getProgress(follower.experience).level}
+          {getUserProgress(follower.experience).level}
         </span>
         <span>{follower.name}</span>
       </div>

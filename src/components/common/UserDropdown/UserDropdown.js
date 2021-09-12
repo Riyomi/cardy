@@ -3,11 +3,11 @@ import { LOGOUT_USER } from 'queries/queries';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 
 import { Link } from 'react-router-dom';
-import { getProgress } from 'utils/utils';
+import { getUserProgress } from 'utils/utils';
 
 const UserDropdown = ({ user, setUserInfo }) => {
   const [logoutUser] = useMutation(LOGOUT_USER);
-  const { level, progress } = getProgress(user.experience);
+  const { level, progress } = getUserProgress(user.experience);
 
   const logout = async () => {
     localStorage.removeItem('userInfo');

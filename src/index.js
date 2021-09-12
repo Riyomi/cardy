@@ -33,6 +33,12 @@ async function callFetch(headers) {
 
   const result = await res.json();
 
+  if (result?.errors) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('expires');
+    localStorage.removeItem('userInfo');
+  }
+
   const { accessToken, expires } = result.data.accessToken;
 
   localStorage.setItem('accessToken', accessToken);

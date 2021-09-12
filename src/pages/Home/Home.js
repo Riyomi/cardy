@@ -2,12 +2,16 @@ import HeroSection from 'components/Home/HeroSection/HeroSection';
 import Benefits from 'components/Home/Benefits/Benefits';
 import Testimonials from 'components/Home/Testimonials/Testimonials';
 import { useUser } from 'contexts/UserContext';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { useEffect } from 'react';
 
 const Home = () => {
+  const history = useHistory();
   const { userInfo } = useUser();
 
-  if (userInfo) return <Redirect to="/dashboard" />;
+  useEffect(() => {
+    if (userInfo) history.push('/dashboard');
+  });
 
   return (
     <>

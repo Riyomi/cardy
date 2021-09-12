@@ -2,25 +2,16 @@ import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useUser } from 'contexts/UserContext';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { Redirect } from 'react-router-dom';
 
 const Study = ({ location }) => {
+  const { userInfo } = useUser();
   const history = useHistory();
 
-  const [progress, setProgress] = useState(0);
-  const [max /* setMax*/] = useState(0);
-  const [showQuestion, setShowQuestion] = useState(true);
   const [cards, setCards] = useState([]);
+  const [cardData, setCardData] = useState([]);
+  const [showQuestion, setShowQuestion] = useState(true);
 
-  const { userInfo } = useUser();
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:8080/cards').then((res) => {
-  //     setCards(res.data);
-  //     setMax(res.data.length);
-  //     setIsPending(false);
-  //   });
-  // }, []);
+  const deck = location.state.deck;
 
   const handleQuit = () => {
     if (window.confirm('Are you sure you want to quit?')) {
@@ -37,22 +28,18 @@ const Study = ({ location }) => {
 
   const rateCard = (difficulty) => {
     if (difficulty !== DIFFICULTY.DIDNT_KNOW) {
+      const newCardData = [...cardData];
+      newCardData.push({ id: cards[0].id, rated: difficulty });
+      setCardData(newCardData);
+
       const newCards = cards.filter((card) => card !== cards[0]);
-      console.log(
-        new Date(
-          getNextReviewDate(
-            Date.now(),
-            cards[0].step,
-            cards[0].correctStreak,
-            difficulty
-          )
-        )
-      );
-      setProgress(progress + 1);
       setCards(newCards);
 
-      if (newCards.length === 0) {
-        history.push('/dashboard');
+      if (!newCards.length) {
+        console.log('Time to make the call');
+        console.log(newCardData);
+
+        // history.push('/dashboard')
       }
     } else {
       const newCards = [...cards];
@@ -62,18 +49,21 @@ const Study = ({ location }) => {
     setShowQuestion(true);
   };
 
-  useEffect(() => {
-    if (!location.state) history.push('/');
-    setCards(location.state);
-  }, [location.state, history]);
+  const getProgress = () => {
+    const progress = (cardData.length / (cards.length + cardData.length)) * 100;
+    console.log(progress);
+    return progress;
+  };
 
-  if (!userInfo) return <Redirect to="/" />;
+  useEffect(() => {
+    if (!location.state.cards || !userInfo) history.push('/dashboard');
+    setCards(location.state.cards);
+  }, [location.state, history, userInfo]);
 
   return (
     <div>
-      {console.log(cards)}
       <div id="study-header" className="navbar">
-        <span>Top 2000 German words</span>
+        <span>{deck.title}</span>
         <span className="spacer"></span>
         <span className="material-icons-outlined" onClick={handleQuit}>
           close
@@ -81,7 +71,7 @@ const Study = ({ location }) => {
       </div>
       {cards && cards.length > 0 && (
         <div id="study-content">
-          <ProgressBar progress={(progress / max) * 100} />
+          <ProgressBar progress={getProgress()} />
           {showQuestion && (
             <>
               <h1>Question</h1>
@@ -137,28 +127,11 @@ const Study = ({ location }) => {
   );
 };
 
-export const DIFFICULTY = {
+const DIFFICULTY = {
   EASY: 0,
   NORMAL: 1,
   HARD: 2,
   DIDNT_KNOW: 3,
-};
-
-export const getNextReviewDate = (date, step, streak, answered) => {
-  if (answered === DIFFICULTY.EASY) {
-    return date + (step + 0.5) * 3 * 2 ** streak * 60 * 60 * 1000;
-  } else if (answered === DIFFICULTY.NORMAL) {
-    return date + (step + 0.3) * 3 * 2 ** streak * 60 * 60 * 1000;
-  } else if (answered === DIFFICULTY.HARD) {
-    return date + (step + 0.1) * 3 * 2 ** streak * 60 * 60 * 1000;
-  } else if (answered === DIFFICULTY.DIDNT_KNOW) {
-    if (step - 0.2 >= 0.1) {
-      return date + (step - 0.2) * 3 * 2 ** 0 * 60 * 60 * 1000;
-    } else {
-      return date + 0.1 * 3 * 2 ** 0 * 60 * 60 * 1000;
-    }
-  }
-  return date;
 };
 
 export default Study;

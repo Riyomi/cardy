@@ -37,7 +37,7 @@ const CardsList = ({ deckId, cards, editable }) => {
       setFront('');
       setBack('');
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   };
 
