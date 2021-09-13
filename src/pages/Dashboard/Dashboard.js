@@ -8,6 +8,7 @@ import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
 import { getUserProgress } from 'utils/utils';
 import { useEffect } from 'react';
+import { cardsDueTo } from 'utils/utils';
 
 const Dashboard = () => {
   const history = useHistory();
@@ -29,6 +30,40 @@ const Dashboard = () => {
     } else {
       return 'Good evening';
     }
+  };
+
+  const getCardsDueTo = () => {
+    const cardsToReview = [];
+    for (const deck of data.user.decks) {
+      cardsToReview.push(...cardsDueTo(deck.cards));
+    }
+    return cardsToReview;
+  };
+
+  const newCards = () => {
+    const newCards = [];
+
+    for (const deck of data.user.decks) {
+      newCards.push(...deck.cards.filter((card) => !card.nextReview));
+    }
+
+    return newCards.slice(0, 20);
+  };
+
+  const deckToReview = () => {
+    for (const deck of data.user.decks) {
+      const cardsToReview = cardsDueTo(deck.cards);
+      if (cardsToReview.length) return { cards: cardsToReview, deck: deck };
+    }
+    return null;
+  };
+
+  const deckToLearn = () => {
+    for (const deck of data.user.decks) {
+      const newCards = deck.cards.filter((card) => !card.nextReview);
+      if (newCards.length) return { cards: newCards.slice(0, 20), deck: deck };
+    }
+    return null;
   };
 
   useEffect(() => {
@@ -61,10 +96,34 @@ const Dashboard = () => {
                     Create a deck
                   </Link>
                 </>
+              ) : getCardsDueTo().length > 0 ? (
+                <>
+                  <div>
+                    You have {getCardsDueTo().length} cards to review today.
+                  </div>
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      const review = deckToReview();
+                      history.push('/study', review);
+                    }}
+                  >
+                    Review now
+                  </button>
+                </>
               ) : (
                 <>
-                  <div>You have 0 cards to review today.</div>
-                  <button className="btn">Review now</button>
+                  <div>You have no cards to review yet</div>
+                  <button
+                    className="btn"
+                    disabled={newCards().length === 0}
+                    onClick={() => {
+                      const study = deckToLearn();
+                      history.push('/study', study);
+                    }}
+                  >
+                    Learn new
+                  </button>
                 </>
               )}
             </div>

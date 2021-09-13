@@ -1,9 +1,14 @@
 import { useMutation } from '@apollo/client';
 import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import { useUser } from 'contexts/UserContext';
 import { CREATE_CARD, DELETE_CARD, EDIT_CARD, GET_DECK } from 'queries/queries';
 import { useState } from 'react';
+import { timeLeftUntilReview } from 'utils/utils';
 
-const CardsList = ({ deckId, cards, editable }) => {
+const CardsList = ({ deck, editable }) => {
+  const { id: deckId, user, cards } = deck;
+
+  const { userInfo } = useUser();
   const [front, setFront] = useState('');
   const [back, setBack] = useState('');
   const [editRow, setEditRow] = useState({
@@ -55,15 +60,16 @@ const CardsList = ({ deckId, cards, editable }) => {
     }
   };
 
-  const handleEditCard = async (id) => {
+  const handleEditCard = async (card) => {
     const { front, back } = editRow;
 
-    if (!front || !back) return;
+    if (!front || !back || (card.front === front && card.back === back))
+      return setEditRow({ index: -1, front: '', back: '' });
 
     try {
       await editCard({
         variables: {
-          id,
+          id: card.id,
           front,
           back,
         },
@@ -87,12 +93,15 @@ const CardsList = ({ deckId, cards, editable }) => {
             <th>Index</th>
             <th>Front</th>
             <th>Back</th>
+            {userInfo && user.id === userInfo?.id && <th>Next review</th>}
             {editable && <th></th>}
           </tr>
         </thead>
         <tbody>
           {cards.map((card, index) =>
-            editRow.index === index ? (
+            editRow.index === index &&
+            userInfo.id === user.id &&
+            deck.publicId === deck.id ? (
               <tr key={index}>
                 <td>#{index + 1}</td>
                 <td>
@@ -107,7 +116,7 @@ const CardsList = ({ deckId, cards, editable }) => {
                       })
                     }
                     onKeyPress={(e) =>
-                      e.key === 'Enter' && handleEditCard(card.id)
+                      e.key === 'Enter' && handleEditCard(card)
                     }
                   />
                 </td>
@@ -123,14 +132,15 @@ const CardsList = ({ deckId, cards, editable }) => {
                       })
                     }
                     onKeyPress={(e) =>
-                      e.key === 'Enter' && handleEditCard(card.id)
+                      e.key === 'Enter' && handleEditCard(card)
                     }
                   />
                 </td>
+                <td></td>
                 <td>
                   <span
                     className="material-icons icon-btn"
-                    onClick={() => handleEditCard(card.id)}
+                    onClick={() => handleEditCard(card)}
                   >
                     check_circle
                   </span>
@@ -150,6 +160,9 @@ const CardsList = ({ deckId, cards, editable }) => {
                 <td>#{index + 1}</td>
                 <td>{card.front}</td>
                 <td>{card.back}</td>
+                {userInfo && user.id === userInfo?.id && (
+                  <td>{timeLeftUntilReview(card)}</td>
+                )}
                 {editable && (
                   <td>
                     <span
@@ -182,6 +195,7 @@ const CardsList = ({ deckId, cards, editable }) => {
                   onKeyPress={(e) => e.key === 'Enter' && handleCreateCard()}
                 />
               </td>
+              {userInfo && user.id === userInfo?.id && <td></td>}
               <td>
                 <span
                   className="material-icons-outlined icon-btn"

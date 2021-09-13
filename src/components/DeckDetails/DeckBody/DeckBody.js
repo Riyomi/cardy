@@ -33,8 +33,7 @@ const DeckBody = ({ deck }) => {
         )}
         {showMenu === MENU.CARDS && (
           <CardsList
-            cards={deck.cards}
-            deckId={deck.id}
+            deck={deck}
             editable={
               user?.id === deck.user.id &&
               (deck.id === deck.publicId || !deck.publicId)

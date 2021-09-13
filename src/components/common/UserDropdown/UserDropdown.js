@@ -22,6 +22,7 @@ const UserDropdown = ({ user, setUserInfo }) => {
     }
   };
 
+
   return (
     <div id="user-dropdown-menu">
       <img src={user.img} alt={user.name} />

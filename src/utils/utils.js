@@ -1,6 +1,6 @@
-export function getUserProgress(experience) {
-  const level = parseInt(Math.sqrt(experience / 50)) + 1;
-  const value = Math.sqrt(experience / 50);
+export function getUserProgress(exp) {
+  const level = parseInt(Math.sqrt(exp / 50)) + 1;
+  const value = Math.sqrt(exp / 50);
   const progress = ((value - Math.floor(value)) * 100).toFixed(2);
 
   return {
@@ -10,7 +10,19 @@ export function getUserProgress(experience) {
 }
 
 export function timeLeftUntilReview(card) {
-  if (!card.nextReview) return 'not seen yet';
+  if (!card.nextReview) return '-';
+
+  const timeLeft = card.nextReview - Date.now();
+
+  if (timeLeft < 0) return 'now';
+
+  if (timeLeft / (1000 * 60 * 60 * 24) > 0.5) {
+    return `in ${Math.round(timeLeft / (1000 * 60 * 60 * 24))} day(s)`;
+  } else if (timeLeft / (1000 * 60 * 60) > 0.5) {
+    return `in ${Math.round(timeLeft / (1000 * 60 * 60))} hour(s)`;
+  } else {
+    return `in ${Math.round(timeLeft / (1000 * 60))} minute(s)`;
+  }
 }
 
 export function getSeenCards(cards) {

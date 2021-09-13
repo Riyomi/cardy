@@ -13,11 +13,9 @@ import CreateDeck from 'pages/CreateDeck/CreateDeck';
 import NotFound from 'pages/NotFound/NotFound';
 
 const App = () => {
-  const brand = 'cardy';
-
   const DefaultRoutes = () => (
     <>
-      <Navbar brand={brand} />
+      <Navbar />
       <div id="content">
         <Switch>
           <Route path="/browse" component={Browse} />
@@ -31,7 +29,7 @@ const App = () => {
           <Route component={NotFound} />
         </Switch>
       </div>
-      <Footer brand={brand} />
+      <Footer />
     </>
   );
 

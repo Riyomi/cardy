@@ -2,13 +2,12 @@ import { useUser } from 'contexts/UserContext';
 import { Link } from 'react-router-dom';
 import UserDropdown from '../UserDropdown/UserDropdown';
 
-const Navbar = ({ brand }) => {
+const Navbar = () => {
   const { userInfo, setUserInfo } = useUser();
-
   return (
     <nav className="navbar">
       <Link to="/" className="brand">
-        {brand}
+        cardy
       </Link>
       <span className="spacer"></span>
       {userInfo ? (

@@ -260,9 +260,15 @@ export const DELETE_CARD = gql`
 
 export const STUDY_SESSION = gql`
   mutation StudySession($cards: String!) {
-    studySession(cards: $cards) {
+    studySession(cards: $cards)
+  }
+`;
+
+export const RESET_DECK = gql`
+  mutation ResetDeck($id: ID!) {
+    resetDeck(id: $id) {
       id
-      nextReview
+      title
     }
   }
 `;

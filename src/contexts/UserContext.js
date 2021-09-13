@@ -13,7 +13,7 @@ export function UserProvider({ children }) {
   return (
     <UserContext.Provider
       value={{
-        userInfo: userInfo,
+        userInfo,
         setUserInfo,
       }}
     >

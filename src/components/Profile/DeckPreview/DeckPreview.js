@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import { getDeckProgression } from 'utils/utils';
 
 const DeckPreview = ({ deck }) => {
   return (
@@ -11,7 +12,7 @@ const DeckPreview = ({ deck }) => {
             {deck.title}
           </Link>
           <ProgressBar
-            progress={0}
+            progress={getDeckProgression(deck)}
             styles={{
               marginTop: '20px',
               width: '90%',

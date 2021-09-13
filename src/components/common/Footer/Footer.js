@@ -1,7 +1,7 @@
-const Footer = ({ brand }) => {
+const Footer = () => {
   return (
     <footer>
-      <span className="brand">{brand}</span>
+      <span className="brand">cardy</span>
       <span className="spacer"></span>
       <span>©2021 All rights reserved.</span>
     </footer>

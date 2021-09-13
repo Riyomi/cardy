@@ -6,7 +6,7 @@ import { useHistory } from 'react-router';
 import { STUDY_SESSION, GET_DECK, GET_USER } from 'queries/queries';
 
 const Study = ({ location }) => {
-  const { userInfo } = useUser();
+  const { userInfo, setUserInfo } = useUser();
   const history = useHistory();
 
   const [cards, setCards] = useState([]);
@@ -68,7 +68,17 @@ const Study = ({ location }) => {
             cards: JSON.stringify(newCardData ? newCardData : cardData),
           },
         })
-          .then(history.push('/dashboard'))
+          .then((res) => {
+            const updatedUserInfo = {
+              id: userInfo.id,
+              img: userInfo.img,
+              name: userInfo.name,
+              experience: userInfo.experience + res.data.studySession,
+            };
+            setUserInfo(updatedUserInfo);
+            localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
+            history.push('/dashboard');
+          })
           .catch((err) => console.log(err.message));
       }
     } else {
