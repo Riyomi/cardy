@@ -1,7 +1,9 @@
+import { useMutation } from '@apollo/client';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useUser } from 'contexts/UserContext';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { STUDY_SESSION, GET_DECK, GET_USER } from 'queries/queries';
 
 const Study = ({ location }) => {
   const { userInfo } = useUser();
@@ -10,11 +12,29 @@ const Study = ({ location }) => {
   const [cards, setCards] = useState([]);
   const [cardData, setCardData] = useState([]);
   const [showQuestion, setShowQuestion] = useState(true);
+  const [numOfCards, setNumOfCards] = useState(0);
 
   const deck = location.state.deck;
 
+  const [save, { loading, error }] = useMutation(STUDY_SESSION, {
+    refetchQueries: [
+      {
+        query: GET_DECK,
+        variables: { id: deck.id },
+      },
+      {
+        query: GET_USER,
+        variables: { id: userInfo.id },
+      },
+    ],
+  });
+
   const handleQuit = () => {
-    if (window.confirm('Are you sure you want to quit?')) {
+    if (
+      window.confirm(
+        'Are you sure you want to quit? All your progress will be lost!'
+      )
+    ) {
       history.push('/');
     }
   };
@@ -27,21 +47,37 @@ const Study = ({ location }) => {
   };
 
   const rateCard = (difficulty) => {
-    if (difficulty !== DIFFICULTY.DIDNT_KNOW) {
-      const newCardData = [...cardData];
-      newCardData.push({ id: cards[0].id, rated: difficulty });
-      setCardData(newCardData);
+    const currentCard = cards[0];
 
+    if (difficulty !== DIFFICULTY.DIDNT_KNOW) {
       const newCards = cards.filter((card) => card !== cards[0]);
       setCards(newCards);
 
-      if (!newCards.length) {
-        console.log('Time to make the call');
-        console.log(newCardData);
+      let newCardData = null;
 
-        // history.push('/dashboard')
+      if (!cardData.filter((card) => card.id === currentCard.id).length) {
+        newCardData = [...cardData];
+        newCardData.push({ id: currentCard.id, rated: difficulty });
+        setCardData(newCardData);
+      }
+
+      if (!newCards.length) {
+        console.log('Saving progress...');
+        save({
+          variables: {
+            cards: JSON.stringify(newCardData ? newCardData : cardData),
+          },
+        })
+          .then(history.push('/dashboard'))
+          .catch((err) => console.log(err.message));
       }
     } else {
+      if (!cardData.filter((card) => card.id === currentCard.id).length) {
+        const newCardData = [...cardData];
+        newCardData.push({ id: cards[0].id, rated: DIFFICULTY.DIDNT_KNOW });
+        setCardData(newCardData);
+      }
+
       const newCards = [...cards];
       newCards.push(newCards.splice(0, 1)[0]);
       setCards(newCards);
@@ -50,20 +86,22 @@ const Study = ({ location }) => {
   };
 
   const getProgress = () => {
-    const progress = (cardData.length / (cards.length + cardData.length)) * 100;
-    console.log(progress);
+    const progress = ((numOfCards - cards.length) / numOfCards) * 100;
     return progress;
   };
 
   useEffect(() => {
     if (!location.state.cards || !userInfo) history.push('/dashboard');
     setCards(location.state.cards);
+    setNumOfCards(location.state.cards.length);
   }, [location.state, history, userInfo]);
 
   return (
     <div>
       <div id="study-header" className="navbar">
-        <span>{deck.title}</span>
+        <span>
+          {deck.title} {`(studying ${numOfCards} cards)`}
+        </span>
         <span className="spacer"></span>
         <span className="material-icons-outlined" onClick={handleQuit}>
           close
@@ -123,6 +161,8 @@ const Study = ({ location }) => {
           )}
         </div>
       )}
+      {loading && 'Saving progress...'}
+      {error && 'Something went wrong'}
     </div>
   );
 };

@@ -49,7 +49,8 @@ const DeckCard = ({ deck }) => {
   };
 
   const DeckOptions = () => {
-    const cards = cardsDueTo(deck.cards);
+    const cardsToReview = cardsDueTo(deck.cards);
+    const newCards = deck.cards.filter((card) => !card.nextReview).slice(0, 20);
     return (
       <>
         <span id="deck-options" onClick={() => setOpenMenu(!openMenu)}>
@@ -68,15 +69,25 @@ const DeckCard = ({ deck }) => {
             </div>
           )}
         </span>
-        {cards.length > 0 ? (
+        {cardsToReview.length > 0 ? (
           <button
             id="review-btn"
-            onClick={() => history.push('/study', { cards: cards, deck: deck })}
+            onClick={() =>
+              history.push('/study', { cards: cardsToReview, deck: deck })
+            }
           >
-            Review ({cards.length})
+            Review ({cardsToReview.length})
           </button>
         ) : (
-          <button id="review-btn">Learn new</button>
+          <button
+            id="review-btn"
+            onClick={() =>
+              history.push('/study', { cards: newCards, deck: deck })
+            }
+            disabled={newCards.length === 0}
+          >
+            Learn new
+          </button>
         )}
       </>
     );

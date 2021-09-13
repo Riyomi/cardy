@@ -142,6 +142,11 @@ footer {
   padding: 7px 20px;
 }
 
+#review-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 #options-menu {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -520,6 +525,11 @@ footer {
   font-size: 20px;
 }
 
+#hero-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .benefit-card {
   padding: 20px;
   margin: 20px;
@@ -617,6 +627,11 @@ footer {
   border-radius: 10px;
 }
 
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .profile-body {
   display: -ms-grid;
   display: grid;
@@ -691,6 +706,11 @@ footer {
   padding: 5px 20px;
   border-radius: 10px;
   justify-self: flex-end;
+}
+
+.follower button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .follower .follower-details {
@@ -907,6 +927,11 @@ footer {
   border-radius: 10px;
 }
 
+.load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 #deck-header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1030,8 +1055,11 @@ footer {
 
 #cards-list {
   -ms-grid-column: 1;
-      grid-column-start: 1;
-  grid-column-end: 3;
+  -ms-grid-column-span: 2;
+  grid-column: 1 / 3;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1 / 3;
 }
 
 #cards-list table {
@@ -1150,6 +1178,11 @@ footer {
   cursor: pointer;
   display: block;
   width: 90%;
+}
+
+.edit-deck-form .submit-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 #browse-content {
@@ -1329,6 +1362,11 @@ footer {
   cursor: pointer;
 }
 
+.deck-creation-form .custom-file-upload:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 * {
   font-family: 'Open Sans';
   -webkit-font-smoothing: antialiased;
@@ -1427,6 +1465,11 @@ h3 {
   border-radius: 10px;
   border: none;
   cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .icon-btn {
@@ -1543,4 +1586,9 @@ h3 {
   cursor: pointer;
   width: 90%;
   margin: 10px auto;
+}
+
+.user-form .submit-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
