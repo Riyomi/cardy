@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { getDeckProgression } from 'utils/utils';
+import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 
 const DeckPreview = ({ deck }) => {
+  const { id, title, img } = deck;
+
   return (
     <div className="deck-card" style={{ width: '80%', margin: '15px 0' }}>
       <div style={{ display: 'flex', width: '100%' }}>
-        <img className="deck-img" src={deck.img} alt={deck.title} />
+        <img className="deck-img" src={img} alt={title} />
         <div className="deck-details">
-          <Link to={'/deck/' + deck.id} className="deck-title">
+          <Link to={`/deck/${id}`} className="deck-title">
             {deck.title}
           </Link>
           <ProgressBar

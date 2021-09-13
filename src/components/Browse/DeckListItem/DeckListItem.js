@@ -4,7 +4,7 @@ const DeckListItem = ({ deck }) => {
   const { id, img, title, learners, cards, createdBy } = deck;
 
   return (
-    <Link to={'/deck/' + id} className="deck-list-item">
+    <Link to={`/deck/${id}`} className="deck-list-item">
       <img src={img} alt={title} />
       <div className="deck-info">
         <div className="deck-title">{title}</div>

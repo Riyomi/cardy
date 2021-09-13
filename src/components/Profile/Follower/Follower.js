@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import { getUserProgress } from 'utils/utils';
 
 const Follower = ({ follower }) => {
+  const { id, name, img, experience } = follower;
+
   return (
-    <Link className="follower" to={'/profile/' + follower.id}>
+    <Link className="follower" to={`/profile/${id}`}>
       <div className="follower-details">
-        <img src={follower.img} alt={follower.name} />
-        <span className="level-badge">
-          {getUserProgress(follower.experience).level}
-        </span>
-        <span>{follower.name}</span>
+        <img src={img} alt={name} />
+        <span className="level-badge">{getUserProgress(experience).level}</span>
+        <span>{name}</span>
       </div>
     </Link>
   );

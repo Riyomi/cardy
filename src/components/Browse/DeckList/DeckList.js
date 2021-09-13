@@ -6,20 +6,19 @@ const DeckList = ({ decks }) => {
 
   return (
     <>
-      {decks.length > 0 && (
+      {decks.length > 0 ? (
         <div id="deck-list">
           {decks.slice(0, limit).map((deck, index) => (
             <DeckListItem deck={deck} key={index} />
           ))}
         </div>
+      ) : (
+        <p>No match.</p>
       )}
-      {decks.length === 0 && <p>No match.</p>}
-      {limit < decks.length ? (
+      {limit < decks.length && (
         <button className="load-more-btn" onClick={() => setLimit(limit + 6)}>
           Load More...
         </button>
-      ) : (
-        ''
       )}
     </>
   );
