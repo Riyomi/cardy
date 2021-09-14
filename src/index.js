@@ -12,7 +12,7 @@ import { UserProvider } from 'contexts/UserContext';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://alpha-cardy-backend.herokuapp.com/graphql',
 });
 
 async function callFetch(headers) {
