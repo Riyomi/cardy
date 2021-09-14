@@ -13,6 +13,7 @@ import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
   uri: 'https://alpha-cardy-backend.herokuapp.com/graphql',
+  credentials: 'include',
 });
 
 async function callFetch(headers) {
