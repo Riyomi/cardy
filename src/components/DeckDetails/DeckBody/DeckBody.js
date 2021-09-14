@@ -1,5 +1,7 @@
+import { useMutation } from '@apollo/client';
 import DeckCard from 'components/common/DeckCard/DeckCard';
 import { useUser } from 'contexts/UserContext';
+import { GET_DECK, OPT_OUT } from 'queries/queries';
 import { useState } from 'react';
 import CardsList from '../CardsList/CardsList';
 import DeckMenu from '../DeckMenu/DeckMenu';
@@ -14,6 +16,17 @@ const DeckBody = ({ deck }) => {
 
   const [showMenu, setShowMenu] = useState(MENU.OVERVIEW);
   const { userInfo: user } = useUser();
+
+  const [optOut] = useMutation(OPT_OUT, {
+    onError: () => {},
+    refetchQueries: [{ query: GET_DECK, variables: { id: deck.id } }],
+  });
+
+  const handleOptOut = () => {
+    if (window.confirm('Are you sure you want to opt out of synching?')) {
+      optOut({ variables: { id: deck.id } });
+    }
+  };
 
   return (
     <>
@@ -46,8 +59,10 @@ const DeckBody = ({ deck }) => {
               <p>
                 You currently cannot edit this deck because it is synched. If
                 you want to make any changes, either opt out of synching by{' '}
-                <strong>clicking here</strong> or ask <strong>the owner</strong>{' '}
-                of the original deck.
+                <strong style={{ cursor: 'pointer' }} onClick={handleOptOut}>
+                  clicking here
+                </strong>{' '}
+                or ask the owner of the original deck.
               </p>
             )}
             {deck?.user.id === user?.id &&

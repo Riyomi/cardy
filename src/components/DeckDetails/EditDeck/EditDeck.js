@@ -19,6 +19,7 @@ const EditDeck = ({ deck }) => {
   const { data } = useQuery(GET_CATEGORIES);
 
   const options = {
+    onError: () => {},
     refetchQueries: [
       { query: GET_DECKS },
       { query: GET_DECK, variables: { id: deck.id } },
@@ -28,7 +29,7 @@ const EditDeck = ({ deck }) => {
   const [editDeck] = useMutation(EDIT_DECK, options);
   const [changeVisibility] = useMutation(CHANGE_VISIBILITY, options);
 
-  const handleEditDeck = async (e) => {
+  const handleEditDeck = (e) => {
     e.preventDefault();
 
     const visibilityChanged =
@@ -48,23 +49,11 @@ const EditDeck = ({ deck }) => {
       }?`;
 
       if (window.confirm(message)) {
-        try {
-          await changeVisibility({
-            variables: { id: deck.id },
-          });
-        } catch (err) {
-          console.log(err);
-        }
+        changeVisibility({ variables: { id: deck.id } });
       }
     }
 
-    try {
-      await editDeck({
-        variables: { id: deck.id, title, categoryId },
-      });
-    } catch (err) {
-      console.log(err.message);
-    }
+    editDeck({ variables: { id: deck.id, title, categoryId } });
   };
 
   return (
@@ -87,9 +76,9 @@ const EditDeck = ({ deck }) => {
                   value: deck.category.id,
                   label: deck.category.name,
                 }}
-                options={data.categories.map((c) => ({
-                  value: c.id,
-                  label: c.name,
+                options={data.categories.map((category) => ({
+                  value: category.id,
+                  label: category.name,
                 }))}
                 onChange={(selected) => setCategoryId(selected.value)}
               />

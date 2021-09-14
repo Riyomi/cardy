@@ -173,7 +173,7 @@ export const CREATE_DECK = gql`
 `;
 
 export const EDIT_DECK = gql`
-  mutation EditDeck($id: ID!, $categoryId: ID!, $title: String) {
+  mutation EditDeck($id: ID!, $categoryId: ID!, $title: String!) {
     editDeck(id: $id, categoryId: $categoryId, title: $title) {
       id
       title
@@ -261,5 +261,11 @@ export const RESET_DECK = gql`
       id
       title
     }
+  }
+`;
+
+export const OPT_OUT = gql`
+  mutation OptOut($id: ID!) {
+    optOut(id: $id)
   }
 `;

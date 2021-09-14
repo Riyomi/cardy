@@ -11,11 +11,15 @@ const DeckListItem = ({ deck }) => {
         <div className="deck-details">
           <div>
             <div className="deck-icon">
-              <span className="material-icons-outlined">people</span>
+              <span className="material-icons-outlined" title="learners">
+                people
+              </span>
               <span>{learners}</span>
             </div>
             <div className="deck-icon">
-              <span className="material-icons-outlined">schedule</span>
+              <span className="material-icons-outlined" title="cards">
+                school
+              </span>
               <span>{cards ? cards.length : 0}</span>
             </div>
           </div>
