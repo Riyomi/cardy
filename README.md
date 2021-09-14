@@ -7,13 +7,13 @@ Inspired by Anki and Memrise, Cardy is a community-driven flashcard application 
 ... under construction...
 
 ## Used technologies
-### Frontend
+### Frontend (can be found in this repo)
 * HTML
 * CSS
 * React
 * Apollo Client (to simplify sending GraphQL requests)
 * SASS
-### Backend
+### Backend (https://github.com/Riyomi/cardy-backend)
 * Node
 * MongoDB
 * JSON web tokens
