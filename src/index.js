@@ -10,9 +10,10 @@ import {
 } from '@apollo/client';
 import { UserProvider } from 'contexts/UserContext';
 import { setContext } from '@apollo/client/link/context';
+import config from 'constants';
 
 const httpLink = createHttpLink({
-  uri: 'https://alpha-cardy-backend.herokuapp.com/graphql',
+  uri: config.API_URL,
   credentials: 'include',
 });
 
