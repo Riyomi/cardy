@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import FormField from 'components/common/FormField/FormField';
 import { useMutation } from '@apollo/client';
 import { useUser } from 'contexts/UserContext';
-import { CREATE_USER, LOGIN_USER } from 'queries/queries';
+import { CREATE_USER } from 'queries/queries';
 import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 
 const Signup = () => {
@@ -12,39 +12,28 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [createUser, { error }] = useMutation(CREATE_USER);
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [createUser, { error }] = useMutation(CREATE_USER, {
+    onError: () => {},
+    onCompleted: (data) => {
+      const { user, accessToken, expires } = data.createUser;
+
+      localStorage.setItem('userInfo', JSON.stringify(user));
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('expires', expires);
+
+      setUserInfo(user);
+      history.push('/dashboard');
+    },
+  });
 
   const { userInfo, setUserInfo } = useUser();
 
-  const registerUser = async (e) => {
+  const signup = (e) => {
     e.preventDefault();
 
-    try {
-      await createUser({
-        variables: { email, name, password, confirmPassword },
-      });
-
-      try {
-        const userInfo = await loginUser({
-          variables: {
-            email,
-            password,
-          },
-        });
-        localStorage.setItem(
-          'userInfo',
-          JSON.stringify(userInfo.data.loginUser)
-        );
-
-        setUserInfo(userInfo.data.loginUser);
-        history.push('/dashboard');
-      } catch (err) {
-        console.log(err);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    createUser({
+      variables: { email, name, password, confirmPassword },
+    });
   };
 
   useEffect(() => {
@@ -57,11 +46,7 @@ const Signup = () => {
       <div className="form-main">
         {error && <PopupMessage message={error.message} type="error" />}
         <h2>Sign up</h2>
-        <form
-          className="user-form"
-          method="POST"
-          onSubmit={(e) => registerUser(e)}
-        >
+        <form className="user-form" method="POST" onSubmit={(e) => signup(e)}>
           <FormField
             name="Email"
             type="email"

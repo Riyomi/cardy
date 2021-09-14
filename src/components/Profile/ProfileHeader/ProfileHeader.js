@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 import { useUser } from 'contexts/UserContext';
-import { FOLLOW_USER, GET_USER, UNFOLLOW_USER } from 'queries/queries';
+import { FOLLOW_USER, GET_USER } from 'queries/queries';
 import { useState } from 'react';
 
 const ProfileHeader = ({ user }) => {
@@ -11,40 +11,18 @@ const ProfileHeader = ({ user }) => {
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const refetchQueries = [
-    { query: GET_USER, variables: { id: user.id } },
-    { query: GET_USER, variables: { id: userInfo?.id } },
-  ];
-
-  const [followUser, { error }] = useMutation(FOLLOW_USER, {
-    onCompleted: () => {
-      setMessage('Followed ' + user.name);
+  const [follow, { error }] = useMutation(FOLLOW_USER, {
+    onError: () => {},
+    onCompleted: (data) => {
+      setMessage(`${data.followUser} ${name}`);
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
     },
-    refetchQueries,
+    refetchQueries: [
+      { query: GET_USER, variables: { id: id } },
+      { query: GET_USER, variables: { id: userInfo?.id } },
+    ],
   });
-
-  const [unfollowUser] = useMutation(UNFOLLOW_USER, {
-    onCompleted: () => {
-      setMessage('Unfollowed ' + user.name);
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 2000);
-    },
-    refetchQueries,
-  });
-
-  const handleFollowUser = () => {
-    followUser({
-      variables: { userToBeFollowed: user.id },
-    }).catch((err) => console.log(err));
-  };
-
-  const handleUnfollowUser = () => {
-    unfollowUser({
-      variables: { userToBeUnfollowed: user.id },
-    }).catch((err) => console.log(err));
-  };
 
   return (
     <section className="profile-wrapper">
@@ -69,15 +47,18 @@ const ProfileHeader = ({ user }) => {
       <div>
         {userInfo &&
           (userInfo.id === id ? (
-            <button className="action-btn">Edit profile</button>
-          ) : followers.filter((follower) => follower.id === userInfo.id)
-              .length === 1 ? (
-            <button className="action-btn" onClick={handleUnfollowUser}>
-              Unfollow
+            <button className="action-btn" disabled>
+              Edit profile
             </button>
           ) : (
-            <button className="action-btn" onClick={handleFollowUser}>
-              Follow
+            <button
+              className="action-btn"
+              onClick={() => follow({ variables: { userId: id } })}
+            >
+              {followers.filter((follower) => follower.id === userInfo.id)
+                .length
+                ? 'Unfollow'
+                : 'Follow'}
             </button>
           ))}
       </div>

@@ -38,30 +38,21 @@ export const CREATE_USER = gql`
       password: $password
       confirmPassword: $confirmPassword
     ) {
-      id
-      email
-      name
+      user {
+        id
+        name
+        img
+        experience
+      }
+      accessToken
+      expires
     }
   }
 `;
 
 export const FOLLOW_USER = gql`
-  mutation FollowUser($userToBeFollowed: ID!) {
-    followUser(userToBeFollowed: $userToBeFollowed) {
-      id
-      email
-      name
-    }
-  }
-`;
-
-export const UNFOLLOW_USER = gql`
-  mutation UnfollowUser($userToBeUnfollowed: ID!) {
-    unfollowUser(userToBeUnfollowed: $userToBeUnfollowed) {
-      id
-      email
-      name
-    }
+  mutation FollowUser($userId: ID!) {
+    followUser(userId: $userId)
   }
 `;
 
