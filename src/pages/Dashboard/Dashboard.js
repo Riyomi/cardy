@@ -1,36 +1,20 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { useUser } from 'contexts/UserContext';
 import { useQuery } from '@apollo/client';
 import { GET_USER } from 'queries/queries';
+import { getUserProgress, cardsDueTo, getWelcomeMessage } from 'utils/utils';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
-import { getUserProgress } from 'utils/utils';
-import { useEffect } from 'react';
-import { cardsDueTo } from 'utils/utils';
 
 const Dashboard = () => {
   const history = useHistory();
   const { userInfo } = useUser();
-  const { data } = useQuery(GET_USER, {
-    variables: {
-      id: userInfo?.id,
-    },
+  const { data, error } = useQuery(GET_USER, {
+    variables: { id: userInfo?.id },
   });
-
-  const getWelcomeMessage = () => {
-    const now = new Date();
-    const hour = now.getHours();
-
-    if (hour >= 4 && hour < 12) {
-      return 'Good morning';
-    } else if (hour < 18) {
-      return 'Good afternoon';
-    } else {
-      return 'Good evening';
-    }
-  };
 
   const getCardsDueTo = () => {
     const cardsToReview = [];
@@ -42,11 +26,9 @@ const Dashboard = () => {
 
   const newCards = () => {
     const newCards = [];
-
     for (const deck of data.user.decks) {
       newCards.push(...deck.cards.filter((card) => !card.nextReview));
     }
-
     return newCards.slice(0, 20);
   };
 
@@ -89,14 +71,14 @@ const Dashboard = () => {
               <h1>
                 {getWelcomeMessage()}, {data.user.name}
               </h1>
-              {data.user.decks.length === 0 ? (
+              {!data.user.decks.length ? (
                 <>
                   <div>You don't have any decks yet</div>
                   <Link to="/create-deck" className="btn">
                     Create a deck
                   </Link>
                 </>
-              ) : getCardsDueTo().length > 0 ? (
+              ) : getCardsDueTo().length ? (
                 <>
                   <div>
                     You have {getCardsDueTo().length} cards to review today.
@@ -141,6 +123,9 @@ const Dashboard = () => {
             />
           </div>
         </>
+      )}
+      {error && (
+        <p>Something went wrong. Please try to refresh the page later.</p>
       )}
     </div>
   );

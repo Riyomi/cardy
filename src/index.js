@@ -10,10 +10,12 @@ import {
 } from '@apollo/client';
 import { UserProvider } from 'contexts/UserContext';
 import { setContext } from '@apollo/client/link/context';
-import config from 'constants';
+import { API_URL } from './constants';
+
+console.log(API_URL);
 
 const httpLink = createHttpLink({
-  uri: config.API_URL,
+  uri: API_URL,
   credentials: 'include',
 });
 

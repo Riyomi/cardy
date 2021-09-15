@@ -41,3 +41,16 @@ export function cardsDueTo(cards) {
     (card) => card.nextReview && card.nextReview - Date.now() <= 0
   );
 }
+
+export function getWelcomeMessage() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour >= 4 && hour < 12) {
+    return 'Good morning';
+  } else if (hour < 18) {
+    return 'Good afternoon';
+  } else {
+    return 'Good evening';
+  }
+}

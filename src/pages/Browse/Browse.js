@@ -26,7 +26,6 @@ const Browse = () => {
 
   return (
     <div id="browse-content">
-      {error}
       <div>
         <Link to="/create-deck" className="btn">
           Create a deck
@@ -39,6 +38,7 @@ const Browse = () => {
       <div>
         <Searchbar setSearchFilter={setSearchFilter} />
         {data && <DeckList decks={filterDecks()} />}
+        {error && <p>Failed to fetch data from the server.</p>}
       </div>
     </div>
   );
