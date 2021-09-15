@@ -169,10 +169,7 @@ h3 {
     border: 1px solid $lightGray;
     border-radius: 10px;
 
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px $primaryColor;
-    }
+    @include input-outline;
   }
 
   .extra-text {

@@ -15,10 +15,7 @@
       padding: 2px 10px;
       font-size: 16px;
 
-      &:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px $primaryColor;
-      }
+      @include input-outline;
     }
 
     th:first-of-type {

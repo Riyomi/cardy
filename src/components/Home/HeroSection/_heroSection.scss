@@ -1,8 +1,12 @@
 #hero-wrapper {
   display: grid;
-  padding: 60px;
-  grid-template-columns: repeat(2, 1fr);
-  margin: 40px 140px;
+  text-align: center;
+  margin: 80px 5%;
+  @include desktop {
+    text-align: left;
+    margin: 80px 12.5%;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 #hero-text {
@@ -17,4 +21,14 @@
 #hero-btn {
   @include btn;
   font-size: $fontMedium;
+}
+
+#hero-img {
+  @include desktop {
+    height: 100%;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    margin-left: 5px;
+    display: inline-block;
+  }
 }

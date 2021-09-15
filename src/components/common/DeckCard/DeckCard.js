@@ -50,9 +50,6 @@ const DeckCard = ({ deck }) => {
     window.confirm('Are you sure you want to delete this deck?') &&
     deleteDeck({ variables: { id } });
 
-  const handleCopy = () =>
-    userInfo && copyDeck({ variables: { id: publicId || id } });
-
   const handleReset = () =>
     window.confirm('Are you sure you want to reset your progress?') &&
     resetDeck({ variables: { id } });
@@ -137,14 +134,12 @@ const DeckCard = ({ deck }) => {
       ) : (
         <div id="deck-details-card" className="deck-card">
           <div>
-            {userInfo && userInfo.id === user.id ? getSeenCards(cards) : 0} /{' '}
+            {userInfo.id === user.id ? getSeenCards(cards) : 0} /{' '}
             {cards ? cards.length : 0} cards learned (
-            {userInfo && userInfo.id === user.id ? mastered : 0} mastered)
+            {userInfo.id === user.id ? mastered : 0} mastered)
           </div>
           <ProgressBar
-            progress={
-              userInfo && userInfo.id === user.id ? getDeckProgression(deck) : 0
-            }
+            progress={userInfo.id === user.id ? getDeckProgression(deck) : 0}
             styles={{ margin: '10px 0' }}
           />
 
@@ -152,7 +147,10 @@ const DeckCard = ({ deck }) => {
             {user.id === userInfo?.id ? (
               <DeckOptions />
             ) : (
-              <button id="review-btn" onClick={handleCopy}>
+              <button
+                id="review-btn"
+                onClick={() => copyDeck({ variables: { id: publicId || id } })}
+              >
                 Start studying
               </button>
             )}

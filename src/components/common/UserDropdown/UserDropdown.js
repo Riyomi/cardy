@@ -43,7 +43,7 @@ const UserDropdown = ({ user, setUserInfo }) => {
             <span className="material-icons">account_circle</span>
             <span>Profile</span>
           </Link>
-          <Link to="/" className="user-dropdown-option">
+          <Link to="/dashboard" className="user-dropdown-option">
             <span className="material-icons">settings</span>
             <span>Settings</span>
           </Link>

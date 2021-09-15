@@ -18,7 +18,11 @@ const EditDeck = ({ deck }) => {
   const [visibility, setVisibilty] = useState(
     deck.publicId ? 'Public' : 'Private'
   );
-  const { data, loading, error } = useQuery(GET_CATEGORIES, {
+  const {
+    data,
+    loading: loadingCategories,
+    error,
+  } = useQuery(GET_CATEGORIES, {
     onError: () => {},
   });
 
@@ -30,8 +34,14 @@ const EditDeck = ({ deck }) => {
     ],
   };
 
-  const [editDeck] = useMutation(EDIT_DECK, options);
-  const [changeVisibility] = useMutation(CHANGE_VISIBILITY, options);
+  const [editDeck, { loading: savingChanges }] = useMutation(
+    EDIT_DECK,
+    options
+  );
+  const [changeVisibility, { loading: savingNewVisbility }] = useMutation(
+    CHANGE_VISIBILITY,
+    options
+  );
 
   const handleEditDeck = (e) => {
     e.preventDefault();
@@ -60,7 +70,8 @@ const EditDeck = ({ deck }) => {
     editDeck({ variables: { id: deck.id, title, categoryId } });
   };
 
-  if (loading) return <Loading />;
+  if (loadingCategories || savingChanges || savingNewVisbility)
+    return <Loading />;
   if (error) return <Error />;
 
   return (

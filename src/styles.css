@@ -434,10 +434,10 @@ footer {
 }
 
 .testimonial {
-  color: #25ac64;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  color: #25ac64;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -446,7 +446,24 @@ footer {
   border-radius: 30px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  margin: 20px 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .testimonial:nth-child(2) {
+    margin-bottom: 50px;
+  }
+}
+
+.testimonial:last-child {
+  display: none;
+}
+
+@media only screen and (min-width: 992px) {
+  .testimonial:last-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
 }
 
 .testimonial-bottom {
@@ -483,22 +500,45 @@ footer {
 #testimonials {
   display: -ms-grid;
   display: grid;
-  margin: auto;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  margin: 20px auto;
   gap: 5%;
-  -ms-grid-columns: (1fr)[3];
-      grid-template-columns: repeat(3, 1fr);
-  width: 75%;
+  width: 90%;
+}
+
+@media only screen and (min-width: 600px) {
+  #testimonials {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  #testimonials {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #testimonials {
+    width: 75%;
+  }
 }
 
 #hero-wrapper {
   display: -ms-grid;
   display: grid;
-  padding: 60px;
-  -ms-grid-columns: (1fr)[2];
-      grid-template-columns: repeat(2, 1fr);
-  margin: 40px 140px;
+  text-align: center;
+  margin: 80px 5%;
+}
+
+@media only screen and (min-width: 1200px) {
+  #hero-wrapper {
+    text-align: left;
+    margin: 80px 12.5%;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
 }
 
 #hero-text {
@@ -530,9 +570,21 @@ footer {
   cursor: default;
 }
 
+@media only screen and (min-width: 1200px) {
+  #hero-img {
+    height: 100%;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    margin-left: 5px;
+    display: inline-block;
+  }
+}
+
 .benefit-card {
-  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 20px;
+  padding: 20px;
   border-radius: 20px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -547,11 +599,29 @@ footer {
 #benefits {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[3];
-      grid-template-columns: repeat(3, 1fr);
-  -ms-grid-rows: (1fr)[2];
-      grid-template-rows: repeat(2, 1fr);
-  margin: 0 140px;
+  text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+  #benefits {
+    text-align: left;
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  #benefits {
+    margin: 0 5%;
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  #benefits {
+    margin: 0 10%;
+  }
 }
 
 .profile-wrapper {
@@ -800,8 +870,7 @@ footer {
   display: block;
   font-weight: bold;
   font-size: 24px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 #categories div {
@@ -836,13 +905,6 @@ footer {
 #categories .active-category {
   color: #25ac64;
   font-weight: bold;
-}
-
-#categories .skeleton-category {
-  width: 40%;
-  height: 0.5rem;
-  margin: 0.5rem 0;
-  border-radius: 0.125rem;
 }
 
 .deck-info {
@@ -1496,41 +1558,6 @@ h3 {
   border: 1px solid #c4c4c4;
   border-radius: 10px;
   padding: 20px 30px;
-}
-
-.skeleton-text {
-  width: 100%;
-  height: 0.5rem;
-  margin-bottom: 0.25rem;
-  border-radius: 0.125rem;
-}
-
-.skeleton-text:last-child {
-  margin-bottom: 0;
-  width: 80%;
-}
-
-.skeleton {
-  -webkit-animation: skeleton-loading 1s linear infinite alternate;
-          animation: skeleton-loading 1s linear infinite alternate;
-}
-
-@-webkit-keyframes skeleton-loading {
-  0% {
-    background-color: #a3b8c2;
-  }
-  100% {
-    background-color: #f0f3f5;
-  }
-}
-
-@keyframes skeleton-loading {
-  0% {
-    background-color: #a3b8c2;
-  }
-  100% {
-    background-color: #f0f3f5;
-  }
 }
 
 /* Form */

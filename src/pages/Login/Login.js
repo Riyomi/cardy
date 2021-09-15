@@ -5,13 +5,14 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from 'queries/queries';
 import FormField from 'components/common/FormField/FormField';
 import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import Loading from 'components/common/Loading/Loading';
 
 const Login = () => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { userInfo, setUserInfo } = useUser();
-  const [loginUser, { error }] = useMutation(LOGIN_USER, {
+  const [loginUser, { error, loading }] = useMutation(LOGIN_USER, {
     onCompleted: (data) => {
       const { user, accessToken, expires } = data.loginUser;
 
@@ -31,6 +32,8 @@ const Login = () => {
   };
 
   useEffect(() => userInfo && history.push('/dashboard'));
+
+  if (loading) return <Loading />;
 
   return (
     <div className="form-wrapper">

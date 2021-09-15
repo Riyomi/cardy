@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 import FormField from 'components/common/FormField/FormField';
-import { useMutation } from '@apollo/client';
+import Loading from 'components/common/Loading/Loading';
+import { Link, useHistory } from 'react-router-dom';
 import { useUser } from 'contexts/UserContext';
 import { CREATE_USER } from 'queries/queries';
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import { useMutation } from '@apollo/client';
+import { useEffect, useState } from 'react';
 
 const Signup = () => {
   const history = useHistory();
@@ -12,7 +13,7 @@ const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [createUser, { error }] = useMutation(CREATE_USER, {
+  const [createUser, { error, loading }] = useMutation(CREATE_USER, {
     onError: () => {},
     onCompleted: (data) => {
       const { user, accessToken, expires } = data.createUser;
@@ -39,6 +40,8 @@ const Signup = () => {
   useEffect(() => {
     if (userInfo) history.push('/');
   });
+
+  if (loading) return <Loading />;
 
   return (
     <div className="form-wrapper">

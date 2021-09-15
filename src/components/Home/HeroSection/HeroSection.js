@@ -14,14 +14,7 @@ const HeroSection = () => {
           Get Started
         </Link>
       </div>
-      <div
-        style={{
-          height: '100%',
-          border: '1px solid #aaa',
-          borderRadius: '10px',
-          display: 'inline-block',
-        }}
-      ></div>
+      <div id="hero-img"></div>
     </div>
   );
 };

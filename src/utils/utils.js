@@ -54,3 +54,7 @@ export function getWelcomeMessage() {
     return 'Good evening';
   }
 }
+
+export function isActive(condition) {
+  return condition ? 'active' : '';
+}

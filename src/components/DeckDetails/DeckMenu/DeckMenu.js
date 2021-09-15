@@ -1,26 +1,27 @@
 import { useUser } from 'contexts/UserContext';
 import { MENU } from '../../../constants';
+import { isActive } from 'utils/utils';
 
 const DeckMenu = ({ showMenu, setShowMenu, deck }) => {
-  const { userInfo: user } = useUser();
+  const { userInfo } = useUser();
 
   return (
     <div id="deck-details-menu">
       <span
-        className={showMenu === MENU.OVERVIEW ? 'active' : ''}
+        className={isActive(showMenu === MENU.OVERVIEW)}
         onClick={() => setShowMenu(MENU.OVERVIEW)}
       >
         Overview
       </span>
       <span
-        className={showMenu === MENU.CARDS ? 'active' : ''}
+        className={isActive(showMenu === MENU.CARDS)}
         onClick={() => setShowMenu(MENU.CARDS)}
       >
         Cards
       </span>
-      {user && user?.id === deck.user.id && (
+      {userInfo.id === deck.user.id && (
         <span
-          className={showMenu === MENU.EDIT ? 'active' : ''}
+          className={isActive(showMenu === MENU.EDIT)}
           onClick={() => setShowMenu(MENU.EDIT)}
         >
           Edit

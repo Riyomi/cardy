@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { isActive } from 'utils/utils';
 import Follower from '../Follower/Follower';
 
 const Followers = ({ followers, following, style }) => {
@@ -8,13 +9,13 @@ const Followers = ({ followers, following, style }) => {
     <div className="followers" style={style}>
       <div className="followers-header">
         <span
-          className={showFollowers ? 'active' : ''}
+          className={isActive(showFollowers)}
           onClick={() => setShowFollowers(true)}
         >
           Followers
         </span>
         <span
-          className={!showFollowers ? 'active' : ''}
+          className={isActive(!showFollowers)}
           onClick={() => setShowFollowers(false)}
         >
           Following

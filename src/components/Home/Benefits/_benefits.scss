@@ -1,6 +1,16 @@
 #benefits {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  margin: 0 140px;
+  text-align: center;
+
+  @include portrait-tablet {
+    text-align: left;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include laptop {
+    margin: 0 5%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include desktop {
+    margin: 0 10%;
+  }
 }
