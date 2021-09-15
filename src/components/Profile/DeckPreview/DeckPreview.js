@@ -11,7 +11,7 @@ const DeckPreview = ({ deck }) => {
         <img className="deck-img" src={img} alt={title} />
         <div className="deck-details">
           <Link to={`/deck/${id}`} className="deck-title">
-            {deck.title}
+            {title}
           </Link>
           <ProgressBar
             progress={getDeckProgression(deck)}

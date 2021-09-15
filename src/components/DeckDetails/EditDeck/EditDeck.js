@@ -2,6 +2,8 @@ import { useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
 import FormField from 'components/common/FormField/FormField';
 import Select from 'react-select';
+import Loading from 'components/common/Loading/Loading';
+import Error from 'components/common/Error/Error';
 import {
   CHANGE_VISIBILITY,
   EDIT_DECK,
@@ -16,7 +18,9 @@ const EditDeck = ({ deck }) => {
   const [visibility, setVisibilty] = useState(
     deck.publicId ? 'Public' : 'Private'
   );
-  const { data } = useQuery(GET_CATEGORIES);
+  const { data, loading, error } = useQuery(GET_CATEGORIES, {
+    onError: () => {},
+  });
 
   const options = {
     onError: () => {},
@@ -55,6 +59,9 @@ const EditDeck = ({ deck }) => {
 
     editDeck({ variables: { id: deck.id, title, categoryId } });
   };
+
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <div>

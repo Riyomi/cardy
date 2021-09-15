@@ -1,9 +1,12 @@
 import { useMutation } from '@apollo/client';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useUser } from 'contexts/UserContext';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { DIFFICULTY } from '../../constants';
 import { STUDY_SESSION, GET_DECK, GET_USER } from 'queries/queries';
+import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import Error from 'components/common/Error/Error';
+import Loading from 'components/common/Loading/Loading';
 
 const Study = ({ location }) => {
   const { userInfo, setUserInfo } = useUser();
@@ -11,33 +14,35 @@ const Study = ({ location }) => {
 
   const [cards, setCards] = useState([]);
   const [cardData, setCardData] = useState([]);
-  const [showQuestion, setShowQuestion] = useState(true);
   const [numOfCards, setNumOfCards] = useState(0);
+  const [showQuestion, setShowQuestion] = useState(true);
 
-  const deck = location.state.deck;
+  const deck = location.state?.deck || {};
 
   const [save, { loading, error }] = useMutation(STUDY_SESSION, {
+    onError: () => {},
     refetchQueries: [
       {
         query: GET_DECK,
-        variables: { id: deck.id },
+        variables: { id: deck?.id },
       },
       {
         query: GET_USER,
-        variables: { id: userInfo.id },
+        variables: { id: userInfo?.id },
       },
     ],
   });
 
-  const handleQuit = () => {
-    if (
-      window.confirm(
-        'Are you sure you want to quit? All your progress will be lost!'
-      )
-    ) {
-      history.push('/');
-    }
-  };
+  useEffect(() => {
+    if (!location.state || !userInfo) return history.push('/');
+    setCards(location.state.cards);
+    setNumOfCards(location.state.cards.length);
+  }, [location.state, history, userInfo]);
+
+  const handleQuit = () =>
+    window.confirm(
+      'Are you sure you want to quit? All your progress will be lost!'
+    ) && history.push('/');
 
   const handleSkip = () => {
     const newCards = [...cards];
@@ -95,16 +100,7 @@ const Study = ({ location }) => {
     setShowQuestion(true);
   };
 
-  const getProgress = () => {
-    const progress = ((numOfCards - cards.length) / numOfCards) * 100;
-    return progress;
-  };
-
-  useEffect(() => {
-    if (!location.state.cards || !userInfo) history.push('/dashboard');
-    setCards(location.state.cards);
-    setNumOfCards(location.state.cards.length);
-  }, [location.state, history, userInfo]);
+  const getProgress = () => ((numOfCards - cards.length) / numOfCards) * 100;
 
   return (
     <div>
@@ -117,10 +113,12 @@ const Study = ({ location }) => {
           close
         </span>
       </div>
-      {cards && cards.length > 0 && (
+      {error && <Error />}
+      {loading && <Loading />}
+      {cards && cards.length && (
         <div id="study-content">
           <ProgressBar progress={getProgress()} />
-          {showQuestion && (
+          {showQuestion ? (
             <>
               <h1>Question</h1>
               <div id="question">{cards[0].front}</div>
@@ -133,8 +131,7 @@ const Study = ({ location }) => {
                 </button>
               </div>
             </>
-          )}
-          {!showQuestion && (
+          ) : (
             <>
               <h1>Answer</h1>
               <div id="question">{cards[0].back}</div>
@@ -171,17 +168,8 @@ const Study = ({ location }) => {
           )}
         </div>
       )}
-      {loading && 'Saving progress...'}
-      {error && 'Something went wrong'}
     </div>
   );
-};
-
-const DIFFICULTY = {
-  EASY: 0,
-  NORMAL: 1,
-  HARD: 2,
-  DIDNT_KNOW: 3,
 };
 
 export default Study;

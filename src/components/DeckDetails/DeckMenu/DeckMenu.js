@@ -1,6 +1,7 @@
 import { useUser } from 'contexts/UserContext';
+import { MENU } from '../../../constants';
 
-const DeckMenu = ({ showMenu, setShowMenu, MENU, deck }) => {
+const DeckMenu = ({ showMenu, setShowMenu, deck }) => {
   const { userInfo: user } = useUser();
 
   return (

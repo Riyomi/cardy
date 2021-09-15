@@ -12,8 +12,6 @@ import { UserProvider } from 'contexts/UserContext';
 import { setContext } from '@apollo/client/link/context';
 import { API_URL } from './constants';
 
-console.log(API_URL);
-
 const httpLink = createHttpLink({
   uri: API_URL,
   credentials: 'include',
@@ -37,23 +35,24 @@ async function callFetch(headers) {
 
   const result = await res.json();
 
-  if (result?.errors) {
+  if (result && result.errors) {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('expires');
     localStorage.removeItem('userInfo');
+    return headers;
+  } else {
+    const { accessToken, expires } = result.data.accessToken;
+
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('expires', expires);
+
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${accessToken}`,
+      },
+    };
   }
-
-  const { accessToken, expires } = result.data.accessToken;
-
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('expires', expires);
-
-  return {
-    headers: {
-      ...headers,
-      authorization: `Bearer ${accessToken}`,
-    },
-  };
 }
 
 const authLink = setContext((_, { headers }) => {

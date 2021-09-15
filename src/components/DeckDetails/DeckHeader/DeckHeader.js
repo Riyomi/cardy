@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom';
 
 const DeckHeader = ({ deck }) => {
+  const { id, title, img, publicId, cards, learners, createdBy } = deck;
+
   return (
     <div id="deck-header">
-      <img src={deck.img} alt={deck.title} />
+      <img src={img} alt={title} />
       <div id="deck-header-info">
         <div>
           <h2>
-            {deck.title}{' '}
+            {title}{' '}
             <span
               style={{ fontSize: '16px' }}
               title="This deck was created based on a shared deck. &#013;Any changes made by the owner of the shared deck will be synchronized. &#013;If you don't want this to happen, you can opt out in the settings."
             >
-              {deck.publicId && deck.id !== deck.publicId ? '(synched)' : ''}
+              {publicId && id !== publicId ? '(synched)' : ''}
             </span>
           </h2>
         </div>
@@ -20,16 +22,14 @@ const DeckHeader = ({ deck }) => {
           <div>
             <span>
               <span className="material-icons-outlined">school</span>
-              <span>{deck.cards ? deck.cards.length : 0} cards</span>
+              <span>{cards ? cards.length : 0} cards</span>
             </span>
             <span>
               <span className="material-icons-outlined">people</span>
-              <span>{deck.learners} learners</span>
+              <span>{learners} learners</span>
             </span>
           </div>
-          <Link to={'/profile/' + deck.createdBy.id}>
-            by {deck.createdBy.name}
-          </Link>
+          <Link to={`/profile/${createdBy.id}`}>by {createdBy.name}</Link>
         </div>
       </div>
     </div>

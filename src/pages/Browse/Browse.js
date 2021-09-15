@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import DeckList from 'components/Browse/DeckList/DeckList';
 import Searchbar from 'components/Browse/Searchbar/Searchbar';
@@ -7,8 +7,12 @@ import { useQuery } from '@apollo/client';
 import { GET_BROWSE_DATA } from 'queries/queries';
 import Loading from 'components/common/Loading/Loading';
 import Error from 'components/common/Error/Error';
+import { useUser } from 'contexts/UserContext';
+import { useHistory } from 'react-router';
 
 const Browse = () => {
+  const { userInfo } = useUser();
+  const history = useHistory();
   const [searchFilter, setSearchFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const { loading, data, error } = useQuery(GET_BROWSE_DATA, {
@@ -24,6 +28,8 @@ const Browse = () => {
         )
       : [];
   };
+
+  useEffect(() => !userInfo && history.push('/'));
 
   if (loading) return <Loading />;
   if (error) return <Error />;

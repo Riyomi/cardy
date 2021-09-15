@@ -18,7 +18,6 @@ const Navbar = () => {
         </div>
       ) : (
         <div className="menu-items">
-          <Link to="/browse">decks</Link>
           <Link to="/signup">sign up</Link>
           <Link to="/login">log in</Link>
         </div>

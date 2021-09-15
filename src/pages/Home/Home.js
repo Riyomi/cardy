@@ -9,9 +9,7 @@ const Home = () => {
   const history = useHistory();
   const { userInfo } = useUser();
 
-  useEffect(() => {
-    if (userInfo) history.push('/dashboard');
-  });
+  useEffect(() => userInfo && history.push('/dashboard'));
 
   return (
     <>

@@ -1,9 +1,9 @@
 import { useMutation } from '@apollo/client';
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 import { useUser } from 'contexts/UserContext';
 import { CREATE_CARD, DELETE_CARD, EDIT_CARD, GET_DECK } from 'queries/queries';
 import { useState } from 'react';
 import { timeLeftUntilReview } from 'utils/utils';
+import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 
 const CardsList = ({ deck, editable }) => {
   const { id: deckId, user, cards } = deck;
@@ -18,6 +18,7 @@ const CardsList = ({ deck, editable }) => {
   });
 
   const options = {
+    onError: () => {},
     refetchQueries: [{ query: GET_DECK, variables: { id: deckId } }],
   };
 
@@ -28,37 +29,23 @@ const CardsList = ({ deck, editable }) => {
   const [editCard, { error: editError }] = useMutation(EDIT_CARD, options);
   const [deleteCard] = useMutation(DELETE_CARD, options);
 
-  const handleCreateCard = async () => {
-    if (!front || !back) return;
-
-    try {
-      await createCard({
-        variables: {
-          deckId,
-          front,
-          back,
-        },
-      });
+  const handleCreateCard = () =>
+    front &&
+    back &&
+    createCard({
+      variables: {
+        deckId,
+        front,
+        back,
+      },
+    }).then(() => {
       setFront('');
       setBack('');
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    });
 
-  const handleDeleteCard = async (id) => {
-    if (window.confirm('Are you sure you want to delete this card?')) {
-      try {
-        await deleteCard({
-          variables: {
-            id,
-          },
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
+  const handleDeleteCard = (id) =>
+    window.confirm('Are you sure you want to delete this card?') &&
+    deleteCard({ variables: { id } });
 
   const handleEditCard = async (card) => {
     const { front, back } = editRow;
@@ -66,18 +53,13 @@ const CardsList = ({ deck, editable }) => {
     if (!front || !back || (card.front === front && card.back === back))
       return setEditRow({ index: -1, front: '', back: '' });
 
-    try {
-      await editCard({
-        variables: {
-          id: card.id,
-          front,
-          back,
-        },
-      });
-      setEditRow({ index: -1, front: '', back: '' });
-    } catch (err) {
-      console.log(err);
-    }
+    editCard({
+      variables: {
+        id: card.id,
+        front,
+        back,
+      },
+    }).then(() => setEditRow({ index: -1, front: '', back: '' }));
   };
 
   return (
@@ -93,7 +75,7 @@ const CardsList = ({ deck, editable }) => {
             <th>Index</th>
             <th>Front</th>
             <th>Back</th>
-            {userInfo && user.id === userInfo?.id && <th>Next review</th>}
+            {user.id === userInfo.id && <th>Next review</th>}
             {editable && <th></th>}
           </tr>
         </thead>
@@ -126,7 +108,7 @@ const CardsList = ({ deck, editable }) => {
                     value={editRow.back}
                     onChange={(e) =>
                       setEditRow({
-                        index: index,
+                        index,
                         front: editRow.front,
                         back: e.target.value,
                       })
@@ -151,7 +133,7 @@ const CardsList = ({ deck, editable }) => {
                 key={index}
                 onDoubleClick={() =>
                   setEditRow({
-                    index: index,
+                    index,
                     front: card.front,
                     back: card.back,
                   })
@@ -160,7 +142,7 @@ const CardsList = ({ deck, editable }) => {
                 <td>#{index + 1}</td>
                 <td>{card.front}</td>
                 <td>{card.back}</td>
-                {userInfo && user.id === userInfo?.id && (
+                {user.id === userInfo.id && (
                   <td>{timeLeftUntilReview(card)}</td>
                 )}
                 {editable && (
@@ -195,7 +177,7 @@ const CardsList = ({ deck, editable }) => {
                   onKeyPress={(e) => e.key === 'Enter' && handleCreateCard()}
                 />
               </td>
-              {userInfo && user.id === userInfo?.id && <td></td>}
+              {user.id === userInfo.id && <td></td>}
               <td>
                 <span
                   className="material-icons-outlined icon-btn"

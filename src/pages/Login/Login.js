@@ -1,52 +1,41 @@
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import FormField from 'components/common/FormField/FormField';
 import { useUser } from 'contexts/UserContext';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from 'queries/queries';
+import FormField from 'components/common/FormField/FormField';
 import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 
 const Login = () => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { userInfo, setUserInfo } = useUser();
-  const [loginUser, { error }] = useMutation(LOGIN_USER);
-  const history = useHistory();
+  const [loginUser, { error }] = useMutation(LOGIN_USER, {
+    onCompleted: (data) => {
+      const { user, accessToken, expires } = data.loginUser;
 
-  const handleLoginUser = async (e) => {
-    e.preventDefault();
+      localStorage.setItem('userInfo', JSON.stringify(user));
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('expires', expires);
 
-    try {
-      const userInfo = await loginUser({
-        variables: {
-          email,
-          password,
-        },
-      });
-      localStorage.setItem(
-        'userInfo',
-        JSON.stringify(userInfo.data.loginUser.user)
-      );
-
-      setUserInfo(userInfo.data.loginUser.user);
-
-      localStorage.setItem('accessToken', userInfo.data.loginUser.accessToken);
-      localStorage.setItem('expires', userInfo.data.loginUser.expires);
+      setUserInfo(user);
       history.push('/dashboard');
-    } catch (err) {
-      console.log(err);
-    }
+    },
+    onError: () => {},
+  });
+
+  const handleLoginUser = (e) => {
+    e.preventDefault();
+    loginUser({ variables: { email, password } });
   };
 
-  useEffect(() => {
-    if (userInfo) history.push('/');
-  });
+  useEffect(() => userInfo && history.push('/dashboard'));
 
   return (
     <div className="form-wrapper">
       <div className="sidebar">Welcome back</div>
       {error && <PopupMessage message={error.message} type="error" />}
-
       <div className="form-main">
         <h2>Login</h2>
         <form

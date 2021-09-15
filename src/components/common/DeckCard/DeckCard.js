@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useUser } from 'contexts/UserContext';
+import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import {
   GET_DECK,
   GET_BROWSE_DATA,
@@ -15,58 +15,51 @@ import { cardsDueTo, getDeckProgression, getSeenCards } from 'utils/utils';
 import { useHistory } from 'react-router-dom';
 
 const DeckCard = ({ deck }) => {
+  const history = useHistory();
   const { userInfo } = useUser();
   const [openMenu, setOpenMenu] = useState(false);
-  const history = useHistory();
+  const { id, publicId, img, title, cards, user, mastered } = deck;
 
-  const resetCopyOptions = {
+  const refetchQueries = [
+    { query: GET_USER, variables: { id: userInfo.id } },
+    { query: GET_DECK, variables: { id } },
+  ];
+
+  const [resetDeck] = useMutation(RESET_DECK, {
+    onError: () => {},
+    refetchQueries,
+  });
+
+  const [copyDeck] = useMutation(COPY_DECK, {
+    onError: () => {},
+    onCompleted: (data) => history.push('/deck/' + data.copyDeck.id),
+    refetchQueries,
+  });
+
+  const [deleteDeck] = useMutation(QUIT_DECK, {
+    onError: () => {},
+    onCompleted: () => history.push('/dashboard'),
     refetchQueries: [
-      { query: GET_USER, variables: { id: userInfo?.id } },
-      { query: GET_DECK, variables: { id: deck.id } },
-    ],
-  };
-
-  const [resetDeck] = useMutation(RESET_DECK, resetCopyOptions);
-  const [copyDeck] = useMutation(COPY_DECK, resetCopyOptions);
-
-  const [quitDeck] = useMutation(QUIT_DECK, {
-    refetchQueries: [
-      { query: GET_USER, variables: { id: userInfo?.id } },
-      { query: GET_DECK, variables: { id: deck.publicId } },
+      { query: GET_USER, variables: { id: userInfo.id } },
+      { query: GET_DECK, variables: { id: publicId } },
       { query: GET_BROWSE_DATA },
     ],
   });
 
-  const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this deck?')) {
-      quitDeck({ variables: { id: deck.id } })
-        .then(() => history.push('dashboard'))
-        .catch((err) => console.log(err));
-    }
-  };
+  const handleDelete = () =>
+    window.confirm('Are you sure you want to delete this deck?') &&
+    deleteDeck({ variables: { id } });
 
-  const handleCopy = () => {
-    if (!userInfo) return history.push('/login');
-    const deckId = deck.publicId ? deck.publicId : deck.id;
+  const handleCopy = () =>
+    userInfo && copyDeck({ variables: { id: publicId || id } });
 
-    copyDeck({ variables: { id: deckId } })
-      .then((res) => {
-        history.push('/deck/' + res.data.copyDeck.id);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const handleReset = () => {
-    if (window.confirm('Are you sure you want to reset your progress?')) {
-      resetDeck({ variables: { id: deck.id } }).catch((err) =>
-        console.log(err)
-      );
-    }
-  };
+  const handleReset = () =>
+    window.confirm('Are you sure you want to reset your progress?') &&
+    resetDeck({ variables: { id } });
 
   const DeckOptions = () => {
-    const cardsToReview = cardsDueTo(deck.cards);
-    const newCards = deck.cards.filter((card) => !card.nextReview).slice(0, 20);
+    const cardsToReview = cardsDueTo(cards);
+    const newCards = cards.filter((card) => !card.nextReview).slice(0, 20);
     return (
       <>
         <span id="deck-options" onClick={() => setOpenMenu(!openMenu)}>
@@ -85,7 +78,7 @@ const DeckCard = ({ deck }) => {
             </div>
           )}
         </span>
-        {cardsToReview.length > 0 ? (
+        {cardsToReview.length ? (
           <button
             id="review-btn"
             onClick={() =>
@@ -100,7 +93,7 @@ const DeckCard = ({ deck }) => {
             onClick={() =>
               history.push('/study', { cards: newCards, deck: deck })
             }
-            disabled={newCards.length === 0}
+            disabled={!newCards.length}
           >
             Learn new
           </button>
@@ -117,14 +110,13 @@ const DeckCard = ({ deck }) => {
           style={{ width: '90%', display: 'block', margin: '20px 0' }}
         >
           <div style={{ display: 'flex' }}>
-            <img className="deck-img" src={deck.img} alt={deck.title} />
+            <img className="deck-img" src={img} alt={title} />
             <div className="deck-details">
-              <Link to={'/deck/' + deck.id} className="deck-title">
-                {deck.title}
+              <Link to={'/deck/' + id} className="deck-title">
+                {title}
               </Link>
               <span id="cards-learned">
-                {getSeenCards(deck.cards)} /{' '}
-                {deck.cards ? deck.cards.length : 0} cards
+                {getSeenCards(cards)} / {cards ? cards.length : 0} cards
               </span>
               <ProgressBar
                 progress={getDeckProgression(deck)}
@@ -145,24 +137,19 @@ const DeckCard = ({ deck }) => {
       ) : (
         <div id="deck-details-card" className="deck-card">
           <div>
-            {userInfo && userInfo.id === deck.user.id
-              ? getSeenCards(deck.cards)
-              : 0}{' '}
-            / {deck.cards ? deck.cards.length : 0} cards learned (
-            {userInfo && userInfo.id === deck.user.id ? deck.mastered : 0}{' '}
-            mastered)
+            {userInfo && userInfo.id === user.id ? getSeenCards(cards) : 0} /{' '}
+            {cards ? cards.length : 0} cards learned (
+            {userInfo && userInfo.id === user.id ? mastered : 0} mastered)
           </div>
           <ProgressBar
             progress={
-              userInfo && userInfo.id === deck.user.id
-                ? getDeckProgression(deck)
-                : 0
+              userInfo && userInfo.id === user.id ? getDeckProgression(deck) : 0
             }
             styles={{ margin: '10px 0' }}
           />
 
           <div id="deck-bottom">
-            {deck.user.id === userInfo?.id ? (
+            {user.id === userInfo?.id ? (
               <DeckOptions />
             ) : (
               <button id="review-btn" onClick={handleCopy}>

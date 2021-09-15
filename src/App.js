@@ -10,7 +10,7 @@ import DeckDetails from 'pages/DeckDetails/DeckDetails';
 import Dashboard from 'pages/Dashboard/Dashboard';
 import Study from 'pages/Study/Study';
 import CreateDeck from 'pages/CreateDeck/CreateDeck';
-import NotFound from 'pages/NotFound/NotFound';
+import Error from 'components/common/Error/Error';
 
 const App = () => {
   const DefaultRoutes = () => (
@@ -26,7 +26,9 @@ const App = () => {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/create-deck" component={CreateDeck} />
           <Route exact path="/" component={Home} />
-          <Route component={NotFound} />
+          <Route>
+            <Error message="Not Found" />
+          </Route>
         </Switch>
       </div>
       <Footer />
