@@ -23,7 +23,9 @@ const DeckListItem = ({ deck }) => {
               <span>{cards ? cards.length : 0}</span>
             </div>
           </div>
-          <span style={{ margin: 'auto 0px' }}>By {createdBy.name}</span>
+          <span style={{ margin: 'auto 0px' }}>
+            By {createdBy && createdBy.name}
+          </span>
         </div>
       </div>
     </Link>

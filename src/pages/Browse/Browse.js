@@ -1,28 +1,32 @@
-import { useQuery } from '@apollo/client';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import DeckList from 'components/Browse/DeckList/DeckList';
 import Searchbar from 'components/Browse/Searchbar/Searchbar';
 import Categories from 'components/Browse/Categories/Categories';
-import { useState } from 'react';
-import { GET_DECKS } from 'queries/queries';
-import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_BROWSE_DATA } from 'queries/queries';
+import Loading from 'components/common/Loading/Loading';
+import Error from 'components/common/Error/Error';
 
 const Browse = () => {
   const [searchFilter, setSearchFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
-  const { error, data } = useQuery(GET_DECKS);
+  const { loading, data, error } = useQuery(GET_BROWSE_DATA, {
+    onError: () => {},
+  });
 
   const filterDecks = () => {
-    if (categoryFilter) {
-      return data.decks.filter(
-        (deck) =>
-          deck.category.name === categoryFilter &&
-          deck.title.toLowerCase().includes(searchFilter.toLowerCase())
-      );
-    }
-    return data.decks.filter((deck) =>
-      deck.title.toLowerCase().includes(searchFilter.toLowerCase())
-    );
+    return data
+      ? data.decks.filter(
+          ({ category, title }) =>
+            (categoryFilter ? category.name === categoryFilter : true) &&
+            title.toLowerCase().includes(searchFilter.toLowerCase())
+        )
+      : [];
   };
+
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <div id="browse-content">
@@ -31,14 +35,18 @@ const Browse = () => {
           Create a deck
         </Link>
         <Categories
+          categories={data.categories}
           categoryFilter={categoryFilter}
           setCategoryFilter={setCategoryFilter}
         />
       </div>
       <div>
         <Searchbar setSearchFilter={setSearchFilter} />
-        {data && <DeckList decks={filterDecks()} />}
-        {error && <p>Failed to fetch data from the server.</p>}
+        <DeckList
+          decks={filterDecks()}
+          searchFilter={searchFilter}
+          categoryFilter={categoryFilter}
+        />
       </div>
     </div>
   );

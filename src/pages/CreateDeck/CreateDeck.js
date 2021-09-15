@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import {
   CREATE_DECK,
   GET_CATEGORIES,
-  GET_DECKS,
+  GET_BROWSE_DATA,
   GET_USER,
 } from 'queries/queries';
 import Select from 'react-select';
@@ -24,7 +24,7 @@ const CreateDeck = () => {
       history.push('/deck/' + data.createDeck.id);
     },
     refetchQueries: [
-      { query: GET_DECKS },
+      { query: GET_BROWSE_DATA },
       { query: GET_USER, variables: { id: userInfo?.id } },
     ],
   });

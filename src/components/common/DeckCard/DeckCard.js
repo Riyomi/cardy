@@ -3,7 +3,7 @@ import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import { useUser } from 'contexts/UserContext';
 import {
   GET_DECK,
-  GET_DECKS,
+  GET_BROWSE_DATA,
   GET_USER,
   COPY_DECK,
   QUIT_DECK,
@@ -33,7 +33,7 @@ const DeckCard = ({ deck }) => {
     refetchQueries: [
       { query: GET_USER, variables: { id: userInfo?.id } },
       { query: GET_DECK, variables: { id: deck.publicId } },
-      { query: GET_DECKS },
+      { query: GET_BROWSE_DATA },
     ],
   });
 

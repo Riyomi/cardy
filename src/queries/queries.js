@@ -126,7 +126,7 @@ export const GET_DECK = gql`
   }
 `;
 
-export const GET_DECKS = gql`
+export const GET_BROWSE_DATA = gql`
   query getDecks {
     decks {
       id
@@ -148,6 +148,10 @@ export const GET_DECKS = gql`
       cards {
         id
       }
+    }
+    categories {
+      id
+      name
     }
   }
 `;

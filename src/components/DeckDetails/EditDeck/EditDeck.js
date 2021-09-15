@@ -7,7 +7,7 @@ import {
   EDIT_DECK,
   GET_CATEGORIES,
   GET_DECK,
-  GET_DECKS,
+  GET_BROWSE_DATA,
 } from 'queries/queries';
 
 const EditDeck = ({ deck }) => {
@@ -21,7 +21,7 @@ const EditDeck = ({ deck }) => {
   const options = {
     onError: () => {},
     refetchQueries: [
-      { query: GET_DECKS },
+      { query: GET_BROWSE_DATA },
       { query: GET_DECK, variables: { id: deck.id } },
     ],
   };
