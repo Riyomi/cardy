@@ -83,7 +83,7 @@ const CardsList = ({ deck, editable }) => {
           {cards.map((card, index) =>
             editRow.index === index &&
             userInfo.id === user.id &&
-            deck.publicId === deck.id ? (
+            (deck.publicId === deck.id || !deck.publicId) ? (
               <tr key={index}>
                 <td>#{index + 1}</td>
                 <td>
