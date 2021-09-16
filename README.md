@@ -52,6 +52,6 @@ Implement a full-blown flashcard application with the use of React, Express, Mon
 - Pagination for browse page and cards. Currently, this isn't an issue since there is little data in the database, but it can quickly become a problem when the app grows.
 - Image and audio for the cards to help users learn even more effectively.
 - Export deck feature. Decks could be exported in CSV or XML format.
-- Bulk add curds. It can be a bit troublesome to add cards when you already have hundreds of them premade.
+- Bulk add cards. It can be a bit troublesome to add cards when you already have hundreds of them premade.
 - Adding unit and integration tests by using jest and react-testing-library.
 - Although storing refresh tokens as HTTP only cookies prevents Cross-site scripting (XSS) attacks (since they cannot be read by JavaScript), they are not immune to Cross Site Request Forgery (CSRF), thus it's theoretically possible to make an unwanted request on the user's behalf, should they fall victim of social engineering. Two ways of making the website more secure would be: (1) invalidating refresh tokens when the user logs out [can be done by storing the current valid refresh tokens in the database] (2) implementing CSRF protection by using CSRF tokens.
