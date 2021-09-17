@@ -16,7 +16,7 @@ Inspired by Anki and Memrise, Cardy is a community-driven flashcard application 
 
 ## The Challenge
 
-Implement a full-blown flashcard application with the use of React, Express, MongoDB and GraphlQL. The main objective of the project was to deepen my understanding of the aforementioned technologies (many of which, I had limited experience before) and to streamline my workflow by learning Sass and the use of development and production variables, all this by striving to follow clean code principles so that the code could be easily understood and extended upon demand.
+Implement a full-blown flashcard application with the use of React, Express, MongoDB and GraphlQL. The main objective of the project was to deepen my understanding of the aforementioned technologies (many of which, I had limited experience before) and to streamline my workflow by learning Sass and the use of development and production variables, all this while following clean code principles so that the code could be easily understood and extended upon demand.
 
 [Back to the top](#cardy---flashcard-app)
 
@@ -46,12 +46,12 @@ Implement a full-blown flashcard application with the use of React, Express, Mon
 ### [Backend](https://github.com/Riyomi/cardy-backend)
 
 - Node
-- Middlewares
+- Express
 - MongoDB
+- Middlewares
 - HTTP only cookies
 - JSON web tokens
-- Bycript (to hash passwords)
-- Express
+- bcrypt (to hash passwords)
 - Express GraphQL (to implement GraphlQL API endpoints)
 
 ### Deployment
@@ -99,7 +99,154 @@ src
 
 ## Feature Highlights
 
-... under construction ...
+### User session
+
+To keep users logged in, I used the built-in React Context and created a simple custom hook to make user data available across all components.
+
+```javascript
+const UserContext = React.createContext();
+
+export function useUser() {
+  return useContext(UserContext);
+}
+
+export function UserProvider({ children }) {
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem('userInfo'))
+  );
+  return (
+    <UserContext.Provider value={{ userInfo, setUserInfo }}>
+      {children}
+    </UserContext.Provider>
+  );
+}
+```
+
+To persist the data even when the app is refreshed, it is saved to localStorage after logging in along with the accessToken and its date of expiration.
+
+```javascript
+const [loginUser, { error, loading }] = useMutation(LOGIN_USER, {
+  onCompleted: (data) => {
+    const { user, accessToken, expires } = data.loginUser;
+
+    localStorage.setItem('userInfo', JSON.stringify(user));
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('expires', expires);
+
+    setUserInfo(user);
+    history.push('/dashboard');
+  },
+  onError: () => {},
+});
+```
+
+### Access control of routes
+
+Before the user logs in, only the homepage, login and signup pages are available. If the user tries to nagivate to a different page, they get redirected. Similary, after the user has logged in, it doesn't make sense to let them navigate back to the login page. This access control of routes is achieved by checking whether userInfo exists in the useEffect hook and redirect them accordingly.
+
+```javascript
+useEffect(() => userInfo && history.push('/dashboard'));
+```
+
+### Silent refresh of access tokens
+
+To make user experience as smooth as possible, access tokens get refreshed in the background without prompting the user to log in again. Every time a request is made by the Apollo client, the below piece of code runs to check whether the access token has expired. If it did, a custom made callFetch function gets called to get a new one (the refresh token is stored as an HTTP only cookie, so it's automatically included in the request). In case the request fails, the user gets logged out.
+
+```javascript
+const authLink = setContext((_, { headers }) => {
+  if (localStorage.getItem('accessToken')) {
+    const token = localStorage.getItem('accessToken');
+
+    if (Date.parse(localStorage.getItem('expires')) - Date.now() < 0) {
+      return callFetch(headers);
+    } else {
+      return {
+        headers: {
+          ...headers,
+          authorization: `Bearer ${token}`,
+        },
+      };
+    }
+  }
+});
+```
+
+```javascript
+async function callFetch(headers) {
+  const res = await fetch('/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `mutation {
+            accessToken {
+              accessToken
+              expires
+            }
+          }`,
+    }),
+  });
+
+  const result = await res.json();
+
+  if (result && result.errors) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('expires');
+    localStorage.removeItem('userInfo');
+    return headers;
+  } else {
+    const { accessToken, expires } = result.data.accessToken;
+
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('expires', expires);
+
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${accessToken}`,
+      },
+    };
+  }
+}
+```
+
+### Loading animation
+
+While the user is waiting for the server to process the request, a simple loading animation is displayed. Thanks to the way Apollo Client's useQuery and useMutation hooks work, this was rather easy to implement.
+
+```javascript
+const { data, loading, error } = useQuery(GET_USER, {
+  variables: { id: userInfo.id },
+});
+
+useEffect(() => !userInfo && history.push('/login'));
+
+if (loading) return <Loading />;
+if (error) return <Error />;
+```
+
+The custom loading component
+
+```javascript
+import Loader from 'react-loader-spinner';
+
+const Loading = () => (
+  <div
+    style={{
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      margin: 'auto',
+    }}
+  >
+    <Loader type="ThreeDots" color="#25ac64" height={100} width={100} />
+  </div>
+);
+
+export default Loading;
+```
+
 [Back to the top](#cardy---flashcard-app)
 
 ## Future development
@@ -109,7 +256,7 @@ src
 - Pagination for browse page and cards. Currently, this isn't an issue since there is little data in the database, but it can quickly become a problem when the app grows.
 - Image and audio for the cards to help users learn even more effectively.
 - Export deck feature. Decks could be exported in CSV or XML format.
-- Bulk add curds. It can be a bit troublesome to add cards when you already have hundreds of them premade.
+- Bulk add cards. It can be a bit troublesome to add cards when you already have hundreds of them premade.
 - Adding unit and integration tests by using jest and react-testing-library.
 - Although storing refresh tokens as HTTP only cookies prevents Cross-site scripting (XSS) attacks (since they cannot be read by JavaScript), they are not immune to Cross Site Request Forgery (CSRF), thus it's theoretically possible to make an unwanted request on the user's behalf, should they fall victim of social engineering. Two ways of making the website more secure would be: (1) invalidating refresh tokens when the user logs out [can be done by storing the current valid refresh tokens in the database] (2) implementing CSRF protection by using CSRF tokens.
 
