@@ -9,13 +9,19 @@ const UserDropdown = ({ user, setUserInfo }) => {
   const history = useHistory();
 
   const [logoutUser] = useMutation(LOGOUT_USER, {
-    onError: () => {},
-    onCompleted: () => {
-      history.push('/');
+    onError: () => {
       localStorage.removeItem('userInfo');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('expires');
       setUserInfo(null);
+      history.push('/');
+    },
+    onCompleted: () => {
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('expires');
+      setUserInfo(null);
+      history.push('/');
     },
   });
   const { level, progress } = getUserProgress(user.experience);

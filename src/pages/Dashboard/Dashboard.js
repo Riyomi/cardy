@@ -15,7 +15,7 @@ const Dashboard = () => {
   const history = useHistory();
   const { userInfo } = useUser();
   const { data, loading, error } = useQuery(GET_USER, {
-    variables: { id: userInfo.id },
+    variables: { id: userInfo?.id },
   });
 
   useEffect(() => !userInfo && history.push('/login'));

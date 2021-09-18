@@ -6,7 +6,7 @@ const DeckPreview = ({ deck }) => {
   const { id, title, img } = deck;
 
   return (
-    <div className="deck-card" style={{ width: '80%', margin: '15px 0' }}>
+    <div className="deck-card" style={{ width: '90%', margin: '15px 0' }}>
       <div style={{ display: 'flex', width: '100%' }}>
         <img className="deck-img" src={img} alt={title} />
         <div className="deck-details">

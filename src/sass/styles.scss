@@ -133,10 +133,22 @@ h3 {
 .form-wrapper {
   display: grid;
   grid-template-columns: 4fr 6fr;
-  width: 750px;
   margin: 20px auto;
   border-radius: 10px;
   @include apply-shadow;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    width: 90%;
+  }
+
+  @include portrait-tablet {
+    width: 575px;
+  }
+
+  @include landscape-tablet {
+    width: 750px;
+  }
 }
 
 .sidebar {
@@ -147,6 +159,10 @@ h3 {
   padding: 40px 20px;
   border-radius: 10px 0 0 10px;
   text-align: center;
+
+  @include mobile {
+    display: none;
+  }
 }
 
 .form-main {

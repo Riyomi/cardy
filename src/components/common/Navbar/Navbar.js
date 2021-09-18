@@ -1,4 +1,5 @@
 import { useUser } from 'contexts/UserContext';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserDropdown from '../UserDropdown/UserDropdown';
 
@@ -6,13 +7,15 @@ const Navbar = () => {
   const { userInfo, setUserInfo } = useUser();
   return (
     <nav className="navbar">
-      <Link to="/" className="brand">
+      <Link to="/" id="navbar-brand" className="brand">
         cardy
       </Link>
       <span className="spacer"></span>
       {userInfo ? (
         <div className="menu-items">
-          <Link to="/dashboard">dashboard</Link>
+          <Link id="dashboard-menu-item" to="/dashboard">
+            dashboard
+          </Link>
           <Link to="/browse">decks</Link>
           <UserDropdown user={userInfo} setUserInfo={setUserInfo} />
         </div>

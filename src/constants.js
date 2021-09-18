@@ -1,5 +1,5 @@
 const prod = 'https://alpha-cardy-backend.herokuapp.com/graphql';
-const dev = '/graphql';
+const dev = 'http://192.168.1.108:4000/graphql';
 
 export const API_URL = process.env.NODE_ENV === 'development' ? dev : prod;
 

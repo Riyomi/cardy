@@ -104,7 +104,7 @@ const DeckCard = ({ deck }) => {
       {history.location.pathname === '/dashboard' ? (
         <div
           className="deck-card"
-          style={{ width: '90%', display: 'block', margin: '20px 0' }}
+          style={{ display: 'block', margin: '20px 0' }}
         >
           <div style={{ display: 'flex' }}>
             <img className="deck-img" src={img} alt={title} />
