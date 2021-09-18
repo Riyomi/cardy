@@ -11,12 +11,7 @@ export function UserProvider({ children }) {
     JSON.parse(localStorage.getItem('userInfo'))
   );
   return (
-    <UserContext.Provider
-      value={{
-        userInfo,
-        setUserInfo,
-      }}
-    >
+    <UserContext.Provider value={{ userInfo, setUserInfo }}>
       {children}
     </UserContext.Provider>
   );

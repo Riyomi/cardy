@@ -18,7 +18,7 @@ const httpLink = createHttpLink({
 });
 
 async function callFetch(headers) {
-  const res = await fetch('/graphql', {
+  const res = await fetch(API_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
