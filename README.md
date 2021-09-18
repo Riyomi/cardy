@@ -247,6 +247,94 @@ const Loading = () => (
 export default Loading;
 ```
 
+### Popup messages
+
+If the user gives wrong input in the login and signup form, a custom made Popup component shows up. The same component is used to let the user know when they successfully followed / unfollowed someone.
+
+```javascript
+const PopupMessage = ({ message, timeout, type }) => {
+  const [showMessage, setShowMessage] = useState(true);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setShowMessage(false);
+    }, timeout);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [timeout, setShowMessage]);
+
+  return (
+    <div
+      className={'popup-message type-' + type}
+      style={{ display: showMessage ? 'block' : 'none' }}
+    >
+      {message}
+    </div>
+  );
+};
+```
+
+### User validation on the backend
+
+For token generation and signing, I used the jwt module. For authenticating tokens, I wrote a custom authenticateToken function that returns the user object if the validation is successful and returns null otherwise.
+
+```javascript
+const generateAccessToken = (user) => {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '15m',
+  });
+};
+
+function authenticateToken(token, type = process.env.ACCESS_TOKEN_SECRET) {
+  let result = null;
+  jwt.verify(token, type, (err, user) => {
+    if (err) return null;
+    result = user;
+  });
+  return result;
+}
+```
+
+Example of using the authenticateToken function
+
+```javascript
+const token = context.token;
+const user = authenticateToken(token);
+if (!user) throw new Error('Forbidden');
+```
+
+### Middleware used to extract the access token
+
+By default, the GraphlQL library I used does not have access to the req and res objects, so I had to create a middleware to add them to the context. To make referring to the access token easier, I added it separately to the context.
+
+```javascript
+app.use('/graphql', (req, res) => {
+  return graphqlHTTP({
+    schema,
+    graphiql: true,
+    context: { req, res, token: getToken(req) },
+  })(req, res);
+});
+
+function getToken(req) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  return token;
+}
+```
+
+Example of a GraphQL resolve function
+
+```javascript
+async resolve(parent, args, context) {
+  // code
+}
+
+```
+
 [Back to the top](#cardy---flashcard-app)
 
 ## Future development
