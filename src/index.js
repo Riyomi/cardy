@@ -23,6 +23,7 @@ async function callFetch(headers) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({
       query: `mutation {
             accessToken {

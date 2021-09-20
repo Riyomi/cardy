@@ -54,6 +54,7 @@
     }
 
     @include portrait-tablet {
+      display: block;
       grid-column: 1 / 3;
     }
 

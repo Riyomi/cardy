@@ -1,5 +1,4 @@
 import { useUser } from 'contexts/UserContext';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import UserDropdown from '../UserDropdown/UserDropdown';
 

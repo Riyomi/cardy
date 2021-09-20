@@ -29,7 +29,9 @@ const DeckHeader = ({ deck }) => {
               <span>{learners} learners</span>
             </span>
           </div>
-          <Link to={`/profile/${createdBy.id}`}>by {createdBy.name}</Link>
+          <Link id="created-by" to={`/profile/${createdBy.id}`}>
+            by {createdBy.name}
+          </Link>
         </div>
       </div>
     </div>

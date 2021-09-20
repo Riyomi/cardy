@@ -1,33 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_BROWSE_DATA } from 'queries/queries';
+import { useUser } from 'contexts/UserContext';
+import { useHistory } from 'react-router';
+import { filterDecks } from 'utils/utils';
+import Error from 'components/common/Error/Error';
+import Loading from 'components/common/Loading/Loading';
 import DeckList from 'components/Browse/DeckList/DeckList';
 import Searchbar from 'components/Browse/Searchbar/Searchbar';
 import Categories from 'components/Browse/Categories/Categories';
-import { useQuery } from '@apollo/client';
-import { GET_BROWSE_DATA } from 'queries/queries';
-import Loading from 'components/common/Loading/Loading';
-import Error from 'components/common/Error/Error';
-import { useUser } from 'contexts/UserContext';
-import { useHistory } from 'react-router';
+import { useClickOutside } from 'useClickOutside';
 
 const Browse = () => {
   const { userInfo } = useUser();
   const history = useHistory();
   const [searchFilter, setSearchFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
+  const [openMenu, setOpenMenu] = useState(false);
   const { loading, data, error } = useQuery(GET_BROWSE_DATA, {
     onError: () => {},
   });
 
-  const filterDecks = () => {
-    return data
-      ? data.decks.filter(
-          ({ category, title }) =>
-            (categoryFilter ? category.name === categoryFilter : true) &&
-            title.toLowerCase().includes(searchFilter.toLowerCase())
-        )
-      : [];
-  };
+  const menuRef = useClickOutside(() => {
+    if (openMenu) setOpenMenu(false);
+  });
 
   useEffect(() => !userInfo && history.push('/'));
 
@@ -37,19 +34,42 @@ const Browse = () => {
   return (
     <div id="browse-content">
       <div>
-        <Link to="/create-deck" className="btn">
-          Create a deck
-        </Link>
-        <Categories
-          categories={data.categories}
-          categoryFilter={categoryFilter}
-          setCategoryFilter={setCategoryFilter}
-        />
+        <div id="action-btns">
+          <Link
+            to="/create-deck"
+            className="material-icons-outlined mobile-action-btn"
+            title="Create a deck"
+          >
+            add
+          </Link>
+          <span
+            className="material-icons-outlined  mobile-action-btn"
+            title="Open filters"
+            onMouseDown={() => setOpenMenu(!openMenu)}
+          >
+            filter_alt
+          </span>
+        </div>
+
+        <div
+          id="browse-sidebar"
+          style={{ display: openMenu ? 'block' : 'none' }}
+        >
+          <Link id="create-deck-desktop" to="/create-deck" className="btn">
+            Create a deck
+          </Link>
+          <Categories
+            menuRef={menuRef}
+            categories={data.categories}
+            categoryFilter={categoryFilter}
+            setCategoryFilter={setCategoryFilter}
+          />
+        </div>
       </div>
       <div>
         <Searchbar setSearchFilter={setSearchFilter} />
         <DeckList
-          decks={filterDecks()}
+          decks={filterDecks(data, categoryFilter, searchFilter)}
           searchFilter={searchFilter}
           categoryFilter={categoryFilter}
         />

@@ -2,9 +2,13 @@
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
-  width: 80%;
+  width: 90%;
   margin: 20px auto;
   gap: 10px;
+
+  @include desktop {
+    width: 80%;
+  }
 
   #review-forecast,
   #card-distribution {
@@ -17,9 +21,13 @@
   }
 }
 #deck-details-menu {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   margin-top: 10px;
+
+  @include desktop {
+    width: 80%;
+  }
 
   span {
     color: $lightGray;

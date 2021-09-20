@@ -11,7 +11,6 @@ import Loading from 'components/common/Loading/Loading';
 const Study = ({ location }) => {
   const { userInfo, setUserInfo } = useUser();
   const history = useHistory();
-
   const [cards, setCards] = useState([]);
   const [cardData, setCardData] = useState([]);
   const [numOfCards, setNumOfCards] = useState(0);
@@ -105,7 +104,7 @@ const Study = ({ location }) => {
   return (
     <div>
       <div id="study-header" className="navbar">
-        <span>
+        <span id="study-deck-title">
           {deck.title} {`(studying ${numOfCards} cards)`}
         </span>
         <span className="spacer"></span>
@@ -124,10 +123,10 @@ const Study = ({ location }) => {
               <div id="question">{cards[0].front}</div>
               <div id="study-buttons">
                 <button className="btn" onClick={() => setShowQuestion(false)}>
-                  Reveal answer
+                  See answer
                 </button>
                 <button className="btn" onClick={handleSkip}>
-                  Skip for now
+                  Skip
                 </button>
               </div>
             </>
@@ -135,7 +134,7 @@ const Study = ({ location }) => {
             <>
               <h1>Answer</h1>
               <div id="question">{cards[0].back}</div>
-              <div id="study-buttons">
+              <div id="study-buttons-back">
                 <button
                   className="btn"
                   onClick={() => rateCard(DIFFICULTY.EASY)}
@@ -161,7 +160,7 @@ const Study = ({ location }) => {
                   onClick={() => rateCard(DIFFICULTY.DIDNT_KNOW)}
                   style={{ background: 'black' }}
                 >
-                  Didn't know
+                  Forgot
                 </button>
               </div>
             </>

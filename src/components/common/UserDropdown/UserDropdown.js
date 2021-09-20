@@ -13,15 +13,15 @@ const UserDropdown = ({ user, setUserInfo }) => {
       localStorage.removeItem('userInfo');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('expires');
-      setUserInfo(null);
       history.push('/');
+      setUserInfo(null);
     },
     onCompleted: () => {
       localStorage.removeItem('userInfo');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('expires');
-      setUserInfo(null);
       history.push('/');
+      setUserInfo(null);
     },
   });
   const { level, progress } = getUserProgress(user.experience);

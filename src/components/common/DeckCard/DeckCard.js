@@ -13,12 +13,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cardsDueTo, getDeckProgression, getSeenCards } from 'utils/utils';
 import { useHistory } from 'react-router-dom';
+import { useClickOutside } from 'useClickOutside';
 
 const DeckCard = ({ deck }) => {
   const history = useHistory();
   const { userInfo } = useUser();
   const [openMenu, setOpenMenu] = useState(false);
   const { id, publicId, img, title, cards, user, mastered } = deck;
+
+  const menuRef = useClickOutside(() => {
+    setOpenMenu(false);
+  });
 
   const refetchQueries = [
     { query: GET_USER, variables: { id: userInfo.id } },
@@ -63,7 +68,7 @@ const DeckCard = ({ deck }) => {
           <span className="material-icons-outlined">expand_more</span>
           <span>Options</span>
           {openMenu && (
-            <div id="options-menu">
+            <div ref={menuRef} id="options-menu">
               <span onClick={handleReset}>
                 <span className="material-icons-outlined">restart_alt</span>
                 <span>Reset</span>
@@ -133,7 +138,7 @@ const DeckCard = ({ deck }) => {
         </div>
       ) : (
         <div id="deck-details-card" className="deck-card">
-          <div>
+          <div id="deck-progression">
             {userInfo.id === user.id ? getSeenCards(cards) : 0} /{' '}
             {cards ? cards.length : 0} cards learned (
             {userInfo.id === user.id ? mastered : 0} mastered)

@@ -9,6 +9,10 @@
   height: 100px;
   box-sizing: border-box;
   padding: 0 10%;
+
+  @include mobile {
+    height: 75px;
+  }
 }
 
 @mixin round-picture {

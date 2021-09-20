@@ -5,14 +5,21 @@ import Error from 'components/common/Error/Error';
 import { useParams } from 'react-router-dom';
 import { GET_USER } from 'queries/queries';
 import { useQuery } from '@apollo/client';
+import { useUser } from 'contexts/UserContext';
+import { useHistory } from 'react-router';
+import { useEffect } from 'react';
 
 const Profile = () => {
   const { id } = useParams();
+  const { userInfo } = useUser();
+  const history = useHistory();
 
   const { loading, error, data } = useQuery(GET_USER, {
     onError: () => {},
     variables: { id },
   });
+
+  useEffect(() => !userInfo && history.push('/'));
 
   if (loading) return <Loading />;
   if (error) return <Error />;

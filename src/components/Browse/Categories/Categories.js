@@ -1,6 +1,11 @@
-const Categories = ({ categories, categoryFilter, setCategoryFilter }) => {
+const Categories = ({
+  categories,
+  categoryFilter,
+  setCategoryFilter,
+  menuRef,
+}) => {
   return (
-    <div id="categories">
+    <div ref={menuRef} id="categories">
       <span id="categories-title">
         {categoryFilter ? categoryFilter : 'All Categories'}
       </span>
@@ -9,7 +14,9 @@ const Categories = ({ categories, categoryFilter, setCategoryFilter }) => {
         style={{ cursor: 'pointer' }}
         className={!categoryFilter ? 'active-category' : ''}
       >
-        <span className="material-icons-outlined">menu</span>
+        <span id="categories-menu-icon" className="material-icons-outlined">
+          menu
+        </span>
         <span>All Categories</span>
       </div>
       <ul>

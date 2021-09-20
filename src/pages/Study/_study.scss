@@ -3,6 +3,10 @@
   font-size: $fontMedium;
   margin-bottom: 40px;
 
+  @include mobile {
+    height: 75px;
+  }
+
   .material-icons-outlined {
     padding-left: 40px;
     cursor: pointer;
@@ -10,23 +14,53 @@
 }
 
 #study-content {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 
+  @include laptop {
+    width: 80%;
+  }
+
   h1 {
-    font-size: 48px;
     margin: 20px 0;
+
+    @include mobile {
+      font-size: 28px;
+    }
+
+    @include portrait-tablet {
+      font-size: 36px;
+    }
+
+    @include laptop {
+      font-size: 48px;
+    }
   }
 
   #question {
+    font-size: 28px;
     color: $textColor;
     font-weight: bold;
-    font-size: $fontExtraLarge;
-    height: 400px;
-    line-height: 400px;
     text-align: center;
     border: 1px solid $lightGray;
     border-radius: 10px;
+    height: 400px;
+    line-height: 400px;
+
+    @include mobile {
+      height: 240px;
+      line-height: 240px;
+    }
+
+    @include portrait-tablet {
+      height: 400px;
+      line-height: 400px;
+      font-size: 36px;
+    }
+
+    @include laptop {
+      font-size: $fontExtraLarge;
+    }
   }
 
   #study-buttons {
@@ -36,8 +70,66 @@
     button {
       font-size: 20px;
       padding: 12px 0;
-      width: 250px;
-      margin: 0 15px;
+
+      @include mobile {
+        width: 45%;
+        margin: 0 5px 10px;
+      }
+
+      @include portrait-tablet {
+        width: 125px;
+        margin: 0 5px 10px;
+      }
+
+      @include landscape-tablet {
+        width: 160px;
+        margin: 0 5px 10px;
+      }
+
+      @include laptop {
+        width: 180px;
+        margin: 0 5px 10px;
+      }
+
+      @include desktop {
+        width: 200px;
+        margin: 0 10px 10px;
+      }
+    }
+  }
+
+  #study-buttons-back {
+    text-align: center;
+    margin-top: 20px;
+
+    button {
+      font-size: 20px;
+      padding: 12px 0;
+
+      @include mobile {
+        width: 24%;
+        margin: 0 1px 10px;
+      }
+
+      @include portrait-tablet {
+        width: 125px;
+        margin: 0 5px 10px;
+      }
+
+      @include landscape-tablet {
+        width: 160px;
+        margin: 0 5px 10px;
+      }
+
+      @include laptop {
+        width: 180px;
+        margin: 0 5px 10px;
+      }
+
+      @include desktop {
+        width: 200px;
+        margin: 0 10px 10px;
+      }
     }
   }
 }

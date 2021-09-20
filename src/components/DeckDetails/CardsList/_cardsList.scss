@@ -1,6 +1,7 @@
 #cards-list {
   grid-column: 1 / 3;
   grid-row: 1 / 3;
+  overflow-x: scroll;
 
   table {
     width: 100%;

@@ -55,6 +55,16 @@ export function getWelcomeMessage() {
   }
 }
 
+export function filterDecks(data, categoryFilter, searchFilter) {
+  return data
+    ? data.decks.filter(
+        ({ category, title }) =>
+          (categoryFilter ? category.name === categoryFilter : true) &&
+          title.toLowerCase().includes(searchFilter.toLowerCase())
+      )
+    : [];
+}
+
 export function isActive(condition) {
   return condition ? 'active' : '';
 }

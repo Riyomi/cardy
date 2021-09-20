@@ -7,16 +7,14 @@ const ProfileBody = ({ user }) => {
   return (
     <section className="profile-body">
       <div className="profile-decks">
-        <h3 style={{ fontSize: '24px' }}>{name}'s Public Decks</h3>
+        <h3>{name}'s Public Decks</h3>
         {decks && decks.length ? (
           decks.map((deck, index) => <DeckPreview key={index} deck={deck} />)
         ) : (
           <p>No shared decks yet</p>
         )}
       </div>
-      <div className="profile-friends-wrapper">
-        <Followers followers={followers} following={following} />
-      </div>
+      <Followers followers={followers} following={following} />
     </section>
   );
 };
