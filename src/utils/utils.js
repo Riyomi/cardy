@@ -25,9 +25,8 @@ export function timeLeftUntilReview(card) {
   }
 }
 
-export function getSeenCards(cards) {
-  return cards.filter((card) => card.nextReview).length;
-}
+export const getSeenCards = (cards) =>
+  cards.filter((card) => card.nextReview).length;
 
 export function getDeckProgression(deck) {
   if (!deck || !deck.cards) return;
