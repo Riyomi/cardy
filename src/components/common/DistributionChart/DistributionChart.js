@@ -6,7 +6,7 @@ const DistributionChart = ({ deck }) => {
     labels: ['Mastered', 'Studied', 'New'],
     colors: ['#167d47', '#25ac64', '#000'],
     title: {
-      text: 'Card distribution graph',
+      text: 'Card distribution',
       style: {
         fontSize: '16px',
         fontFamily: 'Open Sans',

@@ -8,6 +8,7 @@ import DeckMenu from '../DeckMenu/DeckMenu';
 import DeckCard from 'components/common/DeckCard/DeckCard';
 import EditDeck from '../EditDeck/EditDeck';
 import DistributionChart from 'components/common/DistributionChart/DistributionChart';
+import ReviewForecast from 'components/common/ReviewForecast/ReviewForecast';
 
 const DeckBody = ({ deck }) => {
   const [showMenu, setShowMenu] = useState(MENU.OVERVIEW);
@@ -29,8 +30,12 @@ const DeckBody = ({ deck }) => {
         {showMenu === MENU.OVERVIEW && (
           <>
             <DeckCard deck={deck} />
-            <DistributionChart deck={deck} />
-            <div id="review-forecast">Review forecast graph</div>
+            {userInfo.id === deck.user.id && (
+              <>
+                <DistributionChart deck={deck} />
+                <ReviewForecast deck={deck} />
+              </>
+            )}
           </>
         )}
         {showMenu === MENU.CARDS && (

@@ -35,11 +35,8 @@ export function getDeckProgression(deck) {
   return (getSeenCards(deck.cards) / deck.cards.length) * 100;
 }
 
-export function cardsDueTo(cards) {
-  return cards.filter(
-    (card) => card.nextReview && card.nextReview - Date.now() <= 0
-  );
-}
+export const cardsDueTo = (cards) =>
+  cards.filter((card) => card.nextReview && card.nextReview - Date.now() <= 0);
 
 export function getWelcomeMessage() {
   const now = new Date();
@@ -64,6 +61,4 @@ export function filterDecks(data, categoryFilter, searchFilter) {
     : [];
 }
 
-export function isActive(condition) {
-  return condition ? 'active' : '';
-}
+export const isActive = (condition) => (condition ? 'active' : '');
