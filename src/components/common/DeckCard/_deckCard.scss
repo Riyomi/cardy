@@ -63,6 +63,7 @@
   background: white;
   border: 1px solid $lightGray;
   border-radius: 10px;
+  z-index: 100;
   @include apply-shadow;
 
   span {
