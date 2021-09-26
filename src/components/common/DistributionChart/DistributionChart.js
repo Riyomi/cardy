@@ -24,13 +24,20 @@ const DistributionChart = ({ deck }) => {
 
   return (
     <div id="card-distribution">
-      <Chart
-        options={options}
-        series={getSeries()}
-        type="pie"
-        width="100%"
-        height={200}
-      />
+      {deck.cards.length ? (
+        <Chart
+          options={options}
+          series={getSeries()}
+          type="pie"
+          width="100%"
+          height={200}
+        />
+      ) : (
+        <div>
+          <h3>Cards distribution</h3>
+          <p>This deck doesn't contain any cards yet</p>
+        </div>
+      )}
     </div>
   );
 };

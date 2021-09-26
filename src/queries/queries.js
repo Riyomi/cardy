@@ -127,8 +127,8 @@ export const GET_DECK = gql`
 `;
 
 export const GET_BROWSE_DATA = gql`
-  query getDecks {
-    decks {
+  query getDecks($limit: Int) {
+    decks(limit: $limit) {
       id
       title
       img

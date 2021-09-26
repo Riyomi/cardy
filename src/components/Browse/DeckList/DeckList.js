@@ -1,13 +1,10 @@
-import { useState } from 'react';
 import DeckListItem from '../DeckListItem/DeckListItem';
 
-const DeckList = ({ decks }) => {
-  const [limit, setLimit] = useState(6);
-
+const DeckList = ({ decks, limit, setLimit }) => {
   return (
     <>
       <div id="deck-list">
-        {decks.length ? (
+        {decks && decks.length ? (
           decks
             .slice(0, limit)
             .map((deck, index) => <DeckListItem deck={deck} key={index} />)

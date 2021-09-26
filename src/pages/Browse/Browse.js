@@ -18,7 +18,9 @@ const Browse = () => {
   const [searchFilter, setSearchFilter] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [openMenu, setOpenMenu] = useState(false);
+  const [limit, setLimit] = useState(6);
   const { loading, data, error } = useQuery(GET_BROWSE_DATA, {
+    variables: { limit },
     onError: () => {},
   });
 
@@ -72,6 +74,8 @@ const Browse = () => {
           decks={filterDecks(data, categoryFilter, searchFilter)}
           searchFilter={searchFilter}
           categoryFilter={categoryFilter}
+          limit={limit}
+          setLimit={setLimit}
         />
       </div>
     </div>
