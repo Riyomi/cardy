@@ -23,11 +23,11 @@ Implement a full-blown flashcard application with the use of React, Express, Mon
 ## My Approach
 
 - To design the frontend, at first I used AdobeXD but later switched to Figma because I found it easier and more intuitive to use. The early prototypes can be found [here](https://www.figma.com/file/HeyCHNLkyKEyi1CROzWf4d/Cardy?node-id=0:1). Note that it's not organized and was used only during the first phases of development, so certain parts might be missing / different in the current version.
-- For planning and organizing my thoughts, I used [Todoist](https://todoist.com/) which is a free todo app. Since a recent addition, it can be used similarly to [Trello](https://trello.com/en) where you can view your tasks in a board which makes it easy to organize things visually.
+- For planning and organizing my thoughts, I used [Todoist](https://todoist.com/) which is a free todo app. Since a recent addition, it can be used in kanban style, similarly to [Trello](https://trello.com/en) which makes it easy to organize things visually.
 
   ![Example of the Cardy project during its final phase of development](https://i.imgur.com/DrepdEq.jpg)
 
-- The development started with building the frontend in React while using the npm package json-server to fake API calls. After finishing up the pages and deciding the structure of the project, I moved onto learning GraphQL and building my own API. When I was done with a few API endpoints, I connected the frontend with the backend and from this point, both sides were developed simultaneously.
+- The development started with building the frontend in React while using the npm package json-server to mock API calls. After finishing up the pages and deciding the structure of the project, I moved onto learning GraphQL and building my own API. When I was done with a few API endpoints, I connected the frontend with the backend and from this point, both sides were developed simultaneously.
 
 [Back to the top](#cardy---flashcard-app)
 
