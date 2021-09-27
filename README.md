@@ -16,7 +16,7 @@ Inspired by Anki and Memrise, Cardy is a community-driven flashcard application 
 
 ## The Challenge
 
-Implement a full-blown flashcard application with the use of React, Express, MongoDB and GraphlQL. The main objective of the project was to deepen my understanding of the aforementioned technologies (many of which, I had limited experience before) and to streamline my workflow by learning Sass and the use of development and production variables, all this while following clean code principles so that the code could be easily understood and extended upon demand.
+Implement a full-blown flashcard application with the use of React, Express, MongoDB and GraphlQL. The main objective of the project was to deepen my understanding of the aforementioned technologies (many of which, I had limited experience before) and to streamline my workflow by learning Sass and the use of development and production variables.
 
 [Back to the top](#cardy---flashcard-app)
 
