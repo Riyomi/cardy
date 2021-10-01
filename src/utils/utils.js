@@ -60,5 +60,3 @@ export function filterDecks(data, categoryFilter, searchFilter) {
       )
     : [];
 }
-
-export const isActive = (condition) => (condition ? 'active' : '');

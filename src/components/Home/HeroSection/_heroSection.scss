@@ -12,15 +12,15 @@
 #hero-text {
   display: 'inline-block';
   p {
-    font-size: $fontMedium;
-    color: $textColor;
+    font-size: 20px;
+    color: var(--text-color);
     margin: 20px 0;
   }
 }
 
 #hero-btn {
   @include btn;
-  font-size: $fontMedium;
+  font-size: 20px;
 }
 
 #hero-img {

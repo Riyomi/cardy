@@ -1,0 +1,33 @@
+@import '../../../sass/mixins';
+
+.container {
+  @include deck-card;
+  width: 100%;
+  margin: 15px 0;
+  
+  @include landscape-tablet {
+    width: 90%;
+  }
+
+  > div {
+    display: flex;
+    width: 100%;
+  }
+
+  img {
+    width: 100px;
+    height: 70px;
+    border-radius: 10px;
+    margin-right: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+    color: var(--text-color);
+    font-weight: normal;
+  }
+
+  .details {
+    width: 100%;
+  }
+}

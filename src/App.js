@@ -11,6 +11,7 @@ import Dashboard from 'pages/Dashboard/Dashboard';
 import Study from 'pages/Study/Study';
 import CreateDeck from 'pages/CreateDeck/CreateDeck';
 import Error from 'components/common/Error/Error';
+import 'sass/styles.scss';
 
 const App = () => {
   const DefaultRoutes = () => (

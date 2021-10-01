@@ -1,8 +1,6 @@
-@import '_variables';
-
 @mixin fullwidth-block {
   color: white;
-  background: $primaryColor;
+  background: var(--primary-color);
   display: flex;
   align-items: center;
   width: 100%;
@@ -22,10 +20,10 @@
 @mixin btn {
   font-family: 'Open Sans';
   font-weight: bold;
-  font-size: $fontSmall;
+  font-size: 16px;
   display: inline-block;
   color: white;
-  background: $primaryColor;
+  background: var(--primary-color);
   padding: 10px 20px;
   border-radius: 10px;
   border: none;
@@ -41,7 +39,7 @@
   display: flex;
   width: 100%;
   color: black;
-  border: 1px solid $lightGray;
+  border: 1px solid var(--light-gray);
   border-radius: 10px;
   padding: 20px 30px;
   box-sizing: border-box;
@@ -54,7 +52,7 @@
 @mixin input-outline {
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px $primaryColor;
+    box-shadow: 0 0 0 2px var(--primary-color);
   }
 }
 

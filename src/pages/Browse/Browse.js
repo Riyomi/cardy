@@ -11,6 +11,7 @@ import DeckList from 'components/Browse/DeckList/DeckList';
 import Searchbar from 'components/Browse/Searchbar/Searchbar';
 import Categories from 'components/Browse/Categories/Categories';
 import { useClickOutside } from 'useClickOutside';
+import styles from './Browse.module.scss';
 
 const Browse = () => {
   const { userInfo } = useUser();
@@ -34,18 +35,18 @@ const Browse = () => {
   if (error) return <Error />;
 
   return (
-    <div id="browse-content">
+    <div className={styles.content}>
       <div>
-        <div id="action-btns">
+        <div className={styles.btns}>
           <Link
             to="/create-deck"
-            className="material-icons-outlined mobile-action-btn"
+            className={`material-icons-outlined ${styles.mobileBtn}`}
             title="Create a deck"
           >
             add
           </Link>
           <span
-            className="material-icons-outlined  mobile-action-btn"
+            className={`material-icons-outlined ${styles.mobileBtn}`}
             title="Open filters"
             onMouseDown={() => setOpenMenu(!openMenu)}
           >
@@ -54,10 +55,10 @@ const Browse = () => {
         </div>
 
         <div
-          id="browse-sidebar"
+          className={styles.sidebar}
           style={{ display: openMenu ? 'block' : 'none' }}
         >
-          <Link id="create-deck-desktop" to="/create-deck" className="btn">
+          <Link className={styles.createDeckDesktop} to="/create-deck">
             Create a deck
           </Link>
           <Categories

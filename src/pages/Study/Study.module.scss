@@ -1,6 +1,8 @@
-#study-header {
+@import '../../sass/mixins';
+
+.header {
   font-weight: 900;
-  font-size: $fontMedium;
+  font-size: 20px;
   margin-bottom: 40px;
 
   @include mobile {
@@ -13,7 +15,7 @@
   }
 }
 
-#study-content {
+.content {
   width: 90%;
   margin: 0 auto;
 
@@ -37,12 +39,12 @@
     }
   }
 
-  #question {
+  .question {
     font-size: 28px;
-    color: $textColor;
+    color: var(--text-color);
     font-weight: bold;
     text-align: center;
-    border: 1px solid $lightGray;
+    border: 1px solid var(--light-gray);
     border-radius: 10px;
     height: 400px;
     line-height: 400px;
@@ -59,11 +61,11 @@
     }
 
     @include laptop {
-      font-size: $fontExtraLarge;
+      font-size: 48px;
     }
   }
 
-  #study-buttons {
+  .btns {
     text-align: center;
     margin-top: 20px;
 
@@ -97,8 +99,7 @@
       }
     }
   }
-
-  #study-buttons-back {
+  .btnsBack {
     text-align: center;
     margin-top: 20px;
 

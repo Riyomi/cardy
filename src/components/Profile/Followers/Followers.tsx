@@ -1,27 +1,34 @@
-import { useState } from 'react';
-import { isActive } from 'utils/utils';
+import { CSSProperties, useState } from 'react';
+import { follower } from 'types/Follower';
 import Follower from '../Follower/Follower';
+import styles from './Followers.module.scss';
 
-const Followers = ({ followers, following, style }) => {
+interface Props {
+  followers: follower[];
+  following: follower[];
+  style?: CSSProperties;
+}
+
+const Followers = ({ followers, following, style }: Props) => {
   const [showFollowers, setShowFollowers] = useState(true);
 
   return (
-    <div className="followers" style={style}>
-      <div className="followers-header">
+    <div className={styles.container} style={style}>
+      <div className={styles.header}>
         <span
-          className={isActive(showFollowers)}
+          className={showFollowers ? styles.active : ''}
           onClick={() => setShowFollowers(true)}
         >
           Followers
         </span>
         <span
-          className={isActive(!showFollowers)}
+          className={!showFollowers ? styles.active : ''}
           onClick={() => setShowFollowers(false)}
         >
           Following
         </span>
       </div>
-      <div className="followers-content">
+      <div className={styles.content}>
         {showFollowers ? (
           <div>
             {followers && followers.length ? (

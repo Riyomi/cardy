@@ -1,59 +1,67 @@
-.deck-title {
+@import '../../../sass/mixins';
+
+.dashboard {
+  @include deck-card;
+}
+
+.title {
   font-size: 20px;
-  color: $textColor;
+  color: var(--text-color);
   font-weight: normal;
 }
 
-.deck-img {
+.img {
   width: 100px;
   height: 70px;
   border-radius: 10px;
   margin-right: 20px;
 }
 
-.deck-details {
+.details {
   width: 100%;
 }
 
-#deck-details-card {
+.card {
+  @include deck-card;
+
   display: block;
   grid-column-start: 1;
   grid-column-end: 3;
   box-sizing: border-box;
 
-  #deck-progression {
+  .progression {
     font-size: 14px;
   }
 }
 
-#deck-bottom {
+.bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#deck-options {
+.options {
   position: relative;
   display: flex;
   border-radius: 10px;
   cursor: pointer;
 }
 
-#cards-learned {
+.cardsLearned {
   display: inline-block;
   width: 100%;
   text-align: right;
   font-size: 14px;
-  color: $textColor;
+  color: var(--text-color);
 }
 
-#review-btn {
+.reviewBtn {
   @include btn;
   border-radius: 10px;
   padding: 7px 20px;
 }
 
-#options-menu {
+.optionsMenu {
   display: flex;
   flex-direction: column;
   width: 100px;
@@ -61,7 +69,7 @@
   position: absolute;
   top: 30px;
   background: white;
-  border: 1px solid $lightGray;
+  border: 1px solid var(--light-gray);
   border-radius: 10px;
   z-index: 100;
   @include apply-shadow;

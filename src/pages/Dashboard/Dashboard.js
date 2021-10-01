@@ -10,6 +10,7 @@ import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
 import Error from 'components/common/Error/Error';
 import Loading from 'components/common/Loading/Loading';
+import styles from './Dashboard.module.scss';
 
 const Dashboard = () => {
   const history = useHistory();
@@ -61,17 +62,17 @@ const Dashboard = () => {
   };
 
   return (
-    <div id="dashboard-content">
+    <div className={styles.content}>
       <h2>Dashboard</h2>
-      <div id="user-content">
-        <div id="user-info">
+      <div className={styles.userContent}>
+        <div className={styles.userInfo}>
           <h3>{name}</h3>
           <img src={img} alt={name} />
           <ProgressBar progress={getUserProgress(experience).progress} />
           <div>{mastered} cards mastered</div>
           <Link to={`profile/${id}`}>View profile</Link>
         </div>
-        <div id="dashboard-digest">
+        <div className={styles.digest}>
           <h1>
             {getWelcomeMessage()}, {name}
           </h1>
@@ -108,8 +109,8 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-      <div id="decks-and-followers">
-        <div id="deck-info-list">
+      <div className={styles.userData}>
+        <div className={styles.deckList}>
           {decks.map((deck, index) => (
             <DeckCard deck={deck} key={index} />
           ))}

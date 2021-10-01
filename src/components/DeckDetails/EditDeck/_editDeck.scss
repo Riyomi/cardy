@@ -12,7 +12,7 @@
   color: black;
 
   label {
-    color: $primaryColor;
+    color: var(--primary-color);
   }
 
   .field-wrapper {
@@ -22,7 +22,7 @@
       box-sizing: border-box;
       font-size: 16px;
       border-radius: 10px;
-      border: 1px solid $lightGray;
+      border: 1px solid var(--light-gray);
       padding: 5px 10px;
       width: 100%;
 
@@ -31,7 +31,7 @@
   }
 
   input::selection {
-    background: $accentColor;
+    background: var(--accent-color);
   }
 
   .submit-btn {

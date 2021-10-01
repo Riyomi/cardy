@@ -1,16 +1,22 @@
+import { deck } from 'types/Deck';
 import { Link } from 'react-router-dom';
 import { getDeckProgression } from 'utils/utils';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import styles from './DeckPreview.module.scss';
 
-const DeckPreview = ({ deck }) => {
+interface Props {
+  deck: deck;
+}
+
+const DeckPreview = ({ deck }: Props) => {
   const { id, title, img } = deck;
 
   return (
-    <div className="deck-card deck-preview">
-      <div style={{ display: 'flex', width: '100%' }}>
-        <img className="deck-img" src={img} alt={title} />
-        <div className="deck-details">
-          <Link to={`/deck/${id}`} className="deck-title">
+    <div className={styles.container}>
+      <div>
+        <img src={img} alt={title} />
+        <div className={styles.details}>
+          <Link to={`/deck/${id}`} className={styles.title}>
             {title}
           </Link>
           <ProgressBar

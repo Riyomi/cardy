@@ -7,6 +7,7 @@ import { STUDY_SESSION, GET_DECK, GET_USER } from 'queries/queries';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
 import Error from 'components/common/Error/Error';
 import Loading from 'components/common/Loading/Loading';
+import styles from './Study.module.scss';
 
 const Study = ({ location }) => {
   const { userInfo, setUserInfo } = useUser();
@@ -103,10 +104,8 @@ const Study = ({ location }) => {
 
   return (
     <div>
-      <div id="study-header" className="navbar">
-        <span id="study-deck-title">
-          {deck.title} {`(studying ${numOfCards} cards)`}
-        </span>
+      <div className={`navbar ${styles.header}`}>
+        <span>{`${deck.title} (studying ${numOfCards} cards)`}</span>
         <span className="spacer"></span>
         <span className="material-icons-outlined" onClick={handleQuit}>
           close
@@ -115,13 +114,13 @@ const Study = ({ location }) => {
       {error && <Error />}
       {loading && <Loading />}
       {cards && cards.length && (
-        <div id="study-content">
+        <div className={styles.content}>
           <ProgressBar progress={getProgress()} />
           {showQuestion ? (
             <>
               <h1>Question</h1>
-              <div id="question">{cards[0].front}</div>
-              <div id="study-buttons">
+              <div className={styles.question}>{cards[0].front}</div>
+              <div className={styles.btns}>
                 <button className="btn" onClick={() => setShowQuestion(false)}>
                   See answer
                 </button>
@@ -133,8 +132,8 @@ const Study = ({ location }) => {
           ) : (
             <>
               <h1>Answer</h1>
-              <div id="question">{cards[0].back}</div>
-              <div id="study-buttons-back">
+              <div className={styles.question}>{cards[0].back}</div>
+              <div className={styles.btnsBack}>
                 <button
                   className="btn"
                   onClick={() => rateCard(DIFFICULTY.EASY)}

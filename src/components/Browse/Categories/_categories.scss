@@ -57,12 +57,12 @@
     cursor: pointer;
 
     &:hover {
-      color: $primaryColor;
+      color: var(--primary-color);
     }
   }
 
   .active-category {
-    color: $primaryColor;
+    color: var(--primary-color);
     font-weight: bold;
   }
 }

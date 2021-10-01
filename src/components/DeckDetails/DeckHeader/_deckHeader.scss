@@ -2,7 +2,7 @@
   display: flex;
   padding-bottom: 30px;
   border-bottom: 1px solid #c2c2c2;
-  color: $textColor;
+  color: var(--text-color);
   width: 90%;
   margin: 20px auto 0;
 
@@ -28,7 +28,7 @@
   }
 
   h2 {
-    color: $primaryColor;
+    color: var(--primary-color);
     text-align: left;
     font-weight: 900;
     margin: 0 0 5px;
@@ -53,12 +53,12 @@
 
     span,
     a {
-      color: $textColor;
+      color: var(--text-color);
       display: inline-flex;
       margin-right: 4px;
 
       .material-icons-outlined {
-        color: $primaryColor;
+        color: var(--primary-color);
         margin-right: 4px;
       }
     }
@@ -70,6 +70,6 @@
 
   #deck-shared {
     font-size: 16px;
-    color: $textColor;
+    color: var(--text-color);
   }
 }

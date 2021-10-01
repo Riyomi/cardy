@@ -1,11 +1,9 @@
-@import './_variables';
 @import './mixins';
 
 @import '../components/common/Navbar/_navbar';
 @import '../components/common/Footer/_footer';
 @import '../components/common/FormField/_formField';
 @import '../components/common/ProgressBar/_progressBar';
-@import '../components/common/DeckCard/_deckCard';
 @import '../components/common/UserDropdown/_userDropdown';
 @import '../components/common/PopupMessage/_popupMessage';
 
@@ -17,8 +15,6 @@
 
 @import '../components/Profile/ProfileHeader/_profileHeader';
 @import '../components/Profile/ProfileBody/_profileBody';
-@import '../components/Profile/Followers/_followers';
-@import '../components/Profile/Follower/_follower';
 
 @import '../components/Browse/Searchbar/_searchbar';
 @import '../components/Browse/Categories/_categories';
@@ -30,21 +26,22 @@
 @import '../components/DeckDetails/CardsList/_cardsList';
 @import '../components/DeckDetails/EditDeck/_editDeck';
 
-@import '../pages/Browse/_browse';
-@import '../pages/Dashboard/_dashboard';
-@import '../pages/Study/study';
-@import '../pages/CreateDeck/createDeck';
+:root {
+  --primary-color: #25ac64;
+  --accent-color: #c9ffe2;
+  --text-color: #606060;
+  --light-gray: #c4c4c4;
+}
 
 * {
   font-family: 'Open Sans';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 html,
 body {
   margin: 0;
-  color: $primaryColor;
+  color: var(--primary-color);
 }
 
 a {
@@ -54,12 +51,12 @@ a {
 }
 
 p {
-  color: $textColor;
+  color: var(--text-color);
   margin: 0;
 }
 
 h1 {
-  font-size: $fontExtraLarge;
+  font-size: 48px;
   font-weight: 900;
   margin: 0;
   padding: 0;
@@ -85,11 +82,11 @@ h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $lightGray;
+  background: var(--light-gray);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: darken($lightGray, 10);
+  background: darken(#c4c4c4, 10);
 }
 
 #content {
@@ -107,7 +104,7 @@ h3 {
 }
 
 .brand {
-  font-size: $fontMedium;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -126,7 +123,7 @@ h3 {
 }
 
 .link-primary {
-  color: $primaryColor;
+  color: var(--primary-color);
 }
 
 .deck-card {
@@ -157,8 +154,8 @@ h3 {
 
 .sidebar {
   color: white;
-  background: $primaryColor;
-  font-size: $fontLarge;
+  background: var(--primary-color);
+  font-size: 28px;
   font-weight: bold;
   padding: 40px 20px;
   border-radius: 10px 0 0 10px;
@@ -175,7 +172,7 @@ h3 {
 }
 
 .user-form {
-  color: $textColor;
+  color: var(--text-color);
   width: 100%;
   text-align: center;
   margin-bottom: 20px;
@@ -186,7 +183,7 @@ h3 {
     width: 100%;
     margin-top: 5px;
     padding: 10px;
-    border: 1px solid $lightGray;
+    border: 1px solid var(--light-gray);
     border-radius: 10px;
 
     @include input-outline;
@@ -203,14 +200,5 @@ h3 {
     @include btn;
     width: 90%;
     margin: 10px auto;
-  }
-}
-
-.deck-preview {
-  width: 100%;
-  margin: 15px 0;
-
-  @include landscape-tablet {
-    width: 90%;
   }
 }

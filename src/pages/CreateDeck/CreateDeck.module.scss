@@ -1,8 +1,10 @@
-.deck-creation-form {
-  color: $textColor;
+@import '../../sass/mixins';
+
+.form {
+  color: var(--text-color);
 
   h2 {
-    color: $primaryColor;
+    color: var(--primary-color);
   }
 
   label {

@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { cardsDueTo, getDeckProgression, getSeenCards } from 'utils/utils';
 import { useHistory } from 'react-router-dom';
 import { useClickOutside } from 'useClickOutside';
+import styles from './DeckCard.module.scss';
 
 const DeckCard = ({ deck }) => {
   const history = useHistory();
@@ -64,11 +65,11 @@ const DeckCard = ({ deck }) => {
     const newCards = cards.filter((card) => !card.nextReview).slice(0, 20);
     return (
       <>
-        <span id="deck-options" onClick={() => setOpenMenu(!openMenu)}>
+        <span className={styles.options} onClick={() => setOpenMenu(!openMenu)}>
           <span className="material-icons-outlined">expand_more</span>
           <span>Options</span>
           {openMenu && (
-            <div ref={menuRef} id="options-menu">
+            <div ref={menuRef} className={styles.optionsMenu}>
               <span onClick={handleReset}>
                 <span className="material-icons-outlined">restart_alt</span>
                 <span>Reset</span>
@@ -82,7 +83,7 @@ const DeckCard = ({ deck }) => {
         </span>
         {cardsToReview.length ? (
           <button
-            id="review-btn"
+            className={styles.reviewBtn}
             onClick={() =>
               history.push('/study', { cards: cardsToReview, deck: deck })
             }
@@ -91,7 +92,7 @@ const DeckCard = ({ deck }) => {
           </button>
         ) : (
           <button
-            id="review-btn"
+            className={styles.reviewBtn}
             onClick={() =>
               history.push('/study', { cards: newCards, deck: deck })
             }
@@ -108,16 +109,16 @@ const DeckCard = ({ deck }) => {
     <>
       {history.location.pathname === '/dashboard' ? (
         <div
-          className="deck-card"
+          className={styles.dashboard}
           style={{ display: 'block', margin: '20px 0' }}
         >
           <div style={{ display: 'flex' }}>
-            <img className="deck-img" src={img} alt={title} />
-            <div className="deck-details">
-              <Link to={'/deck/' + id} className="deck-title">
+            <img className={styles.img} src={img} alt={title} />
+            <div className={styles.details}>
+              <Link to={'/deck/' + id} className={styles.title}>
                 {title}
               </Link>
-              <span id="cards-learned">
+              <span className={styles.cardsLearned}>
                 {getSeenCards(cards)} / {cards ? cards.length : 0} cards
               </span>
               <ProgressBar
@@ -130,15 +131,15 @@ const DeckCard = ({ deck }) => {
             </div>
           </div>
           <div
-            id="deck-bottom"
+            className={styles.bottom}
             style={{ marginBottom: '-10px', marginTop: '5px' }}
           >
             <DeckOptions />
           </div>
         </div>
       ) : (
-        <div id="deck-details-card" className="deck-card">
-          <div id="deck-progression">
+        <div className={styles.card}>
+          <div className={styles.progression}>
             {userInfo.id === user.id ? getSeenCards(cards) : 0} /{' '}
             {cards ? cards.length : 0} cards learned (
             {userInfo.id === user.id ? mastered : 0} mastered)
@@ -148,12 +149,12 @@ const DeckCard = ({ deck }) => {
             styles={{ margin: '10px 0' }}
           />
 
-          <div id="deck-bottom">
+          <div className={styles.bottom}>
             {user.id === userInfo?.id ? (
               <DeckOptions />
             ) : (
               <button
-                id="review-btn"
+                className={styles.reviewBtn}
                 onClick={() => copyDeck({ variables: { id: publicId || id } })}
               >
                 Start studying

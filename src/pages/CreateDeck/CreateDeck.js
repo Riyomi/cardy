@@ -13,6 +13,7 @@ import PopupMessage from 'components/common/PopupMessage/PopupMessage';
 import FormField from 'components/common/FormField/FormField';
 import Loading from 'components/common/Loading/Loading';
 import Error from 'components/common/Error/Error';
+import styles from './CreateDeck.module.scss';
 
 const CreateDeck = () => {
   const [title, setTitle] = useState('');
@@ -49,7 +50,7 @@ const CreateDeck = () => {
         <div className="form-main">
           <form
             onSubmit={(e) => handleCreateDeck(e)}
-            className="user-form deck-creation-form"
+            className={`user-form ${styles.form}`}
           >
             <h2>Deck information</h2>
             <FormField
