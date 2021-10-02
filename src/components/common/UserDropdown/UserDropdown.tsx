@@ -5,8 +5,14 @@ import { useHistory } from 'react-router';
 import { getUserProgress } from 'utils/utils';
 import Progress from 'components/common/Progress/Progress';
 import styles from './UserDropdown.module.scss';
+import { user } from 'types/User';
 
-const UserDropdown = ({ user, setUserInfo }) => {
+interface Props {
+  user: user;
+  setUserInfo: Function;
+}
+
+const UserDropdown = ({ user, setUserInfo }: Props) => {
   const history = useHistory();
 
   const logout = () => {

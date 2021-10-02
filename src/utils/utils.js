@@ -29,8 +29,7 @@ export const getSeenCards = (cards) =>
   cards.filter((card) => card.nextReview).length;
 
 export function getDeckProgression(deck) {
-  if (!deck || !deck.cards) return;
-  if (!deck.cards.length) return 0;
+  if (!deck || !deck.cards || !deck.cards.length) return 0;
 
   return (getSeenCards(deck.cards) / deck.cards.length) * 100;
 }

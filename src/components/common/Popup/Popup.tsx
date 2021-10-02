@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import styles from './Popup.module.scss';
 
-const Popup = ({ message, timeout, type }) => {
+interface Props {
+  message: string;
+  timeout: number;
+  type: 'error' | 'info' | 'success';
+}
+
+const Popup = ({ message, timeout, type }: Props) => {
   const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {

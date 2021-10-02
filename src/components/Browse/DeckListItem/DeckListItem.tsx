@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
+import { deck } from 'types/Deck';
 import styles from './DeckListItem.module.scss';
 
-const DeckListItem = ({ deck }) => {
+interface Props {
+  deck: deck;
+}
+
+const DeckListItem = ({ deck }: Props) => {
   const { id, img, title, learners, cards, createdBy } = deck;
 
   return (

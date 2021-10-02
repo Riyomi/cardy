@@ -1,7 +1,14 @@
+import { deck } from 'types/Deck';
 import DeckListItem from '../DeckListItem/DeckListItem';
 import styles from './DeckList.module.scss';
 
-const DeckList = ({ decks, limit, setLimit }) => {
+interface Props {
+  decks: deck[];
+  limit: number;
+  setLimit: Function;
+}
+
+const DeckList = ({ decks, limit, setLimit }: Props) => {
   return (
     <>
       <div className={styles.container}>

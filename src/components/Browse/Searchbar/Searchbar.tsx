@@ -1,6 +1,10 @@
 import styles from './Searchbar.module.scss';
 
-const Searchbar = ({ setSearchFilter }) => (
+interface Props {
+  setSearchFilter: Function;
+}
+
+const Searchbar = ({ setSearchFilter }: Props) => (
   <div className={styles.wrapper}>
     <input
       type="text"
