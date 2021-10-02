@@ -1,4 +1,4 @@
-.popup-message {
+.message {
   position: absolute;
   top: 10%;
   margin: 0 auto;
@@ -33,14 +33,14 @@
   }
 }
 
-.type-error {
+.error {
   background: #ac2e25;
 }
 
-.type-information {
+.information {
   background: #a9ac25;
 }
 
-.type-success {
+.success {
   background: var(--primary-color);
 }

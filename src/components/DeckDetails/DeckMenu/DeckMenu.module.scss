@@ -1,0 +1,25 @@
+@import '../../../sass/mixins';
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10px;
+
+  @include desktop {
+    width: 80%;
+  }
+
+  span {
+    color: var(--light-gray);
+    border-bottom: 1px solid var(--light-gray);
+    padding: 0px 25px;
+    padding-bottom: 5px;
+    cursor: pointer;
+  }
+
+  .active {
+    font-weight: bold;
+    color: black;
+    border-bottom: 2px solid black;
+  }
+}

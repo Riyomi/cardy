@@ -1,4 +1,6 @@
-#deck-header {
+@import '../../../sass/mixins';
+
+.wrapper {
   display: flex;
   padding-bottom: 30px;
   border-bottom: 1px solid #c2c2c2;
@@ -40,7 +42,7 @@
     }
   }
 
-  #deck-header-info {
+  .details {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -62,14 +64,5 @@
         margin-right: 4px;
       }
     }
-
-    #created-by {
-      display: none;
-    }
-  }
-
-  #deck-shared {
-    font-size: 16px;
-    color: var(--text-color);
   }
 }

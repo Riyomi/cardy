@@ -1,12 +1,13 @@
-import BenefitCard from '../BenefitCard/BenefitCard';
+import Benefit from '../Benefit/Benefit';
+import styles from './Benefits.module.scss';
 
 const Benefits = () => {
   return (
     <section>
       <h2>Learning new skills has never been this easy</h2>
-      <div id="benefits">
+      <div className={styles.benefits}>
         {benefits.map((benefit, index) => (
-          <BenefitCard
+          <Benefit
             key={index}
             icon={benefit.icon}
             title={benefit.title}

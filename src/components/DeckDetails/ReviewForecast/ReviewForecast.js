@@ -69,7 +69,7 @@ const ReviewForecast = ({ deck }) => {
   ];
 
   return (
-    <div id="review-forecast">
+    <div className="chart">
       {getSeenCards(deck.cards) ? (
         <Chart
           options={options}

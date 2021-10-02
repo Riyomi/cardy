@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
+import styles from './DeckHeader.module.scss';
 
 const DeckHeader = ({ deck }) => {
   const { id, title, img, publicId, cards, learners, createdBy } = deck;
 
   return (
-    <div id="deck-header">
+    <div className={styles.wrapper}>
       <img src={img} alt={title} />
-      <div id="deck-header-info">
+      <div className={styles.details}>
         <div>
           <h2>
             {title}{' '}
@@ -29,9 +30,7 @@ const DeckHeader = ({ deck }) => {
               <span>{learners} learners</span>
             </span>
           </div>
-          <Link id="created-by" to={`/profile/${createdBy.id}`}>
-            by {createdBy.name}
-          </Link>
+          <Link to={`/profile/${createdBy.id}`}>by {createdBy.name}</Link>
         </div>
       </div>
     </div>

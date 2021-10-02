@@ -1,4 +1,4 @@
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import Popup from 'components/common/Popup/Popup';
 import FormField from 'components/common/FormField/FormField';
 import Loading from 'components/common/Loading/Loading';
 import { Link, useHistory } from 'react-router-dom';
@@ -47,7 +47,7 @@ const Signup = () => {
     <div className="form-wrapper">
       <div className="sidebar">Your journey starts today...</div>
       <div className="form-main">
-        {error && <PopupMessage message={error.message} type="error" />}
+        {error && <Popup message={error.message} type="error" />}
         <h2>Sign up</h2>
         <form className="user-form" method="POST" onSubmit={(e) => signup(e)}>
           <FormField

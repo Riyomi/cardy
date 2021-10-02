@@ -4,6 +4,7 @@ import FormField from 'components/common/FormField/FormField';
 import Select from 'react-select';
 import Loading from 'components/common/Loading/Loading';
 import Error from 'components/common/Error/Error';
+import styles from './EditDeck.module.scss';
 import {
   CHANGE_VISIBILITY,
   EDIT_DECK,
@@ -75,10 +76,10 @@ const EditDeck = ({ deck }) => {
   if (error) return <Error />;
 
   return (
-    <div>
-      <div id="edit-deck-info">
+    <>
+      <div className={styles.wrapper}>
         <h3>Edit deck info</h3>
-        <form onSubmit={(e) => handleEditDeck(e)} className="edit-deck-form">
+        <form onSubmit={(e) => handleEditDeck(e)}>
           <FormField
             name="Title"
             type="text"
@@ -86,7 +87,7 @@ const EditDeck = ({ deck }) => {
             setValue={setTitle}
             required={true}
           />
-          <div className="field-wrapper">
+          <div className={styles.fieldWrapper}>
             <label>Category</label>
             {data && (
               <Select
@@ -102,7 +103,7 @@ const EditDeck = ({ deck }) => {
               />
             )}
           </div>
-          <div className="field-wrapper">
+          <div className={styles.fieldWrapper}>
             <label>Visibility</label>
             <Select
               defaultValue={{
@@ -116,10 +117,10 @@ const EditDeck = ({ deck }) => {
               onChange={(selected) => setVisibilty(selected.value)}
             />
           </div>
-          <input type="submit" className="submit-btn" value="Save changes" />
+          <input type="submit" value="Save changes" />
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

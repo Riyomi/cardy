@@ -3,12 +3,13 @@ import { MENU } from '../../../constants';
 import { useMutation } from '@apollo/client';
 import { useUser } from 'contexts/UserContext';
 import { GET_DECK, OPT_OUT } from 'queries/queries';
-import CardsList from '../CardsList/CardsList';
+import CardList from '../CardList/CardList';
 import DeckMenu from '../DeckMenu/DeckMenu';
 import DeckCard from 'components/common/DeckCard/DeckCard';
 import EditDeck from '../EditDeck/EditDeck';
-import DistributionChart from 'components/common/DistributionChart/DistributionChart';
-import ReviewForecast from 'components/common/ReviewForecast/ReviewForecast';
+import DistributionChart from '../DistributionChart/DistributionChart';
+import ReviewForecast from '../ReviewForecast/ReviewForecast';
+import styles from './DeckBody.module.scss';
 
 const DeckBody = ({ deck }) => {
   const [showMenu, setShowMenu] = useState(MENU.OVERVIEW);
@@ -26,7 +27,7 @@ const DeckBody = ({ deck }) => {
   return (
     <>
       <DeckMenu showMenu={showMenu} setShowMenu={setShowMenu} deck={deck} />
-      <div id="deck-body">
+      <div className={styles.body}>
         {showMenu === MENU.OVERVIEW && (
           <>
             <DeckCard deck={deck} />
@@ -39,7 +40,7 @@ const DeckBody = ({ deck }) => {
           </>
         )}
         {showMenu === MENU.CARDS && (
-          <CardsList
+          <CardList
             deck={deck}
             editable={
               userInfo.id === deck.user.id &&

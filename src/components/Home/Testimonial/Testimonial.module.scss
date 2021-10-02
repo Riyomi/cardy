@@ -1,4 +1,6 @@
-.testimonial {
+@import '../../../sass/mixins';
+
+.container {
   display: flex;
   color: var(--primary-color);
   flex-direction: column;
@@ -23,7 +25,7 @@
   }
 }
 
-.testimonial-bottom {
+.bottom {
   color: white;
   font-size: 18px;
   margin-top: auto;
@@ -32,24 +34,24 @@
   min-height: 30%;
   border-radius: 0 0 30px 30px;
   text-align: center;
+
+  img {
+    @include round-picture;
+    width: 100px;
+    margin-top: -50px;
+    margin-bottom: 5px;
+    border: 5px solid white;
+  }
 }
 
-.testimonial-description {
+.description {
   color: var(--text-color);
   font-size: 18px;
   text-align: center;
   padding: 0 15%;
 }
 
-.testimonial-picture {
-  @include round-picture;
-  width: 100px;
-  margin-top: -50px;
-  margin-bottom: 5px;
-  border: 5px solid white;
-}
-
-.quote-mark {
+.quote {
   width: 75px;
   margin: 15px 0 20px 30px;
 }

@@ -4,7 +4,7 @@ import { useUser } from 'contexts/UserContext';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from 'queries/queries';
 import FormField from 'components/common/FormField/FormField';
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import Popup from 'components/common/Popup/Popup';
 import Loading from 'components/common/Loading/Loading';
 
 const Login = () => {
@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <div className="form-wrapper">
       <div className="sidebar">Welcome back</div>
-      {error && <PopupMessage message={error.message} type="error" />}
+      {error && <Popup message={error.message} type="error" />}
       <div className="form-main">
         <h2>Login</h2>
         <form

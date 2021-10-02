@@ -1,4 +1,6 @@
-.profile-body {
+@import '../../../sass/mixins';
+
+.container {
   display: grid;
   margin: 0 auto;
   width: 95%;

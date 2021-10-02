@@ -3,9 +3,10 @@ import { useUser } from 'contexts/UserContext';
 import { CREATE_CARD, DELETE_CARD, EDIT_CARD, GET_DECK } from 'queries/queries';
 import { useState } from 'react';
 import { timeLeftUntilReview } from 'utils/utils';
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import Popup from 'components/common/Popup/Popup';
+import styles from './CardList.module.scss';
 
-const CardsList = ({ deck, editable }) => {
+const CardList = ({ deck, editable }) => {
   const { id: deckId, user, cards } = deck;
 
   const { userInfo } = useUser();
@@ -63,11 +64,9 @@ const CardsList = ({ deck, editable }) => {
   };
 
   return (
-    <div id="cards-list">
-      {createError && (
-        <PopupMessage message={createError.message} type="error" />
-      )}
-      {editError && <PopupMessage message={editError.message} type="error" />}
+    <div className={styles.wrapper}>
+      {createError && <Popup message={createError.message} type="error" />}
+      {editError && <Popup message={editError.message} type="error" />}
       <h3>Cards ({cards.length})</h3>
       <table>
         <thead>
@@ -121,7 +120,7 @@ const CardsList = ({ deck, editable }) => {
                 <td></td>
                 <td>
                   <span
-                    className="material-icons icon-btn"
+                    className="material-icons"
                     onClick={() => handleEditCard(card)}
                   >
                     check_circle
@@ -148,7 +147,7 @@ const CardsList = ({ deck, editable }) => {
                 {editable && (
                   <td>
                     <span
-                      className="material-icons-outlined icon-btn"
+                      className="material-icons-outlined"
                       onClick={() => handleDeleteCard(card.id)}
                     >
                       remove_circle
@@ -180,7 +179,7 @@ const CardsList = ({ deck, editable }) => {
               {user.id === userInfo.id && <td></td>}
               <td>
                 <span
-                  className="material-icons-outlined icon-btn"
+                  className="material-icons-outlined"
                   onClick={handleCreateCard}
                 >
                   add_circle
@@ -194,4 +193,4 @@ const CardsList = ({ deck, editable }) => {
   );
 };
 
-export default CardsList;
+export default CardList;

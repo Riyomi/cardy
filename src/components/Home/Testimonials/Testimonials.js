@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Testimonial from '../Testimonial/Testimonial';
 import axios from 'axios';
+import styles from './Testimonials.module.scss';
 
 const testimonials = [
   "My grades have skyrocketed since I'm using Cardy. I couldn't be more grateful this app exists!",
@@ -27,7 +28,7 @@ const Testimonials = () => {
   return (
     <section>
       <h2>What our users are saying about us</h2>
-      <div id="testimonials">
+      <div className={styles.testimonials}>
         {testimonials.map((testimonial, index) => (
           <Testimonial
             description={testimonial}

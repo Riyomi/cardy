@@ -1,59 +1,56 @@
 import { useMutation } from '@apollo/client';
 import { LOGOUT_USER } from 'queries/queries';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { getUserProgress } from 'utils/utils';
 import ProgressBar from 'components/common/ProgressBar/ProgressBar';
-import { useHistory } from 'react-router';
+import styles from './UserDropdown.module.scss';
 
 const UserDropdown = ({ user, setUserInfo }) => {
   const history = useHistory();
 
-  const [logoutUser] = useMutation(LOGOUT_USER, {
-    onError: () => {
-      localStorage.removeItem('userInfo');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('expires');
-      history.push('/');
-      setUserInfo(null);
-    },
-    onCompleted: () => {
-      localStorage.removeItem('userInfo');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('expires');
-      history.push('/');
-      setUserInfo(null);
-    },
-  });
-  const { level, progress } = getUserProgress(user.experience);
+  const logout = () => {
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('expires');
+    history.push('/');
+    setUserInfo(null);
+  };
 
+  const [logoutUser] = useMutation(LOGOUT_USER, {
+    onError: () => logout(),
+    onCompleted: () => logout(),
+  });
+
+  const { level, progress } = getUserProgress(user.experience);
   const { id, name, img } = user;
 
   return (
-    <div id="user-dropdown-menu">
+    <div className={styles.menu}>
       <img src={img} alt={name} />
       <span className="spacer"></span>
       <span className="material-icons-outlined">expand_more</span>
-      <div id="user-dropdown">
-        <div id="user-dropdown-user-info">
-          <div id="user-picture">
+      <div className={styles.dropdown}>
+        <div className={styles.userInfo}>
+          <div className={styles.picWrapper}>
             <img src={img} alt={name} />
-            <span className="level-badge">{level}</span>
+            <span>{level}</span>
           </div>
-          <div id="user-name-and-progress">
+          <div>
             <h3>{name}</h3>
             <ProgressBar progress={progress} />
           </div>
         </div>
-        <div id="user-dropdown-options">
-          <Link to={`/profile/${id}`} className="user-dropdown-option">
+        <div className={styles.options}>
+          <Link to={`/profile/${id}`}>
             <span className="material-icons">account_circle</span>
             <span>Profile</span>
           </Link>
-          <Link to="/dashboard" className="user-dropdown-option">
+          <Link to="/dashboard">
             <span className="material-icons">settings</span>
             <span>Settings</span>
           </Link>
-          <div onClick={() => logoutUser()} className="user-dropdown-option">
+          <div onClick={() => logoutUser()}>
             <span className="material-icons">logout</span>
             <span>Logout</span>
           </div>

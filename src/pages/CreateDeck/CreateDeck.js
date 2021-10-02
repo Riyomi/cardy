@@ -9,7 +9,7 @@ import Select from 'react-select';
 import { useEffect, useState } from 'react';
 import { useUser } from 'contexts/UserContext';
 import { useHistory } from 'react-router-dom';
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import Popup from 'components/common/Popup/Popup';
 import FormField from 'components/common/FormField/FormField';
 import Loading from 'components/common/Loading/Loading';
 import Error from 'components/common/Error/Error';
@@ -44,7 +44,7 @@ const CreateDeck = () => {
 
   return (
     <div>
-      {error && <PopupMessage message={error.message} type="error" />}
+      {error && <Popup message={error.message} type="error" />}
       <div className="form-wrapper">
         <div className="sidebar">Create deck</div>
         <div className="form-main">

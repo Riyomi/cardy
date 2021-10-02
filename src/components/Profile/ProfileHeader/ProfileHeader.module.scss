@@ -1,4 +1,6 @@
-.profile-wrapper {
+@import '../../../sass/mixins';
+
+.wrapper {
   display: flex;
   margin: 20px auto;
   justify-content: space-between;
@@ -16,26 +18,27 @@
   }
 }
 
-.user-info {
+.user {
   display: flex;
   flex-direction: column;
 
   @include landscape-tablet {
     flex-direction: row;
   }
-}
 
-.user-name {
-  font-weight: 900;
-  margin-bottom: 10px;
-  text-align: center;
+  img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    margin: auto;
 
-  @include landscape-tablet {
-    text-align: left;
+    @include landscape-tablet {
+      margin: 0 20px 0 0;
+    }
   }
 }
 
-.user-details {
+.userDetails {
   margin: 0 20px;
   align-self: flex-end;
   padding-bottom: 10px;
@@ -44,6 +47,17 @@
   @include landscape-tablet {
     alig-self: left;
   }
+
+  h2 {
+    font-weight: 900;
+    margin-bottom: 10px;
+    text-align: center;
+
+    @include landscape-tablet {
+      text-align: left;
+    }
+  }
+
   p {
     display: flex;
     align-content: center;
@@ -53,32 +67,21 @@
     @include landscape-tablet {
       justify-content: left;
     }
+
+    span:nth-of-type(1) {
+      color: var(--primary-color);
+      margin-right: 10px;
+    }
+
+    span:nth-of-type(2) {
+      display: inline-block;
+      height: 20px;
+      font-size: 16px;
+    }
   }
 }
 
-.profile-picture {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  margin: auto;
-
-  @include landscape-tablet {
-    margin: 0 20px 0 0;
-  }
-}
-
-.profile-icon {
-  color: var(--primary-color);
-  margin-right: 10px;
-}
-
-.profile-icon-text {
-  display: inline-block;
-  height: 20px;
-  font-size: 16px;
-}
-
-.action-btn {
+.btn {
   @include btn;
   display: block;
   border-radius: 10px;

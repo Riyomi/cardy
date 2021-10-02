@@ -1,18 +1,18 @@
-#user-dropdown {
+.dropdown {
   display: none;
-  position: absolute;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   width: 260px;
   height: 170px;
-  background-color: white;
-  border-radius: 10px;
+  position: absolute;
   top: 44px;
   right: 0px;
   z-index: 200;
+  background-color: white;
+  border-radius: 10px;
   cursor: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-#user-dropdown-menu {
+.menu {
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -25,7 +25,7 @@
     border-radius: 4px;
   }
 
-  &:hover > #user-dropdown {
+  &:hover > .dropdown {
     display: block;
   }
 
@@ -42,12 +42,12 @@
     box-sizing: border-box;
   }
 
-  #user-dropdown-user-info {
+  .userInfo {
     height: 58%;
     display: grid;
     grid-template-columns: 35% 65%;
 
-    #user-picture {
+    .picWrapper {
       display: flex;
       position: relative;
       flex-direction: column;
@@ -58,9 +58,25 @@
         width: 58px;
         height: 58px;
       }
+
+      span {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-color);
+        box-sizing: border-box;
+        color: white;
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        bottom: 15%;
+        right: 15%;
+      }
     }
 
-    #user-name-and-progress {
+    > div:nth-of-type(2) {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -75,29 +91,13 @@
         font-size: 24px;
       }
     }
-
-    .level-badge {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--primary-color);
-      box-sizing: border-box;
-      color: white;
-      border: 2px solid white;
-      border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      bottom: 15%;
-      right: 15%;
-    }
   }
 
-  #user-dropdown-options {
+  .options {
     display: flex;
     height: 42%;
 
-    .user-dropdown-option {
+    > * {
       font-weight: normal;
       display: flex;
       flex-direction: column;

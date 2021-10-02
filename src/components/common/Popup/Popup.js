@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import styles from './Popup.module.scss';
 
-const PopupMessage = ({ message, timeout, type }) => {
+const Popup = ({ message, timeout, type }) => {
   const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const PopupMessage = ({ message, timeout, type }) => {
 
   return (
     <div
-      className={'popup-message type-' + type}
+      className={`${styles.message} ${styles[type]}`}
       style={{ display: showMessage ? 'block' : 'none' }}
     >
       {message}
@@ -23,9 +24,9 @@ const PopupMessage = ({ message, timeout, type }) => {
   );
 };
 
-export default PopupMessage;
+export default Popup;
 
-PopupMessage.defaultProps = {
+Popup.defaultProps = {
   timeout: 3000,
   type: 'information',
 };

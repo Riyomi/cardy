@@ -1,18 +1,18 @@
-#testimonials {
+@import '../../../sass/mixins';
+
+.benefits {
   display: grid;
-  margin: 20px auto;
-  gap: 5%;
-  width: 90%;
+  text-align: center;
 
   @include portrait-tablet {
+    text-align: left;
     grid-template-columns: repeat(2, 1fr);
   }
-
   @include laptop {
+    margin: 0 5%;
     grid-template-columns: repeat(3, 1fr);
   }
-
   @include desktop {
-    width: 75%;
+    margin: 0 10%;
   }
 }

@@ -1,8 +1,9 @@
 import { useMutation } from '@apollo/client';
-import PopupMessage from 'components/common/PopupMessage/PopupMessage';
+import Popup from 'components/common/Popup/Popup';
 import { useUser } from 'contexts/UserContext';
 import { FOLLOW_USER, GET_USER } from 'queries/queries';
 import { useState } from 'react';
+import styles from './ProfileHeader.module.scss';
 
 const ProfileHeader = ({ user }) => {
   const { id, name, img, following, followers, mastered } = user;
@@ -25,34 +26,34 @@ const ProfileHeader = ({ user }) => {
   });
 
   return (
-    <section className="profile-wrapper">
-      {error && <PopupMessage message={error.message} type="error" />}
-      {success && <PopupMessage message={message} type="success" />}
-      <div className="user-info">
-        <img src={img} alt={name} className="profile-picture" />
-        <div className="user-details">
-          <h2 className="user-name">{name}</h2>
+    <section className={styles.wrapper}>
+      {error && <Popup message={error.message} type="error" />}
+      {success && <Popup message={message} type="success" />}
+      <div className={styles.user}>
+        <img src={img} alt={name} />
+        <div className={styles.userDetails}>
+          <h2>{name}</h2>
           <p>
-            <span className="material-icons-outlined profile-icon">people</span>
-            <span className="profile-icon-text">
+            <span className="material-icons-outlined">people</span>
+            <span>
               {following.length} Following / {followers.length} Followers
             </span>
           </p>
           <p>
-            <span className="material-icons-outlined profile-icon">school</span>
-            <span className="profile-icon-text">{mastered} cards mastered</span>
+            <span className="material-icons-outlined">school</span>
+            <span>{mastered} cards mastered</span>
           </p>
         </div>
       </div>
       <div>
         {userInfo &&
           (userInfo.id === id ? (
-            <button className="action-btn" disabled>
+            <button className={styles.btn} disabled>
               Edit profile
             </button>
           ) : (
             <button
-              className="action-btn"
+              className={styles.btn}
               onClick={() => follow({ variables: { userId: id } })}
             >
               {followers.filter((follower) => follower.id === userInfo.id)

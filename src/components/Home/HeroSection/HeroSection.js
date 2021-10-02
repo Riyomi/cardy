@@ -1,20 +1,19 @@
 import { Link } from 'react-router-dom';
+import styles from './HeroSection.module.scss';
 
 const HeroSection = () => {
   return (
-    <div id="hero-wrapper">
-      <div id="hero-text">
+    <div className={styles.wrapper}>
+      <div className={styles.headline}>
         <h1>Learn once</h1>
         <h1>Remember forever</h1>
         <p>
           Cardy helps you learn more efficiently by the power of Spaced
           Repetition
         </p>
-        <Link to="/signup" id="hero-btn">
-          Get Started
-        </Link>
+        <Link to="/signup">Get Started</Link>
       </div>
-      <div id="hero-img"></div>
+      <div className={styles.img}></div>
     </div>
   );
 };

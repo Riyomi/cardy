@@ -23,7 +23,7 @@ const DistributionChart = ({ deck }) => {
   };
 
   return (
-    <div id="card-distribution">
+    <div className="chart">
       {deck.cards.length ? (
         <Chart
           options={options}

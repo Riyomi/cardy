@@ -1,12 +1,13 @@
 import { ReactComponent as QuotationMarks } from 'assets/quotation-marks.svg';
+import styles from './Testimonial.module.scss';
 
 const Testimonial = ({ img, name, description }) => {
   return (
-    <div className="testimonial">
-      <QuotationMarks className="quote-mark" />
-      <div className="testimonial-description">{description}</div>
-      <div className="testimonial-bottom">
-        <img src={img} alt={name?.first} className="testimonial-picture" />
+    <div className={styles.container}>
+      <QuotationMarks className={styles.quote} />
+      <div className={styles.description}>{description}</div>
+      <div className={styles.bottom}>
+        <img src={img} alt={name?.first} />
         <div>{name?.first + ' ' + name?.last}</div>
       </div>
     </div>
