@@ -1,22 +1,23 @@
 import { Link } from 'react-router-dom';
+import styles from './DeckListItem.module.scss';
 
 const DeckListItem = ({ deck }) => {
   const { id, img, title, learners, cards, createdBy } = deck;
 
   return (
-    <Link to={`/deck/${id}`} className="deck-list-item">
+    <Link to={`/deck/${id}`} className={styles.container}>
       <img src={img} alt={title} />
-      <div className="deck-info">
-        <div className="deck-title">{title}</div>
-        <div className="deck-details">
+      <div className={styles.details}>
+        <div>{title}</div>
+        <div>
           <div>
-            <div className="deck-icon">
+            <div className={styles.iconWrapper}>
               <span className="material-icons-outlined" title="learners">
                 people
               </span>
               <span>{learners}</span>
             </div>
-            <div className="deck-icon">
+            <div className={styles.iconWrapper}>
               <span className="material-icons-outlined" title="cards">
                 school
               </span>

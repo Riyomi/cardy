@@ -36,7 +36,7 @@
   text-align: center;
 
   img {
-    @include round-picture;
+    border-radius: 50%;
     width: 100px;
     margin-top: -50px;
     margin-bottom: 5px;

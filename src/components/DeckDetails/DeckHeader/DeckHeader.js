@@ -22,11 +22,15 @@ const DeckHeader = ({ deck }) => {
         <div>
           <div>
             <span>
-              <span className="material-icons-outlined">school</span>
+              <span className={`material-icons-outlined ${styles.icon}`}>
+                school
+              </span>
               <span>{cards ? cards.length : 0} cards</span>
             </span>
             <span>
-              <span className="material-icons-outlined">people</span>
+              <span className={`material-icons-outlined ${styles.icon}`}>
+                people
+              </span>
               <span>{learners} learners</span>
             </span>
           </div>

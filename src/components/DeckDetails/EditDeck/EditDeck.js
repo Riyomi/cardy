@@ -19,6 +19,7 @@ const EditDeck = ({ deck }) => {
   const [visibility, setVisibilty] = useState(
     deck.publicId ? 'Public' : 'Private'
   );
+
   const {
     data,
     loading: loadingCategories,
@@ -86,6 +87,7 @@ const EditDeck = ({ deck }) => {
             value={title}
             setValue={setTitle}
             required={true}
+            classes={styles.fieldWrapper}
           />
           <div className={styles.fieldWrapper}>
             <label>Category</label>

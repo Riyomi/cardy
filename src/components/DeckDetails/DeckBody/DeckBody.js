@@ -49,7 +49,7 @@ const DeckBody = ({ deck }) => {
           />
         )}
         {showMenu === MENU.EDIT && (
-          <div className="edit-deck">
+          <>
             {deck.id !== deck.publicId && deck.publicId && (
               <p>
                 You currently cannot edit this deck because it is synched. If
@@ -64,7 +64,7 @@ const DeckBody = ({ deck }) => {
               (!deck.publicId || deck.publicId === deck.id) && (
                 <EditDeck deck={deck} />
               )}
-          </div>
+          </>
         )}
       </div>
     </>

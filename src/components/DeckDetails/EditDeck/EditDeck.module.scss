@@ -16,6 +16,18 @@
       color: var(--primary-color);
     }
 
+    input {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 5px;
+      padding: 10px;
+      border: 1px solid var(--light-gray);
+      border-radius: 10px;
+
+      @include input-outline;
+    }
+
     .fieldWrapper {
       margin: 20px 0;
       input {

@@ -1,9 +1,10 @@
 import DeckListItem from '../DeckListItem/DeckListItem';
+import styles from './DeckList.module.scss';
 
 const DeckList = ({ decks, limit, setLimit }) => {
   return (
     <>
-      <div id="deck-list">
+      <div className={styles.container}>
         {decks && decks.length ? (
           decks
             .slice(0, limit)
@@ -14,9 +15,7 @@ const DeckList = ({ decks, limit, setLimit }) => {
       </div>
 
       {limit < decks.length && (
-        <button className="load-more-btn" onClick={() => setLimit(limit + 6)}>
-          Load More...
-        </button>
+        <button onClick={() => setLimit(limit + 6)}>Load More...</button>
       )}
     </>
   );

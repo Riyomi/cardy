@@ -45,8 +45,10 @@
 }
 
 .createDeckDesktop {
-  display: none;
   @include btn;
+
+  display: none;
+
   @include laptop {
     display: inline-block;
   }

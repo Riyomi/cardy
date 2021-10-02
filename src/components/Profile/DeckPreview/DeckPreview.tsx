@@ -1,7 +1,7 @@
 import { deck } from 'types/Deck';
 import { Link } from 'react-router-dom';
 import { getDeckProgression } from 'utils/utils';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import Progress from 'components/common/Progress/Progress';
 import styles from './DeckPreview.module.scss';
 
 interface Props {
@@ -19,9 +19,9 @@ const DeckPreview = ({ deck }: Props) => {
           <Link to={`/deck/${id}`} className={styles.title}>
             {title}
           </Link>
-          <ProgressBar
+          <Progress
             progress={getDeckProgression(deck)}
-            styles={{
+            style={{
               marginTop: '20px',
               width: '90%',
             }}

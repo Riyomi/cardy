@@ -5,7 +5,7 @@ import { useUser } from 'contexts/UserContext';
 import { useQuery } from '@apollo/client';
 import { GET_USER } from 'queries/queries';
 import { getUserProgress, cardsDueTo, getWelcomeMessage } from 'utils/utils';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import Progress from 'components/common/Progress/Progress';
 import Followers from 'components/Profile/Followers/Followers';
 import DeckCard from 'components/common/DeckCard/DeckCard';
 import Error from 'components/common/Error/Error';
@@ -68,7 +68,7 @@ const Dashboard = () => {
         <div className={styles.userInfo}>
           <h3>{name}</h3>
           <img src={img} alt={name} />
-          <ProgressBar progress={getUserProgress(experience).progress} />
+          <Progress progress={getUserProgress(experience).progress} />
           <div>{mastered} cards mastered</div>
           <Link to={`profile/${id}`}>View profile</Link>
         </div>

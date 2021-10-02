@@ -58,11 +58,11 @@
       color: var(--text-color);
       display: inline-flex;
       margin-right: 4px;
+    }
 
-      .material-icons-outlined {
-        color: var(--primary-color);
-        margin-right: 4px;
-      }
+    .icon {
+      color: var(--primary-color);
+      margin-right: 4px;
     }
   }
 }

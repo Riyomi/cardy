@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { DIFFICULTY } from '../../constants';
 import { STUDY_SESSION, GET_DECK, GET_USER } from 'queries/queries';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import Progress from 'components/common/Progress/Progress';
 import Error from 'components/common/Error/Error';
 import Loading from 'components/common/Loading/Loading';
 import styles from './Study.module.scss';
@@ -115,7 +115,7 @@ const Study = ({ location }) => {
       {loading && <Loading />}
       {cards && cards.length && (
         <div className={styles.content}>
-          <ProgressBar progress={getProgress()} />
+          <Progress progress={getProgress()} />
           {showQuestion ? (
             <>
               <h1>Question</h1>

@@ -1,3 +1,5 @@
+import styles from './Categories.module.scss';
+
 const Categories = ({
   categories,
   categoryFilter,
@@ -5,18 +7,14 @@ const Categories = ({
   menuRef,
 }) => {
   return (
-    <div ref={menuRef} id="categories">
-      <span id="categories-title">
-        {categoryFilter ? categoryFilter : 'All Categories'}
-      </span>
+    <div ref={menuRef} className={styles.container}>
+      <span>{categoryFilter ? categoryFilter : 'All Categories'}</span>
       <div
         onClick={() => setCategoryFilter('')}
         style={{ cursor: 'pointer' }}
-        className={!categoryFilter ? 'active-category' : ''}
+        className={!categoryFilter ? styles.active : ''}
       >
-        <span id="categories-menu-icon" className="material-icons-outlined">
-          menu
-        </span>
+        <span className={`material-icons-outlined ${styles.menu}`}>menu</span>
         <span>All Categories</span>
       </div>
       <ul>
@@ -25,9 +23,7 @@ const Categories = ({
             <li
               key={category.id}
               onClick={(e) => setCategoryFilter(e.target.innerText)}
-              className={
-                category.name === categoryFilter ? 'active-category' : ''
-              }
+              className={category.name === categoryFilter ? styles.active : ''}
             >
               {category.name}
             </li>

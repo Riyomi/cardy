@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useUser } from 'contexts/UserContext';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import Progress from 'components/common/Progress/Progress';
 import {
   GET_DECK,
   GET_BROWSE_DATA,
@@ -108,11 +108,8 @@ const DeckCard = ({ deck }) => {
   return (
     <>
       {history.location.pathname === '/dashboard' ? (
-        <div
-          className={styles.dashboard}
-          style={{ display: 'block', margin: '20px 0' }}
-        >
-          <div style={{ display: 'flex' }}>
+        <div className={styles.dashboard}>
+          <div>
             <img className={styles.img} src={img} alt={title} />
             <div className={styles.details}>
               <Link to={'/deck/' + id} className={styles.title}>
@@ -121,9 +118,9 @@ const DeckCard = ({ deck }) => {
               <span className={styles.cardsLearned}>
                 {getSeenCards(cards)} / {cards ? cards.length : 0} cards
               </span>
-              <ProgressBar
+              <Progress
                 progress={getDeckProgression(deck)}
-                styles={{
+                style={{
                   marginTop: '5px',
                   width: '100%',
                 }}
@@ -144,9 +141,9 @@ const DeckCard = ({ deck }) => {
             {cards ? cards.length : 0} cards learned (
             {userInfo.id === user.id ? mastered : 0} mastered)
           </div>
-          <ProgressBar
+          <Progress
             progress={userInfo.id === user.id ? getDeckProgression(deck) : 0}
-            styles={{ margin: '10px 0' }}
+            style={{ margin: '10px 0' }}
           />
 
           <div className={styles.bottom}>

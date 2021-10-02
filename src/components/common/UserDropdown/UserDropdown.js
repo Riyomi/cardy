@@ -3,7 +3,7 @@ import { LOGOUT_USER } from 'queries/queries';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { getUserProgress } from 'utils/utils';
-import ProgressBar from 'components/common/ProgressBar/ProgressBar';
+import Progress from 'components/common/Progress/Progress';
 import styles from './UserDropdown.module.scss';
 
 const UserDropdown = ({ user, setUserInfo }) => {
@@ -38,7 +38,7 @@ const UserDropdown = ({ user, setUserInfo }) => {
           </div>
           <div>
             <h3>{name}</h3>
-            <ProgressBar progress={progress} />
+            <Progress progress={progress} />
           </div>
         </div>
         <div className={styles.options}>

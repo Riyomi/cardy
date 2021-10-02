@@ -2,6 +2,12 @@
 
 .dashboard {
   @include deck-card;
+  display: block;
+  margin: 20px 0;
+
+  > div {
+    display: flex;
+  }
 }
 
 .title {

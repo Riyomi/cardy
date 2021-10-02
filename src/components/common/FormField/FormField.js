@@ -1,5 +1,5 @@
-const FormField = ({ name, type, value, setValue, required }) => (
-  <div className="field-wrapper">
+const FormField = ({ name, type, value, classes, setValue, required }) => (
+  <div className={classes || 'field-wrapper'}>
     <label htmlFor={name}>{name}</label>
     <input
       type={type}

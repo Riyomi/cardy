@@ -1,13 +1,5 @@
 @import './mixins';
 
-@import '../components/common/Footer/_footer';
-@import '../components/common/ProgressBar/_progressBar';
-
-@import '../components/Browse/Searchbar/_searchbar';
-@import '../components/Browse/Categories/_categories';
-@import '../components/Browse/DeckListItem/_deckListItem';
-@import '../components/Browse/DeckList/_deckList';
-
 :root {
   --primary-color: #25ac64;
   --accent-color: #c9ffe2;
@@ -53,6 +45,10 @@ h2 {
 h3 {
   color: black;
   margin: 8px 0;
+}
+
+footer {
+  @include fullwidth-block;
 }
 
 ::-webkit-scrollbar {

@@ -1,4 +1,6 @@
-#categories {
+@import '../../../sass/mixins';
+
+.container {
   position: absolute;
   z-index: 100;
   background: white;
@@ -8,7 +10,7 @@
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 
-  #categories-menu-icon {
+  .menu {
     display: none;
   }
 
@@ -20,12 +22,12 @@
     border-radius: initial;
     box-shadow: none;
 
-    #categories-menu-icon {
+    .menu {
       display: block;
     }
   }
 
-  #categories-title {
+  > span {
     display: none;
     font-weight: bold;
     font-size: 24px;
@@ -61,7 +63,7 @@
     }
   }
 
-  .active-category {
+  .active {
     color: var(--primary-color);
     font-weight: bold;
   }
