@@ -8,12 +8,22 @@ import Progress from 'components/common/Progress/Progress';
 import Error from 'components/common/Error/Error';
 import Loading from 'components/common/Loading/Loading';
 import styles from './Study.module.scss';
+import { card } from 'types/Card';
 
-const Study = ({ location }) => {
+interface Props {
+  location: History;
+}
+
+interface CardRating {
+  id: string;
+  rated: number;
+}
+
+const Study = ({ location }: Props) => {
   const { userInfo, setUserInfo } = useUser();
   const history = useHistory();
-  const [cards, setCards] = useState([]);
-  const [cardData, setCardData] = useState([]);
+  const [cards, setCards] = useState<card[]>([]);
+  const [cardData, setCardData] = useState<CardRating[]>([]);
   const [numOfCards, setNumOfCards] = useState(0);
   const [showQuestion, setShowQuestion] = useState(true);
 
@@ -51,7 +61,7 @@ const Study = ({ location }) => {
     setShowQuestion(true);
   };
 
-  const rateCard = (difficulty) => {
+  const rateCard = (difficulty: number) => {
     const currentCard = cards[0];
 
     if (difficulty !== DIFFICULTY.DIDNT_KNOW) {
@@ -74,15 +84,17 @@ const Study = ({ location }) => {
           },
         })
           .then((res) => {
-            const updatedUserInfo = {
-              id: userInfo.id,
-              img: userInfo.img,
-              name: userInfo.name,
-              experience: userInfo.experience + res.data.studySession,
-            };
-            setUserInfo(updatedUserInfo);
-            localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
-            history.push('/dashboard');
+            if (userInfo) {
+              const updatedUserInfo = {
+                id: userInfo.id,
+                img: userInfo.img,
+                name: userInfo.name,
+                experience: userInfo.experience + res.data.studySession,
+              };
+              setUserInfo(updatedUserInfo);
+              localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
+              history.push('/dashboard');
+            }
           })
           .catch((err) => console.log(err.message));
       }
@@ -104,7 +116,7 @@ const Study = ({ location }) => {
 
   return (
     <div>
-      <div className={`navbar ${styles.header}`}>
+      <div className={styles.header}>
         <span>{`${deck.title} (studying ${numOfCards} cards)`}</span>
         <span className="spacer"></span>
         <span className="material-icons-outlined" onClick={handleQuit}>

@@ -4,6 +4,7 @@
   font-weight: 900;
   font-size: 20px;
   margin-bottom: 40px;
+  @include fullwidth-block;
 
   @include mobile {
     height: 75px;

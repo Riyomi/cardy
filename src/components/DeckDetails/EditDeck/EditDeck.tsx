@@ -12,8 +12,14 @@ import {
   GET_DECK,
   GET_BROWSE_DATA,
 } from 'queries/queries';
+import { deck } from 'types/Deck';
+import { category } from 'types/Category';
 
-const EditDeck = ({ deck }) => {
+interface Props {
+  deck: deck;
+}
+
+const EditDeck = ({ deck }: Props) => {
   const [title, setTitle] = useState(deck.title);
   const [categoryId, setCategoryId] = useState(deck.category.id);
   const [visibility, setVisibilty] = useState(
@@ -45,7 +51,7 @@ const EditDeck = ({ deck }) => {
     options
   );
 
-  const handleEditDeck = (e) => {
+  const handleEditDeck = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const visibilityChanged =
@@ -97,11 +103,11 @@ const EditDeck = ({ deck }) => {
                   value: deck.category.id,
                   label: deck.category.name,
                 }}
-                options={data.categories.map((category) => ({
+                options={data.categories.map((category: category) => ({
                   value: category.id,
                   label: category.name,
                 }))}
-                onChange={(selected) => setCategoryId(selected.value)}
+                onChange={(selected) => setCategoryId(selected!.value)}
               />
             )}
           </div>
@@ -116,7 +122,7 @@ const EditDeck = ({ deck }) => {
                 { value: 'Private', label: 'Private' },
                 { value: 'Public', label: 'Public' },
               ]}
-              onChange={(selected) => setVisibilty(selected.value)}
+              onChange={(selected) => setVisibilty(selected!.value)}
             />
           </div>
           <input type="submit" value="Save changes" />

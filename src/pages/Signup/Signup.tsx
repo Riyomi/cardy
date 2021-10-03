@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useUser } from 'contexts/UserContext';
 import { CREATE_USER } from 'queries/queries';
 import { useMutation } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Signup = () => {
   const history = useHistory();
@@ -29,7 +29,7 @@ const Signup = () => {
 
   const { userInfo, setUserInfo } = useUser();
 
-  const signup = (e) => {
+  const signup = (e: React.FormEvent) => {
     e.preventDefault();
 
     createUser({

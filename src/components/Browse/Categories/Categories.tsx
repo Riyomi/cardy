@@ -5,7 +5,7 @@ interface Props {
   categories: category[];
   categoryFilter: string;
   setCategoryFilter: Function;
-  menuRef: React.MutableRefObject<HTMLDivElement>;
+  menuRef: React.RefObject<HTMLDivElement>;
 }
 
 const Categories = ({

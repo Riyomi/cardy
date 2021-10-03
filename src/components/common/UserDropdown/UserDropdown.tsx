@@ -5,10 +5,10 @@ import { useHistory } from 'react-router';
 import { getUserProgress } from 'utils/utils';
 import Progress from 'components/common/Progress/Progress';
 import styles from './UserDropdown.module.scss';
-import { user } from 'types/User';
+import { UserInfo } from '../../../contexts/UserContext';
 
 interface Props {
-  user: user;
+  user: UserInfo;
   setUserInfo: Function;
 }
 

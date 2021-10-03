@@ -29,7 +29,9 @@ const Browse = () => {
     if (openMenu) setOpenMenu(false);
   });
 
-  useEffect(() => !userInfo && history.push('/'));
+  useEffect(() => {
+    if (!userInfo) history.push('/');
+  });
 
   if (loading) return <Loading />;
   if (error) return <Error />;
@@ -73,8 +75,6 @@ const Browse = () => {
         <Searchbar setSearchFilter={setSearchFilter} />
         <DeckList
           decks={filterDecks(data, categoryFilter, searchFilter)}
-          searchFilter={searchFilter}
-          categoryFilter={categoryFilter}
           limit={limit}
           setLimit={setLimit}
         />

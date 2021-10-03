@@ -5,8 +5,15 @@ import { useState } from 'react';
 import { timeLeftUntilReview } from 'utils/utils';
 import Popup from 'components/common/Popup/Popup';
 import styles from './CardList.module.scss';
+import { deck } from 'types/Deck';
+import { card } from 'types/Card';
 
-const CardList = ({ deck, editable }) => {
+interface Props {
+  deck: deck;
+  editable: boolean;
+}
+
+const CardList = ({ deck, editable }: Props) => {
   const { id: deckId, user, cards } = deck;
 
   const { userInfo } = useUser();
@@ -44,11 +51,11 @@ const CardList = ({ deck, editable }) => {
       setBack('');
     });
 
-  const handleDeleteCard = (id) =>
+  const handleDeleteCard = (id: string) =>
     window.confirm('Are you sure you want to delete this card?') &&
     deleteCard({ variables: { id } });
 
-  const handleEditCard = async (card) => {
+  const handleEditCard = async (card: card) => {
     const { front, back } = editRow;
 
     if (!front || !back || (card.front === front && card.back === back))
@@ -74,14 +81,14 @@ const CardList = ({ deck, editable }) => {
             <th>Index</th>
             <th>Front</th>
             <th>Back</th>
-            {user.id === userInfo.id && <th>Next review</th>}
+            {user.id === userInfo?.id && <th>Next review</th>}
             {editable && <th></th>}
           </tr>
         </thead>
         <tbody>
           {cards.map((card, index) =>
             editRow.index === index &&
-            userInfo.id === user.id &&
+            userInfo?.id === user.id &&
             (deck.publicId === deck.id || !deck.publicId) ? (
               <tr key={index}>
                 <td>#{index + 1}</td>
@@ -141,7 +148,7 @@ const CardList = ({ deck, editable }) => {
                 <td>#{index + 1}</td>
                 <td>{card.front}</td>
                 <td>{card.back}</td>
-                {user.id === userInfo.id && (
+                {user.id === userInfo?.id && (
                   <td>{timeLeftUntilReview(card)}</td>
                 )}
                 {editable && (
@@ -176,7 +183,7 @@ const CardList = ({ deck, editable }) => {
                   onKeyPress={(e) => e.key === 'Enter' && handleCreateCard()}
                 />
               </td>
-              {user.id === userInfo.id && <td></td>}
+              {user.id === userInfo?.id && <td></td>}
               <td>
                 <span
                   className="material-icons-outlined"

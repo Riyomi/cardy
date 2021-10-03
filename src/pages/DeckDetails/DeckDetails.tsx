@@ -10,12 +10,14 @@ import { useUser } from 'contexts/UserContext';
 import { useHistory } from 'react-router';
 
 const DeckDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string | undefined }>();
   const { userInfo } = useUser();
   const history = useHistory();
   const { loading, error, data } = useQuery(GET_DECK, { variables: { id } });
 
-  useEffect(() => !userInfo && history.push('/'));
+  useEffect(() => {
+    if (!userInfo) history.push('/');
+  });
 
   if (error) return <Error message="Not Found" />;
   if (loading) return <Loading />;

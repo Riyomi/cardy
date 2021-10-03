@@ -9,8 +9,20 @@ const testimonials = [
   "My grades have skyrocketed since I'm using Cardy. I couldn't be more grateful this app exists!",
 ];
 
+type person = {
+  name: {
+    first: string;
+    last: string;
+  };
+  picture: {
+    large: string;
+    medium: string;
+    thumbnail: string;
+  };
+};
+
 const Testimonials = () => {
-  const [people, setPeople] = useState([]);
+  const [people, setPeople] = useState<person[]>([]);
 
   useEffect(() => {
     const testimonials = localStorage.getItem('testimonials');
@@ -29,14 +41,15 @@ const Testimonials = () => {
     <section>
       <h2>What our users are saying about us</h2>
       <div className={styles.testimonials}>
-        {testimonials.map((testimonial, index) => (
-          <Testimonial
-            description={testimonial}
-            key={index}
-            img={people[index]?.picture.large}
-            name={people[index]?.name}
-          />
-        ))}
+        {people.length &&
+          testimonials.map((testimonial, index) => (
+            <Testimonial
+              description={testimonial}
+              key={index}
+              img={people[index].picture.large}
+              name={people[index].name}
+            />
+          ))}
       </div>
     </section>
   );

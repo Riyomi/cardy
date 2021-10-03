@@ -3,9 +3,14 @@ import Popup from 'components/common/Popup/Popup';
 import { useUser } from 'contexts/UserContext';
 import { FOLLOW_USER, GET_USER } from 'queries/queries';
 import { useState } from 'react';
+import { user } from 'types/User';
 import styles from './ProfileHeader.module.scss';
 
-const ProfileHeader = ({ user }) => {
+interface Props {
+  user: user;
+}
+
+const ProfileHeader = ({ user }: Props) => {
   const { id, name, img, following, followers, mastered } = user;
 
   const { userInfo } = useUser();

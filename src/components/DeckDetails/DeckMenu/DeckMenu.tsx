@@ -1,8 +1,15 @@
 import { useUser } from 'contexts/UserContext';
+import { deck } from 'types/Deck';
 import { MENU } from '../../../constants';
 import styles from './DeckMenu.module.scss';
 
-const DeckMenu = ({ showMenu, setShowMenu, deck }) => {
+interface Props {
+  showMenu: number;
+  setShowMenu: React.Dispatch<React.SetStateAction<number>>;
+  deck: deck;
+}
+
+const DeckMenu = ({ showMenu, setShowMenu, deck }: Props) => {
   const { userInfo } = useUser();
 
   return (
@@ -19,7 +26,7 @@ const DeckMenu = ({ showMenu, setShowMenu, deck }) => {
       >
         Cards
       </span>
-      {userInfo.id === deck.user.id && (
+      {userInfo?.id === deck.user.id && (
         <span
           className={showMenu === MENU.EDIT ? styles.active : ''}
           onClick={() => setShowMenu(MENU.EDIT)}

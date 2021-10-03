@@ -1,8 +1,8 @@
 interface Props {
   name: string;
-  type: 'text' | 'password' | 'number';
-  value: number;
-  classes: string;
+  type: 'text' | 'password' | 'number' | 'email';
+  value: number | string;
+  classes?: string;
   setValue: Function;
   required: boolean;
 }

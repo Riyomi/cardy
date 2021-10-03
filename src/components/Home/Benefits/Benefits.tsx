@@ -1,23 +1,21 @@
 import Benefit from '../Benefit/Benefit';
 import styles from './Benefits.module.scss';
 
-const Benefits = () => {
-  return (
-    <section>
-      <h2>Learning new skills has never been this easy</h2>
-      <div className={styles.benefits}>
-        {benefits.map((benefit, index) => (
-          <Benefit
-            key={index}
-            icon={benefit.icon}
-            title={benefit.title}
-            description={benefit.description}
-          />
-        ))}
-      </div>
-    </section>
-  );
-};
+const Benefits = () => (
+  <section>
+    <h2>Learning new skills has never been this easy</h2>
+    <div className={styles.benefits}>
+      {benefits.map((benefit, index) => (
+        <Benefit
+          key={index}
+          icon={benefit.icon}
+          title={benefit.title}
+          description={benefit.description}
+        />
+      ))}
+    </div>
+  </section>
+);
 
 export default Benefits;
 

@@ -1,6 +1,9 @@
-export function getUserProgress(exp) {
-  const level = parseInt(Math.sqrt(exp / 50)) + 1;
+import { card } from 'types/Card';
+import { deck } from 'types/Deck';
+
+export function getUserProgress(exp: number) {
   const value = Math.sqrt(exp / 50);
+  const level = Math.round(value) + 1;
   const progress = ((value - Math.floor(value)) * 100).toFixed(2);
 
   return {
@@ -9,7 +12,7 @@ export function getUserProgress(exp) {
   };
 }
 
-export function timeLeftUntilReview(card) {
+export function timeLeftUntilReview(card: card): string {
   if (!card.nextReview) return '-';
 
   const timeLeft = card.nextReview - Date.now();
@@ -25,16 +28,16 @@ export function timeLeftUntilReview(card) {
   }
 }
 
-export const getSeenCards = (cards) =>
+export const getSeenCards = (cards: card[]) =>
   cards.filter((card) => card.nextReview).length;
 
-export function getDeckProgression(deck) {
+export function getDeckProgression(deck: deck) {
   if (!deck || !deck.cards || !deck.cards.length) return 0;
 
   return (getSeenCards(deck.cards) / deck.cards.length) * 100;
 }
 
-export const cardsDueTo = (cards) =>
+export const cardsDueTo = (cards: card[]) =>
   cards.filter((card) => card.nextReview && card.nextReview - Date.now() <= 0);
 
 export function getWelcomeMessage() {
@@ -50,7 +53,11 @@ export function getWelcomeMessage() {
   }
 }
 
-export function filterDecks(data, categoryFilter, searchFilter) {
+export function filterDecks(
+  data: { decks: deck[] },
+  categoryFilter: string,
+  searchFilter: string
+) {
   return data
     ? data.decks.filter(
         ({ category, title }) =>

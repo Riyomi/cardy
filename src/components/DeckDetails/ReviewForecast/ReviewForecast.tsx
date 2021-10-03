@@ -1,7 +1,20 @@
 import Chart from 'react-apexcharts';
+import { deck } from 'types/Deck';
 import { getSeenCards } from 'utils/utils';
 
-const ReviewForecast = ({ deck }) => {
+interface Props {
+  deck: deck;
+}
+
+type dictionary = {
+  [key: string]: number;
+};
+
+type xAxisType = 'category' | 'datetime' | 'numeric' | undefined;
+
+const type: xAxisType = 'datetime';
+
+const ReviewForecast = ({ deck }: Props) => {
   const options = {
     title: {
       text: 'Review forecast',
@@ -15,28 +28,23 @@ const ReviewForecast = ({ deck }) => {
       colors: ['#25ac64'],
     },
     xaxis: {
-      type: 'datetime',
+      type,
       labels: {
         datetimeUTC: false,
       },
     },
     yaxis: {
       labels: {
-        formatter: function (val) {
-          return val.toFixed(0);
-        },
+        formatter: (val: number) => val.toFixed(0),
       },
     },
   };
 
   const getData = () => {
     const today = new Date(Number(Date.now())).setHours(0, 0, 0, 0);
-    const count = {};
+    const count: dictionary = {};
     const data = [];
     const DAY = 1000 * 60 * 60 * 24;
-
-    console.log(today);
-    console.log(today);
 
     for (const date of deck.cards) {
       if (!date.nextReview) continue;

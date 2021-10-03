@@ -1,6 +1,12 @@
 import styles from './Benefit.module.scss';
 
-const Benefit = ({ icon, title, description }) => (
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const Benefit = ({ icon, title, description }: Props) => (
   <div className={styles.card}>
     <span className="material-icons-outlined">{icon}</span>
     <h3>{title}</h3>

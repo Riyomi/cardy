@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { getUserProgress } from 'utils/utils';
-import { follower } from 'types/Follower';
 import styles from './Follower.module.scss';
+import { user } from 'types/User';
 
 interface Props {
-  follower: follower;
+  follower: user;
 }
 
 const Follower = ({ follower }: Props): JSX.Element => {

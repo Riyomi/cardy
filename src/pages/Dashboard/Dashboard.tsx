@@ -11,6 +11,8 @@ import DeckCard from 'components/common/DeckCard/DeckCard';
 import Error from 'components/common/Error/Error';
 import Loading from 'components/common/Loading/Loading';
 import styles from './Dashboard.module.scss';
+import { card } from 'types/Card';
+import { user } from 'types/User';
 
 const Dashboard = () => {
   const history = useHistory();
@@ -19,13 +21,15 @@ const Dashboard = () => {
     variables: { id: userInfo?.id },
   });
 
-  useEffect(() => !userInfo && history.push('/login'));
+  useEffect(() => {
+    if (!userInfo) history.push('/login');
+  });
 
   if (loading) return <Loading />;
   if (error) return <Error />;
 
   const { id, name, img, experience, decks, mastered, followers, following } =
-    data.user;
+    data.user as user;
 
   const cardsToReview = () => {
     const cardsToReview = [];
@@ -36,9 +40,9 @@ const Dashboard = () => {
   };
 
   const newCards = () => {
-    const newCards = [];
+    const newCards: card[] = [];
     for (const deck of decks) {
-      newCards.push(...deck.cards.filter((card) => !card.nextReview));
+      newCards.push(...deck.cards.filter((card: card) => !card.nextReview));
     }
     return newCards.slice(0, 20);
   };

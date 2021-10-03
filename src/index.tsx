@@ -16,7 +16,7 @@ const httpLink = createHttpLink({
   credentials: 'include',
 });
 
-async function callFetch(headers) {
+async function callFetch(headers: object) {
   const res = await fetch(API_URL, {
     method: 'POST',
     headers: {
@@ -56,10 +56,11 @@ async function callFetch(headers) {
 }
 
 const authLink = setContext((_, { headers }) => {
-  if (localStorage.getItem('accessToken')) {
-    const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem('accessToken');
+  const expires = localStorage.getItem('expires');
 
-    if (Date.parse(localStorage.getItem('expires')) - Date.now() < 0) {
+  if (token && expires) {
+    if (Date.parse(expires) - Date.now() < 0) {
       return callFetch(headers);
     } else {
       return {

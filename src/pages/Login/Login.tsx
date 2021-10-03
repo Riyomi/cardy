@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useUser } from 'contexts/UserContext';
 import { useMutation } from '@apollo/client';
@@ -26,12 +26,14 @@ const Login = () => {
     onError: () => {},
   });
 
-  const handleLoginUser = (e) => {
+  const handleLoginUser = (e: React.FormEvent) => {
     e.preventDefault();
     loginUser({ variables: { email, password } });
   };
 
-  useEffect(() => userInfo && history.push('/dashboard'));
+  useEffect(() => {
+    if (userInfo) history.push('/dashboard');
+  });
 
   if (loading) return <Loading />;
 

@@ -5,7 +5,7 @@ import {
   GET_BROWSE_DATA,
   GET_USER,
 } from 'queries/queries';
-import Select from 'react-select';
+import Select, { SingleValue } from 'react-select';
 import { useEffect, useState } from 'react';
 import { useUser } from 'contexts/UserContext';
 import { useHistory } from 'react-router-dom';
@@ -14,10 +14,13 @@ import FormField from 'components/common/FormField/FormField';
 import Loading from 'components/common/Loading/Loading';
 import Error from 'components/common/Error/Error';
 import styles from './CreateDeck.module.scss';
+import { category } from 'types/Category';
+
+type OptionType = { label: string; value: string };
 
 const CreateDeck = () => {
   const [title, setTitle] = useState('');
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState<string | null>(null);
   const history = useHistory();
   const { userInfo } = useUser();
 
@@ -32,12 +35,18 @@ const CreateDeck = () => {
     ],
   });
 
-  const handleCreateDeck = (e) => {
+  const handleCreateDeck = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createDeck({ variables: { title, categoryId } });
   };
 
-  useEffect(() => !userInfo && history.push('/login'));
+  const handleSelectChange = (selected: SingleValue<OptionType>) => {
+    setCategoryId(selected!.value);
+  };
+
+  useEffect(() => {
+    if (!userInfo) history.push('/login');
+  });
 
   if (loading) return <Loading />;
   if (queryError) return <Error />;
@@ -63,11 +72,11 @@ const CreateDeck = () => {
             <div className="field-wrapper">
               <label>Category</label>
               <Select
-                options={data.categories.map(({ id, name }) => ({
+                options={data.categories.map(({ id, name }: category) => ({
                   value: id,
                   label: name,
                 }))}
-                onChange={(selected) => setCategoryId(selected.value)}
+                onChange={handleSelectChange}
               ></Select>
             </div>
             {/* // UPLOAD IMAGE FIELD - not yet implemented

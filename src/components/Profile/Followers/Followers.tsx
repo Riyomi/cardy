@@ -1,11 +1,11 @@
 import { CSSProperties, useState } from 'react';
-import { follower } from 'types/Follower';
+import { user } from 'types/User';
 import Follower from '../Follower/Follower';
 import styles from './Followers.module.scss';
 
 interface Props {
-  followers: follower[];
-  following: follower[];
+  followers: user[];
+  following: user[];
   style?: CSSProperties;
 }
 
@@ -31,7 +31,7 @@ const Followers = ({ followers, following, style }: Props) => {
       <div className={styles.content}>
         {showFollowers ? (
           <div>
-            {followers && followers.length ? (
+            {followers.length ? (
               followers.map((follower, index) => (
                 <Follower key={index} follower={follower} />
               ))
@@ -41,7 +41,7 @@ const Followers = ({ followers, following, style }: Props) => {
           </div>
         ) : (
           <div>
-            {following && following.length ? (
+            {following.length ? (
               following.map((following, index) => (
                 <Follower key={index} follower={following} />
               ))

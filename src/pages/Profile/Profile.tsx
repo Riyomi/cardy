@@ -10,7 +10,7 @@ import { useHistory } from 'react-router';
 import { useEffect } from 'react';
 
 const Profile = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string | undefined }>();
   const { userInfo } = useUser();
   const history = useHistory();
 
@@ -19,7 +19,9 @@ const Profile = () => {
     variables: { id },
   });
 
-  useEffect(() => !userInfo && history.push('/'));
+  useEffect(() => {
+    if (!userInfo) history.push('/');
+  });
 
   if (loading) return <Loading />;
   if (error) return <Error />;

@@ -1,7 +1,12 @@
 import Chart from 'react-apexcharts';
+import { deck } from 'types/Deck';
 import { getSeenCards } from 'utils/utils';
 
-const DistributionChart = ({ deck }) => {
+interface Props {
+  deck: deck;
+}
+
+const DistributionChart = ({ deck }: Props) => {
   const options = {
     labels: ['Mastered', 'Studied', 'New'],
     colors: ['#167d47', '#25ac64', '#000'],

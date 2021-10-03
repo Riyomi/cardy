@@ -15,8 +15,13 @@ import { cardsDueTo, getDeckProgression, getSeenCards } from 'utils/utils';
 import { useHistory } from 'react-router-dom';
 import { useClickOutside } from 'useClickOutside';
 import styles from './DeckCard.module.scss';
+import { deck } from 'types/Deck';
 
-const DeckCard = ({ deck }) => {
+interface Props {
+  deck: deck;
+}
+
+const DeckCard = ({ deck }: Props) => {
   const history = useHistory();
   const { userInfo } = useUser();
   const [openMenu, setOpenMenu] = useState(false);
@@ -27,7 +32,7 @@ const DeckCard = ({ deck }) => {
   });
 
   const refetchQueries = [
-    { query: GET_USER, variables: { id: userInfo.id } },
+    { query: GET_USER, variables: { id: userInfo?.id } },
     { query: GET_DECK, variables: { id } },
   ];
 
@@ -46,7 +51,7 @@ const DeckCard = ({ deck }) => {
     onError: () => {},
     onCompleted: () => history.push('/dashboard'),
     refetchQueries: [
-      { query: GET_USER, variables: { id: userInfo.id } },
+      { query: GET_USER, variables: { id: userInfo?.id } },
       { query: GET_DECK, variables: { id: publicId } },
       { query: GET_BROWSE_DATA },
     ],
@@ -137,12 +142,12 @@ const DeckCard = ({ deck }) => {
       ) : (
         <div className={styles.card}>
           <div className={styles.progression}>
-            {userInfo.id === user.id ? getSeenCards(cards) : 0} /{' '}
+            {userInfo?.id === user.id ? getSeenCards(cards) : 0} /{' '}
             {cards ? cards.length : 0} cards learned (
-            {userInfo.id === user.id ? mastered : 0} mastered)
+            {userInfo?.id === user.id ? mastered : 0} mastered)
           </div>
           <Progress
-            progress={userInfo.id === user.id ? getDeckProgression(deck) : 0}
+            progress={userInfo?.id === user.id ? getDeckProgression(deck) : 0}
             style={{ margin: '10px 0' }}
           />
 

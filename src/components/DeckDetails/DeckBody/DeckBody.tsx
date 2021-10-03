@@ -10,8 +10,13 @@ import EditDeck from '../EditDeck/EditDeck';
 import DistributionChart from '../DistributionChart/DistributionChart';
 import ReviewForecast from '../ReviewForecast/ReviewForecast';
 import styles from './DeckBody.module.scss';
+import { deck } from 'types/Deck';
 
-const DeckBody = ({ deck }) => {
+interface Props {
+  deck: deck;
+}
+
+const DeckBody = ({ deck }: Props) => {
   const [showMenu, setShowMenu] = useState(MENU.OVERVIEW);
   const { userInfo } = useUser();
 
@@ -31,7 +36,7 @@ const DeckBody = ({ deck }) => {
         {showMenu === MENU.OVERVIEW && (
           <>
             <DeckCard deck={deck} />
-            {userInfo.id === deck.user.id && (
+            {userInfo?.id === deck.user.id && (
               <>
                 <DistributionChart deck={deck} />
                 <ReviewForecast deck={deck} />
@@ -43,7 +48,7 @@ const DeckBody = ({ deck }) => {
           <CardList
             deck={deck}
             editable={
-              userInfo.id === deck.user.id &&
+              userInfo?.id === deck.user.id &&
               (!deck.publicId || deck.id === deck.publicId)
             }
           />
@@ -60,7 +65,7 @@ const DeckBody = ({ deck }) => {
                 or ask the owner of the original deck.
               </p>
             )}
-            {deck.user.id === userInfo.id &&
+            {deck.user.id === userInfo?.id &&
               (!deck.publicId || deck.publicId === deck.id) && (
                 <EditDeck deck={deck} />
               )}

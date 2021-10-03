@@ -1,7 +1,18 @@
 import { ReactComponent as QuotationMarks } from 'assets/quotation-marks.svg';
 import styles from './Testimonial.module.scss';
 
-const Testimonial = ({ img, name, description }) => {
+interface Props {
+  img: string;
+  name:
+    | {
+        first: string;
+        last: string;
+      }
+    | undefined;
+  description: string;
+}
+
+const Testimonial = ({ img, name, description }: Props) => {
   return (
     <div className={styles.container}>
       <QuotationMarks className={styles.quote} />
