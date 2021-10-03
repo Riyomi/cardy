@@ -1,0 +1,56 @@
+@import '../../../sass/mixins';
+
+.container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 4px;
+
+  &:hover {
+    background: #efefef;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  span {
+    display: inline-block;
+    color: var(--text-color);
+    font-weight: bold;
+  }
+
+  button {
+    @include btn;
+    padding: 5px 20px;
+    border-radius: 10px;
+    justify-self: flex-end;
+  }
+
+  .details {
+    display: flex;
+    align-items: center;
+  }
+
+  .badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-sizing: border-box;
+    bottom: 8%;
+    left: 45px;
+    font-size: 12px;
+    color: white;
+    background: var(--primary-color);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+  }
+}

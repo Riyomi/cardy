@@ -1,0 +1,136 @@
+.dropdown {
+  display: none;
+  width: 260px;
+  height: 170px;
+  position: absolute;
+  top: 44px;
+  right: 0px;
+  z-index: 200;
+  background-color: white;
+  border-radius: 10px;
+  cursor: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.menu {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 0 30px;
+  height: 44px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 0px 0px 1px white;
+    border-radius: 4px;
+  }
+
+  &:hover > .dropdown {
+    display: block;
+  }
+
+  &:hover > .material-icons-outlined {
+    transform: rotate(180deg);
+  }
+
+  img {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-sizing: border-box;
+  }
+
+  .userInfo {
+    height: 58%;
+    display: grid;
+    grid-template-columns: 35% 65%;
+
+    .picWrapper {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 58px;
+        height: 58px;
+      }
+
+      span {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--primary-color);
+        box-sizing: border-box;
+        color: white;
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        bottom: 15%;
+        right: 15%;
+      }
+    }
+
+    > div:nth-of-type(2) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      padding-right: 10px;
+      box-sizing: border-box;
+      margin: 5px 0;
+
+      h3 {
+        margin-top: 0;
+        color: var(--primary-color);
+        font-size: 24px;
+      }
+    }
+  }
+
+  .options {
+    display: flex;
+    height: 42%;
+
+    > * {
+      font-weight: normal;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0;
+      height: 100%;
+      width: calc(100% / 3);
+      background: var(--primary-color);
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        border-radius: 0;
+        box-shadow: none;
+        color: var(--accent-color);
+      }
+
+      &:first-of-type {
+        border-bottom-left-radius: 10px;
+      }
+
+      &:last-of-type {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 10px;
+      }
+
+      &:nth-of-type(2) {
+        border-radius: 0;
+      }
+    }
+
+    .material-icons {
+      display: block;
+    }
+  }
+}

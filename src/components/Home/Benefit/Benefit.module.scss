@@ -1,0 +1,15 @@
+@import '../../../sass/mixins';
+
+.card {
+  box-sizing: border-box;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  @include apply-shadow;
+
+  span {
+    background: var(--accent-color);
+    padding: 10px;
+    border-radius: 50%;
+  }
+}

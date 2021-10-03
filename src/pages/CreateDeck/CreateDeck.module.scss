@@ -1,0 +1,21 @@
+@import '../../sass/mixins';
+
+.form {
+  color: var(--text-color);
+
+  h2 {
+    color: var(--primary-color);
+  }
+
+  label {
+    display: block;
+  }
+
+  input[type='file'] {
+    display: none;
+  }
+
+  .custom-file-upload {
+    @include btn;
+  }
+}

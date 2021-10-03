@@ -1,0 +1,41 @@
+@import '../../../sass/mixins';
+
+.container {
+  @include mobile {
+    width: 100%;
+  }
+
+  @include portrait-tablet {
+    width: 100%;
+  }
+
+  @include landscape-tablet {
+    width: 300px;
+  }
+}
+
+.header {
+  span {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    padding: 4px 0;
+    color: var(--light-gray);
+    border-bottom: 1px solid var(--light-gray);
+    width: 50%;
+    @include landscape-tablet {
+      width: 150px;
+    }
+  }
+
+  span.active {
+    font-weight: bold;
+    color: black;
+    border-color: black;
+  }
+}
+
+.content {
+  max-height: 264px;
+  overflow-y: auto;
+}

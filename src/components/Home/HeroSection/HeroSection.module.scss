@@ -1,0 +1,37 @@
+@import '../../../sass/mixins';
+
+.wrapper {
+  display: grid;
+  text-align: center;
+  margin: 80px 5%;
+  @include desktop {
+    text-align: left;
+    margin: 80px 12.5%;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .headline {
+    display: 'inline-block';
+
+    p {
+      font-size: 20px;
+      color: var(--text-color);
+      margin: 20px 0;
+    }
+
+    a {
+      @include btn;
+      font-size: 20px;
+    }
+  }
+
+  .img {
+    @include desktop {
+      height: 100%;
+      border: 1px solid #aaa;
+      border-radius: 10px;
+      margin-left: 5px;
+      display: inline-block;
+    }
+  }
+}

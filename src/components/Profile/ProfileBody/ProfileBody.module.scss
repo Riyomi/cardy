@@ -1,0 +1,20 @@
+@import '../../../sass/mixins';
+
+.container {
+  display: grid;
+  margin: 0 auto;
+  width: 95%;
+  grid-template-columns: 1fr;
+
+  @include landscape-tablet {
+    grid-template-columns: 3fr 1fr;
+  }
+
+  @include desktop {
+    width: 80%;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+}

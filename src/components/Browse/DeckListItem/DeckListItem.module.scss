@@ -1,0 +1,51 @@
+@import '../../../sass/mixins';
+
+.container {
+  @include deck-card;
+  box-sizing: border-box;
+  padding: 20px 20px;
+  margin: 0;
+  font-weight: normal;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #efefef;
+  }
+
+  img {
+    width: 100px;
+    height: 70px;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+
+  .details {
+    width: 100%;
+    margin-top: 10px;
+
+    > div:first-of-type {
+      color: black;
+      font-size: 20px;
+    }
+
+    > div:last-of-type {
+      color: var(--text-color);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .iconWrapper {
+        display: inline-flex;
+        padding: 5px 0;
+
+        span:first-of-type {
+          margin-right: 2px;
+        }
+
+        span:last-of-type {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

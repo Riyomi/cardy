@@ -1,0 +1,18 @@
+@import '../../../sass/mixins';
+
+.benefits {
+  display: grid;
+  text-align: center;
+
+  @include portrait-tablet {
+    text-align: left;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include laptop {
+    margin: 0 5%;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include desktop {
+    margin: 0 10%;
+  }
+}
