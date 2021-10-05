@@ -4,10 +4,10 @@ import styles from './Popup.module.scss';
 interface Props {
   message: string;
   timeout: number;
-  type: 'error' | 'info' | 'success';
+  type: 'error' | 'information' | 'success';
 }
 
-const Popup = ({ message, timeout, type }: Props) => {
+const Popup = ({ message, timeout = 3000, type = 'information' }: Props) => {
   const [showMessage, setShowMessage] = useState(true);
 
   useEffect(() => {
@@ -31,8 +31,3 @@ const Popup = ({ message, timeout, type }: Props) => {
 };
 
 export default Popup;
-
-Popup.defaultProps = {
-  timeout: 3000,
-  type: 'information',
-};

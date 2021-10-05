@@ -1,7 +1,7 @@
 import styles from './Searchbar.module.scss';
 
 interface Props {
-  setSearchFilter: Function;
+  setSearchFilter: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Searchbar = ({ setSearchFilter }: Props) => (
