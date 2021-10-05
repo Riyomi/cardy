@@ -156,7 +156,7 @@ useEffect(() => {
 
 ### Silent refresh of access tokens
 
-To make user experience as smooth as possible, access tokens is refreshed in the background. Every time a request is made by the Apollo client, the below piece of code runs to check whether the access token has expired. If it did, a custom made callFetch function is called to get a new one (the refresh token is stored as an HTTP only cookie, so it's automatically included in the request). In case it fails, the user gets logged out.
+To make user experience as smooth as possible, access token is refreshed in the background. Every time a request is made by the Apollo client, the below piece of code runs to check whether the access token has expired. If it did, a custom made callFetch function is called to get a new one (the refresh token is stored as an HTTP only cookie, so it's automatically included in the request). In case it fails, the user gets logged out.
 
 ```typescript
 const authLink = setContext((_, { headers }) => {
